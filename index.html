@@ -1077,14 +1077,17 @@ function doSend(){
 }
 
 /* ── INIT ── */
-migrateData();
-render('home');
-applyLang();
+migrateData(); // data migration runs immediately
 
 function initApp(){
   // Re-assign TG after SDK is guaranteed loaded
   window._TG = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
   if(window._TG){ try{ window._TG.ready(); window._TG.expand(); }catch(e){} }
+  // Set LANG before anything renders
+  LANG = TR[curLang] || TR.en;
+  L = LANG;
+  render('home');
+  applyLang();
 
 
 } // end initApp
@@ -1095,6 +1098,33 @@ if(document.readyState === 'complete' || document.readyState === 'interactive'){
 } else {
   document.addEventListener('DOMContentLoaded', function(){ setTimeout(initApp, 50); });
 }
+const TR={
+  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities, countries...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Ask anything...',viewUnis:'View universities in',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants',applyNow:'Apply Now',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',reqLiving:'Living',scholarship:'Scholarship',photos:'Photos',reviews:'Student Reviews',location:'Location',reqTitle:'Requirements',overview:'Overview'},
+  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar, mamlakatlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Savol bering...',viewUnis:"Universitetlarni ko'rish:",open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi",applyNow:'Ariza berish',reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",reqLiving:'Yashash',scholarship:'Stipendiya',photos:'Rasmlar',reviews:'Sharhlar',location:'Joylashuv',reqTitle:'Talablar',overview:"Ma'lumot"},
+  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск университетов, стран...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Задайте вопрос...',viewUnis:'Университеты в:',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план',applyNow:'Подать заявку',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',reqLiving:'Проживание',scholarship:'Стипендия',photos:'Фотографии',reviews:'Отзывы',location:'Расположение',reqTitle:'Требования',overview:'Обзор'}
+};
+let curLang='en', L=TR.en, LANG=TR.en;
+
+function setLang(lang,btn){
+  curLang=lang; L=TR[lang]; LANG=TR[lang];
+  document.querySelectorAll('.lang-pill').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  applyLang(); render(curPage);
+}
+function applyLang(){
+  var tmap=[['tab-home','home'],['tab-countries','countries'],['tab-explore','universities'],['tab-saved','saved'],['tab-alerts','alerts'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']];
+  tmap.forEach(function(p){var e=document.getElementById(p[0]);if(e&&LANG[p[1]])e.textContent=LANG[p[1]];});
+  var nmap=[['nl-home','home'],['nl-countries','countries'],['nl-ai','ai'],['nl-saved','saved'],['nl-alerts','alerts']];
+  nmap.forEach(function(p){var e=document.getElementById(p[0]);if(e&&LANG[p[1]])e.textContent=LANG[p[1]];});
+  var si=document.getElementById('srch');if(si)si.placeholder=LANG.searchPh;
+  var at=document.getElementById('ai-t');if(at)at.textContent=LANG.aiT;
+  var as=document.getElementById('ai-s');if(as)as.textContent=LANG.aiS;
+  var ci=document.getElementById('cinput');if(ci)ci.placeholder=LANG.aiPh;
+  var sd=document.getElementById('sh-dead');if(sd)sd.textContent=LANG.upcomingDead;
+  var sp=document.getElementById('sh-picks');if(sp)sp.textContent=LANG.topPicks;
+}
+
+
 </script>
 </body>
 </html>
