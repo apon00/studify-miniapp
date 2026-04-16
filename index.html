@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Studify.uz</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#FF6B35;--brand2:#FF8C5A;--bl:#FFF0EB;--bd:#E8561F;--bg:#FFF8F5;--sf:#fff;--sf2:#FFF8F5;--br:rgba(0,0,0,.07);--tx:#1A1207;--t2:#7A6A5A;--t3:#B0A090;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--bg)}
+body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
+#root{display:flex;flex-direction:column;height:100vh;max-width:430px;margin:0 auto;overflow:hidden;position:relative;background:var(--bg)}
+.topbar{background:var(--brand);padding:10px 16px 0;flex-shrink:0;padding-top:max(10px,env(safe-area-inset-top,10px))}
+.tb-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.logo{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.5px}
+.logo span{font-weight:400;opacity:.7;font-size:16px}
+.tg-user{display:flex;align-items:center;gap:7px}
+.av{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.uname{font-size:12px;color:rgba(255,255,255,.9);font-weight:600;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sbox{background:rgba(255,255,255,.15);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.sbox svg{width:13px;height:13px;fill:none;stroke:rgba(255,255,255,.65);stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.sbox input{background:none;border:none;outline:none;font-size:13px;color:#fff;font-family:inherit;width:100%}
+.sbox input::placeholder{color:rgba(255,255,255,.45)}
+.tabs{display:flex;gap:3px;overflow-x:auto;padding:0 12px;scrollbar-width:none;background:var(--brand);flex-shrink:0}
+.tabs::-webkit-scrollbar{display:none}
+.tb-btn{flex-shrink:0;padding:7px 12px;border-radius:8px 8px 0 0;font-size:11px;font-weight:700;border:none;background:rgba(255,255,255,.15);color:rgba(255,255,255,.75);cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s}
+.tb-btn.on{background:var(--bg);color:var(--brand)}
+.lang-bar{display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--sf);border-bottom:.5px solid var(--br);flex-shrink:0}
+.lang-lbl{font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.08em}
+.lang-pill{padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:transparent;color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
+.lang-pill.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.scroller{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.pg{display:none;padding:12px 12px calc(68px + env(safe-area-inset-bottom,0px))}
+.pg.on{display:block}
+.pg-flush{display:none;padding:0}
+.pg-flush.on{display:block}
+.gap{display:flex;flex-direction:column;gap:10px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:4px}
+.sc{background:var(--sf);border-radius:12px;padding:11px 8px;text-align:center;border:.5px solid var(--br)}
+.sn{font-size:20px;font-weight:700;color:var(--brand)}
+.sl{font-size:10px;color:var(--t2);margin-top:2px;font-weight:600}
+.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.st{font-size:13px;font-weight:700}
+.slink{font-size:12px;color:var(--brand);font-weight:600;cursor:pointer}
+.cc{background:var(--sf);border-radius:var(--r);border:.5px solid var(--br);overflow:hidden;margin-bottom:10px}
+.cbanner{padding:14px 15px}
+.cname{font-size:16px;font-weight:800;color:#fff}
+.csub{font-size:11px;color:rgba(255,255,255,.85);margin-top:3px;line-height:1.4}
+.cbody{padding:12px 14px}
+.cstats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:9px}
+.cstat{background:var(--sf2);border-radius:9px;padding:8px 10px;border:.5px solid var(--br)}
+.cstat-l{font-size:9px;color:var(--t2);font-weight:700;margin-bottom:2px;text-transform:uppercase;letter-spacing:.04em}
+.cstat-v{font-size:14px;font-weight:700}
+.xbtn{padding:10px 14px;width:100%;border:none;background:var(--bl);color:var(--bd);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border-top:.5px solid rgba(255,107,53,.15);text-align:left;display:block}
+.uc{background:var(--sf);border-radius:var(--r);padding:13px;border:.5px solid var(--br);margin-bottom:10px}
+.ut{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.uf{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.ui{flex:1;min-width:0}
+.un{font-size:13px;font-weight:700;line-height:1.3}
+.ul{font-size:11px;color:var(--t2);margin-top:2px}
+.ur{font-size:10px;font-weight:700;background:var(--bl);color:var(--bd);padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.uacts{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.sbtn{width:30px;height:30px;border-radius:8px;border:.5px solid var(--br);background:var(--sf2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
+.sbtn.on{background:var(--bl);border-color:var(--brand)}
+.sbtn svg{width:14px;height:14px;fill:none;stroke:var(--t2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sbtn.on svg{stroke:var(--brand)}
+.chips{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px}
+.chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
+.cb{background:#dbeafe;color:#1e40af}.cg{background:#dcfce7;color:#166534}.ca{background:#fef3c7;color:#92400e}.cp{background:#ede9fe;color:#5b21b6}.cr{background:#fee2e2;color:#991b1b}.ct{background:#ccfbf1;color:#134e4a}.co{background:var(--bl);color:var(--bd)}
+.status-open{background:#dcfce7;color:#166534;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.status-closed{background:#fee2e2;color:#991b1b;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.schol{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;margin-bottom:6px}
+.schol-full{background:#dcfce7;color:#166534}.schol-part{background:#fef3c7;color:#92400e}.schol-evisa{background:#dbeafe;color:#1e40af}
+.req-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;padding-top:6px;border-top:.5px solid var(--br)}
+.req-pill{font-size:10px;color:var(--t2);background:var(--sf2);border:.5px solid var(--br);border-radius:20px;padding:2px 7px}
+.uni-note{font-size:11px;color:var(--t2);line-height:1.5;margin-top:6px;padding:7px 9px;background:var(--sf2);border-radius:8px;border-left:3px solid var(--brand)}
+.detail-btn{width:100%;padding:9px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px}
+.dc{background:var(--sf);border-radius:var(--r);padding:11px;border:.5px solid var(--br);display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
+.df{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.db{flex:1;min-width:0}.dn{font-size:12px;font-weight:700}.dp{font-size:11px;color:var(--t2);margin-top:1px}
+.dpr{margin-top:6px}.dpt{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-bottom:3px}
+.pbar{height:3px;background:#eee;border-radius:3px;overflow:hidden}.pfill{height:100%;border-radius:3px;transition:width .4s}
+.dd{font-size:12px;font-weight:700;flex-shrink:0}
+.dg{background:var(--sf);border-radius:var(--r);border:.5px solid var(--br);overflow:hidden;margin-bottom:10px}
+.dgh{padding:11px 13px;display:flex;align-items:center;gap:9px;border-bottom:.5px solid var(--br)}
+.dgn{font-size:12px;font-weight:700}.dgp{margin-left:auto;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+.di{padding:10px 13px;display:flex;align-items:center;gap:9px;border-bottom:.5px solid var(--br);cursor:pointer}.di:last-child{border-bottom:none}
+.dck{width:19px;height:19px;border-radius:5px;border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.dck.on{background:var(--ok);border-color:var(--ok)}.dck svg{width:11px;height:11px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round}
+.dname{font-size:12px;flex:1}.dname.done{color:var(--t2);text-decoration:line-through}
+.alc{background:var(--sf);border-radius:var(--r);padding:12px 13px;border:.5px solid var(--br);display:flex;gap:9px;margin-bottom:8px}
+.adot{width:7px;height:7px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.atit{font-size:12px;font-weight:700}.abody{font-size:11px;color:var(--t2);margin-top:2px;line-height:1.5}.atime{font-size:10px;color:var(--t3);margin-top:3px}
+.fbar{display:flex;gap:5px;padding:8px 12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;background:var(--sf);border-bottom:.5px solid var(--br);position:sticky;top:0;z-index:10}
+.fbar::-webkit-scrollbar{display:none}
+.fpill{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
+.fpill.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.cf-label{font-size:11px;font-weight:700;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.send-btn{padding:13px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.adm-inp{width:100%;padding:9px 12px;border:.5px solid var(--br);border-radius:9px;font-size:12px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none}
+.adm-inp:focus{border-color:var(--brand)}
+.anl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.anl-card{background:var(--sf2);border-radius:10px;padding:10px;border:.5px solid var(--br);text-align:center}
+.anl-num{font-size:20px;font-weight:700;color:var(--brand)}.anl-lbl{font-size:10px;color:var(--t2);font-weight:600;margin-top:2px}
+.aip{display:none;flex-direction:column;flex:1;overflow:hidden;background:var(--bg)}
+.aip.on{display:flex}
+.aih{padding:12px 14px;border-bottom:.5px solid var(--br);background:var(--sf);flex-shrink:0}
+.aih-t{font-size:14px;font-weight:700}.aih-s{font-size:11px;color:var(--t2);margin-top:2px}
+.sugrow{display:flex;gap:5px;overflow-x:auto;padding:8px 12px;scrollbar-width:none;flex-shrink:0;border-bottom:.5px solid var(--br);background:var(--sf)}
+.sugrow::-webkit-scrollbar{display:none}
+.sug{flex-shrink:0;padding:6px 12px;border-radius:20px;border:.5px solid var(--brand);background:var(--bl);color:var(--bd);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:88%;border-radius:14px;padding:10px 13px;font-size:12px;line-height:1.6;word-break:break-word}
+.msg-ai{align-self:flex-start;background:var(--sf);border:.5px solid var(--br)}
+.msg-u{align-self:flex-end;background:var(--brand);color:#fff}
+.mlbl{font-size:9px;font-weight:700;color:var(--brand);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.typing{align-self:flex-start;background:var(--sf);border:.5px solid var(--br);border-radius:14px;padding:10px 14px;display:flex;gap:4px;align-items:center}
+.td{width:6px;height:6px;border-radius:50%;background:var(--t3);animation:bl 1.2s infinite}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.cinp{display:flex;gap:7px;align-items:flex-end;padding:8px 10px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));background:var(--sf);border-top:.5px solid var(--br);flex-shrink:0}
+.cinput{flex:1;padding:9px 12px;border:.5px solid var(--br);border-radius:12px;font-size:13px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none;resize:none;max-height:80px;line-height:1.4}
+.cinput:focus{border-color:var(--brand)}
+.csend{width:36px;height:36px;border-radius:10px;background:var(--brand);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.csend svg{width:15px;height:15px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--sf);border-top:.5px solid var(--br);display:flex;padding:6px 0 calc(10px + env(safe-area-inset-bottom,0px));z-index:50}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:3px 0}
+.nic{width:22px;height:22px;display:flex;align-items:center;justify-content:center;position:relative}
+.nic svg{width:20px;height:20px;fill:none;stroke:#ccc;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+.nic.on svg{stroke:var(--brand)}
+.ndot{width:5px;height:5px;background:var(--err);border-radius:50%;position:absolute;top:0;right:0;display:none}
+.nl{font-size:9px;color:#bbb;font-weight:700;transition:color .15s}.nl.on{color:var(--brand)}
+.empty{display:flex;flex-direction:column;align-items:center;gap:9px;padding:40px 18px;text-align:center}
+.ei{width:52px;height:52px;border-radius:15px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:24px}
+.et{font-size:14px;font-weight:700}.es{font-size:12px;color:var(--t2);line-height:1.5}
+.toast{position:absolute;top:14px;left:50%;transform:translateX(-50%) translateY(-80px);background:#1A1207;color:#fff;padding:9px 18px;border-radius:20px;font-size:12px;font-weight:700;z-index:999;transition:transform .3s;white-space:nowrap;pointer-events:none}
+.toast.on{transform:translateX(-50%) translateY(0)}
+/* DETAIL PAGE */
+.det{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:100;display:none;flex-direction:column;overflow:hidden}
+.det.on{display:flex}
+.det-hdr{background:var(--brand);padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top,12px));display:flex;align-items:center;gap:10px;flex-shrink:0}
+.back-btn{width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,.2);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.back-btn svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.det-title{font-size:15px;font-weight:700;color:#fff;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.det-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.det-sec{padding:14px 14px 0}
+.det-sec-t{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
+.vid-wrap{position:relative;width:100%;padding-bottom:56.25%;background:#111;border-radius:12px;overflow:hidden;margin-bottom:4px}
+.vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.vid-ph{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a1207,#3d2b1f)}
+.vid-ph svg{width:38px;height:38px;fill:rgba(255,255,255,.25)}.vid-ph span{font-size:11px;color:rgba(255,255,255,.4);font-weight:600}
+.photos-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.photos-row::-webkit-scrollbar{display:none}
+.photo-card{flex-shrink:0;width:110px;height:75px;border-radius:10px;background:var(--sf2);border:.5px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden}
+.photo-card img{width:100%;height:100%;object-fit:cover}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ic{background:var(--sf);border-radius:11px;padding:10px 11px;border:.5px solid var(--br)}
+.ic-l{font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.ic-v{font-size:12px;font-weight:700}
+.rev-card{background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br);margin-bottom:8px}
+.rev-stars{font-size:12px;margin-bottom:4px}.rev-text{font-size:12px;color:var(--tx);line-height:1.5;margin-bottom:6px}.rev-author{font-size:10px;color:var(--t2);font-weight:700}
+.map-ph{background:var(--sf2);border-radius:12px;border:.5px solid var(--br);height:130px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;cursor:pointer;text-decoration:none}
+.map-ph svg{width:22px;height:22px;fill:none;stroke:var(--t2);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.map-ph span{font-size:11px;color:var(--t2);font-weight:600;text-align:center;padding:0 16px}
+.cta-box{margin:14px;background:var(--brand);border-radius:14px;padding:16px;text-align:center;color:#fff}
+.cta-t{font-size:14px;font-weight:700;margin-bottom:4px}.cta-s{font-size:11px;opacity:.85;margin-bottom:12px;line-height:1.4}
+.cta-btn{background:#fff;color:var(--brand);border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+</style>
+</head>
+<body>
+<div id="root">
+<div class="topbar">
+  <div class="tb-row">
+    <div class="logo">Studify<span>.uz</span></div>
+    <div class="tg-user"><div class="av" id="tgAv">S</div><span class="uname" id="tgNm">Student</span></div>
+  </div>
+  <div class="sbox">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="srch" type="text" placeholder="Search universities, countries..." oninput="onSearch(this.value)">
+  </div>
+</div>
+<div class="tabs">
+  <button class="tb-btn on" id="tab-home" onclick="goPage('home',this)">Overview</button>
+  <button class="tb-btn" id="tab-countries" onclick="goPage('countries',this)">Countries</button>
+  <button class="tb-btn" id="tab-explore" onclick="goPage('explore',this)">Universities</button>
+  <button class="tb-btn" id="tab-saved" onclick="goPage('saved',this)">Saved</button>
+  <button class="tb-btn" id="tab-alerts" onclick="goPage('alerts',this)">Alerts</button>
+  <button class="tb-btn" id="tab-docs" onclick="goPage('docs',this)">Documents</button>
+  <button class="tb-btn" id="tab-consult" onclick="goPage('consult',this)">Consult</button>
+  <button class="tb-btn" id="tab-admin" onclick="checkAdmin(this)" style="background:rgba(255,255,255,.28);color:#fff">Admin</button>
+</div>
+<div class="lang-bar">
+  <span class="lang-lbl">Lang</span>
+  <button class="lang-pill on" id="lp-en" onclick="setLang('en',this)">EN</button>
+  <button class="lang-pill" id="lp-uz" onclick="setLang('uz',this)">UZ</button>
+  <button class="lang-pill" id="lp-ru" onclick="setLang('ru',this)">RU</button>
+</div>
+<div class="scroller" id="scroller">
+  <div class="pg on" id="pg-home">
+    <div class="sgrid" id="statsGrid"></div>
+    <div style="height:10px"></div>
+    <div class="sh"><span class="st" id="sh-dead">Upcoming deadlines</span><span class="slink" onclick="goPage('docs',document.getElementById('tab-docs'))">See all</span></div>
+    <div id="dlHome"></div>
+    <div class="sh" style="margin-top:4px"><span class="st" id="sh-picks">Top picks for you</span><span class="slink" onclick="goPage('explore',document.getElementById('tab-explore'))">See all</span></div>
+    <div id="recHome"></div>
+  </div>
+  <div class="pg" id="pg-countries"><div id="cList"></div></div>
+  <div class="pg" id="pg-explore" style="padding:0">
+    <div class="fbar">
+      <button class="fpill on" onclick="setFilter('all',this)">All</button>
+      <button class="fpill" onclick="setFilter('open',this)">Open</button>
+      <button class="fpill" onclick="setFilter('schol',this)">Scholarship</button>
+      <button class="fpill" onclick="setFilter('evisa',this)">E-visa</button>
+      <button class="fpill" onclick="setFilter('free',this)">Free/Low</button>
+      <button class="fpill" onclick="setFilter('masters',this)">Masters</button>
+      <button class="fpill" onclick="setFilter('bachelor',this)">Bachelor</button>
+    </div>
+    <div id="eList" style="padding:12px 12px calc(68px + env(safe-area-inset-bottom,0px))"></div>
+  </div>
+  <div class="pg" id="pg-saved"><div id="svList"></div></div>
+  <div class="pg" id="pg-alerts"><div id="alList"></div></div>
+  <div class="pg" id="pg-docs"><div id="dList"></div></div>
+  <div class="pg" id="pg-consult">
+    <div style="background:var(--sf);border-radius:var(--r);border:.5px solid var(--br);overflow:hidden">
+      <div style="background:var(--brand);padding:13px 15px;color:#fff;font-size:14px;font-weight:700">Free Consultation</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:11px;color:var(--t2);line-height:1.6;background:var(--bl);border-radius:10px;padding:10px 12px">Our expert consultants will review your profile and contact you within 24 hours with a personalised plan — completely free.</div>
+        <div><div class="cf-label" id="lbl-fullname">Full Name</div><input class="adm-inp" id="cf-name" placeholder="Your full name"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div><div class="cf-label" id="lbl-age">Age</div><input class="adm-inp" id="cf-age" type="number" placeholder="e.g. 20"></div>
+          <div><div class="cf-label" id="lbl-gpa">GPA / Score</div><input class="adm-inp" id="cf-gpa" placeholder="e.g. 85%"></div>
+        </div>
+        <div><div class="cf-label" id="lbl-edu">Education Level</div>
+          <select class="adm-inp" id="cf-edu">
+            <option value="">Select...</option>
+            <option>High School (11th grade)</option><option>High School Graduate</option>
+            <option>Bachelor's Student</option><option>Bachelor's Graduate</option><option>Master's Graduate</option>
+          </select>
+        </div>
+        <div><div class="cf-label" id="lbl-certs">Language Certificates</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <input class="adm-inp" id="cf-ielts" placeholder="IELTS e.g. 6.5">
+            <input class="adm-inp" id="cf-duolingo" placeholder="Duolingo e.g. 110">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+            <input class="adm-inp" id="cf-topik" placeholder="TOPIK level">
+            <input class="adm-inp" id="cf-other" placeholder="Other cert">
+          </div>
+        </div>
+        <div><div class="cf-label" id="lbl-cntry">Preferred Country</div>
+          <select class="adm-inp" id="cf-country">
+            <option value="">Any / Not sure</option>
+            <option>Italy</option><option>South Korea</option><option>Latvia</option>
+            <option>Netherlands</option><option>UK</option><option>USA</option>
+            <option>Germany</option><option>Poland</option><option>Hungary</option><option>Czech Republic</option>
+          </select>
+        </div>
+        <div><div class="cf-label" id="lbl-field">Field of Study</div><input class="adm-inp" id="cf-field" placeholder="e.g. Business, Engineering, IT..."></div>
+        <div><div class="cf-label" id="lbl-budget">Yearly Budget</div>
+          <select class="adm-inp" id="cf-budget">
+            <option value="">Select range...</option>
+            <option>Under $5,000/year</option><option>$5,000 - $10,000/year</option>
+            <option>$10,000 - $20,000/year</option><option>Over $20,000/year</option>
+          </select>
+        </div>
+        <div><div class="cf-label" id="lbl-lvl">Program Level</div>
+          <select class="adm-inp" id="cf-level">
+            <option value="">Any</option><option>Bachelor's</option><option>Master's</option><option>Foundation</option>
+          </select>
+        </div>
+        <div><div class="cf-label" id="lbl-saved">Saved Universities</div>
+          <div id="cf-saved-unis" style="font-size:11px;color:var(--t2);padding:9px 11px;background:var(--sf2);border-radius:9px;border:.5px solid var(--br)">-</div>
+        </div>
+        <div><div class="cf-label" id="lbl-notes">Notes</div>
+          <textarea class="adm-inp" id="cf-notes" rows="2" placeholder="Anything else..." style="resize:none"></textarea>
+        </div>
+        <button class="send-btn" id="sendbtn" onclick="sendToConsultant()">Send - Get Free Consultation</button>
+        <div style="font-size:10px;color:var(--t2);text-align:center" id="consult-sub">We respond within 24 hours. Your data is kept private.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg" id="pg-admin">
+    <div style="background:var(--sf);border-radius:var(--r);border:.5px solid var(--br);overflow:hidden">
+      <div style="background:var(--brand);padding:14px;color:#fff;font-size:14px;font-weight:700">Admin Console</div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
+        <div class="anl-grid" id="adminStatCards"></div>
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Add University</div>
+        <input class="adm-inp" id="au-name" placeholder="University name *">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input class="adm-inp" id="au-country" placeholder="Country *">
+          <input class="adm-inp" id="au-city" placeholder="City">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input class="adm-inp" id="au-flag" placeholder="Flag emoji">
+          <input class="adm-inp" id="au-rank" placeholder="QS Rank">
+        </div>
+        <input class="adm-inp" id="au-program" placeholder="Programs offered">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input class="adm-inp" id="au-deadline" type="date">
+          <input class="adm-inp" id="au-living" type="number" placeholder="Living cost EUR/yr">
+        </div>
+        <select class="adm-inp" id="au-tuition">
+          <option value="free">Free 0/yr</option><option value="low">Low under 3k</option>
+          <option value="medium" selected>Medium 3-8k</option><option value="high">High 8k+</option>
+        </select>
+        <select class="adm-inp" id="au-status">
+          <option value="open">Open - accepting</option><option value="closed">Closed</option>
+        </select>
+        <input class="adm-inp" id="au-langReq" placeholder="Language requirement (e.g. IELTS 6.0+)">
+        <input class="adm-inp" id="au-tags" placeholder="Tags comma-separated">
+        <input class="adm-inp" id="au-video" placeholder="YouTube URL (optional)">
+        <textarea class="adm-inp" id="au-docs" rows="2" placeholder="Docs checklist comma-separated" style="resize:none"></textarea>
+        <textarea class="adm-inp" id="au-notesf" rows="2" placeholder="Important notes for students" style="resize:none"></textarea>
+        <button onclick="adminAddUni()" style="padding:11px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Save University</button>
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Send Alert</div>
+        <input class="adm-inp" id="al-title" placeholder="Alert title *">
+        <textarea class="adm-inp" id="al-body" rows="2" placeholder="Alert message..." style="resize:none"></textarea>
+        <select class="adm-inp" id="al-type"><option value="info">Info</option><option value="warning">Warning</option><option value="urgent">Urgent</option></select>
+        <button onclick="adminSendAlert()" style="padding:11px;background:#ef4444;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Send Alert</button>
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">All Universities</div>
+        <div id="adminUniList"></div>
+        <button onclick="if(confirm('Reset all data?')){localStorage.clear();location.reload();}" style="padding:11px;background:#7f1d1d;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%">Reset App Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="aip" id="pg-ai">
+  <div class="aih">
+    <div class="aih-t" id="ai-t">AI Study Advisor</div>
+    <div class="aih-s" id="ai-s">Ask me anything about studying abroad</div>
+  </div>
+  <div class="sugrow">
+    <button class="sug" onclick="doSug(this.textContent)" id="sug1">Tight budget options</button>
+    <button class="sug" onclick="doSug(this.textContent)" id="sug2">Tuition-free universities</button>
+    <button class="sug" onclick="doSug(this.textContent)" id="sug3">Easy visa for Uzbeks</button>
+    <button class="sug" onclick="doSug(this.textContent)" id="sug4">Best for IT</button>
+    <button class="sug" onclick="doSug(this.textContent)" id="sug5">Compare countries</button>
+  </div>
+  <div class="msgs" id="msgs"></div>
+  <div class="cinp">
+    <textarea class="cinput" id="cinput" rows="1" placeholder="Ask anything..." onkeydown="ck(event)" oninput="ar(this)"></textarea>
+    <button class="csend" onclick="doSend()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+<div class="det" id="detPage">
+  <div class="det-hdr">
+    <button class="back-btn" onclick="closeDet()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div class="det-title" id="detTitle">University</div>
+    <div id="detStatus"></div>
+  </div>
+  <div class="det-body" id="detBody"></div>
+</div>
+<nav class="bnav">
+  <div class="ni" onclick="goPage('home',document.getElementById('tab-home'))">
+    <div class="nic on" id="ni-home"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <span class="nl on" id="nl-home">Home</span>
+  </div>
+  <div class="ni" onclick="goPage('countries',document.getElementById('tab-countries'))">
+    <div class="nic" id="ni-countries"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+    <span class="nl" id="nl-countries">Countries</span>
+  </div>
+  <div class="ni" onclick="goAI()">
+    <div class="nic" id="ni-ai"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <span class="nl" id="nl-ai">AI</span>
+  </div>
+  <div class="ni" onclick="goPage('saved',document.getElementById('tab-saved'))">
+    <div class="nic" id="ni-saved"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+    <span class="nl" id="nl-saved">Saved</span>
+  </div>
+  <div class="ni" onclick="goPage('alerts',document.getElementById('tab-alerts'))">
+    <div class="nic" id="ni-alerts"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="ndot" id="alertDot"></span></div>
+    <span class="nl" id="nl-alerts">Alerts</span>
+  </div>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const DOCS_STD=["Apostille (diploma)","Academic transcript","Motivation letter","Language certificate","Passport copy","Application fee payment"];;
+const DOCS_IT=["Apostille (diploma)","Academic transcript","Entrance exam (if required)","Passport copy","Application fee payment"];;
+
+const COUNTRIES = [
+  {id:1,name:"Italy",flag:"🇮🇹",color:"#009246",highlight:"Regional DSU scholarship up to €2,500 — available at most universities",tuition:2500,living:9000,visa:"Student visa (Type D) — apply at Italian embassy in Tashkent",tags:["DSU Scholarship","English programs","Affordable","Schengen"]},
+  {id:2,name:"South Korea",flag:"🇰🇷",color:"#003478",highlight:"Grants up to 100% at partner universities — E-visa available",tuition:1500,living:8000,visa:"D-2 Student visa or E-visa (electronic)",tags:["Scholarship available","E-visa","English programs","Affordable"]},
+  {id:3,name:"Latvia",flag:"🇱🇻",color:"#9E3039",highlight:"English-taught programs in Riga with multiple intakes per year",tuition:3500,living:7000,visa:"EU long-stay student visa — Schengen access",tags:["English programs","Schengen","Multiple intakes","Affordable"]},
+  {id:4,name:"Netherlands",flag:"🇳🇱",color:"#AE1C28",highlight:"Wittenborg University — 6 intakes/year, Holland Scholarship €5,000 if IELTS 7+",tuition:11800,living:9000,visa:"MVV entry visa required — apply via IND",tags:["Holland Scholarship","English programs","6 intakes/year","Schengen"]},
+  {id:5,name:"UK",flag:"🇬🇧",color:"#012169",highlight:"3 intakes/year — grants up to 30%, 97% visa success rate",tuition:7000,living:13000,visa:"UK Student visa — bank statement $35,000–$40,000 required",tags:["Grant up to 30%","3 intakes/year","English programs","High visa success"]},
+  {id:6,name:"USA",flag:"🇺🇸",color:"#3C3B6E",highlight:"3 intakes/year — Pathway program available with IELTS 5.0",tuition:15000,living:15000,visa:"F-1 Student visa — 50% approval rate currently",tags:["Pathway program","3 intakes/year","English programs","SAT scholarship"]},
+  {id:7,name:"Germany",flag:"🇩🇪",color:"#1A1A1A",highlight:"Tuition-free public universities for all international students",tuition:0,living:9500,visa:"National D visa — apply at German embassy in Tashkent",tags:["Tuition-free","English programs","Research leader","Schengen"]},
+  {id:8,name:"Poland",flag:"🇵🇱",color:"#D4213D",highlight:"Most CIS-friendly EU destination with affordable costs",tuition:2000,living:6500,visa:"Student visa — very accessible for Uzbek citizens",tags:["CIS-friendly","Affordable","English programs","Schengen"]},
+  {id:9,name:"Hungary",flag:"🇭🇺",color:"#477050",highlight:"Stipendium Hungaricum — FULL scholarship for Uzbek students",tuition:3000,living:6000,visa:"Student visa required",tags:["Scholarship available","Affordable","English programs","Schengen"]},
+  {id:10,name:"Czech Republic",flag:"🇨🇿",color:"#D52B1E",highlight:"Free tuition in Czech language, affordable EU education",tuition:0,living:7500,visa:"Long-stay student visa Type D",tags:["Tuition-free","Affordable","English programs","Schengen"]},
+];;
+
+const UNIS = [
+  /* ── ITALY ── */
+  {id:201,status:"open",name:"Sapienza University",country:"Italy",city:"Rome",flag:"🇮🇹",rank:"Top 150 QS",deadline:"2025-04-29",program:"Bachelor, Masters — wide range",tuition:"low",lang:"english",langReq:"B2 English + TOLC exam",gpa:3.0,living:9000,tags:["DSU Scholarship","English track","Entrance exam","Rome"],bg:"#dcfce7",docs:DOCS_IT,saved:false,notes:"DSU scholarship: up to €2,500/yr free housing + food. Exam: TOLC-I or TOLC-E. Apply at universitaly.it",done:[false,false,false,false,false]},
+  {id:202,status:"open",name:"Uni Bologna",country:"Italy",city:"Bologna",flag:"🇮🇹",rank:"Top 180 QS",deadline:"2025-04-30",program:"Bachelor, Masters",tuition:"low",lang:"english",langReq:"B2 English + SAT",gpa:3.0,living:9000,tags:["DSU Scholarship","English track","SAT required","Historic"],bg:"#fef3c7",docs:DOCS_IT,saved:false,notes:"Oldest university in the world (1088). DSU scholarship covers €2,500. SAT required for some programs.",done:[false,false,false,false,false]},
+  {id:203,status:"open",name:"Turin Polytechnic",country:"Italy",city:"Turin",flag:"🇮🇹",rank:"Top 300 QS",deadline:"2025-04-30",program:"Bachelor — Engineering & Design",tuition:"low",lang:"english",langReq:"B2 English + TIL exam",gpa:3.0,living:8500,tags:["DSU Scholarship","Engineering","English track","Entrance exam"],bg:"#ede9fe",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:204,status:"open",name:"Uni Turin",country:"Italy",city:"Turin",flag:"🇮🇹",rank:"Top 400 QS",deadline:"2025-04-30",program:"Bachelor — Humanities, Sciences, Law",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.8,living:8500,tags:["DSU Scholarship","English track","Affordable"],bg:"#ccfbf1",docs:DOCS_IT,saved:false,notes:"TU Delft has transferred to Netherlands, not Italy. Turin Polytechnic is Italy's top engineering school.",done:[false,false,false,false,false]},
+  {id:205,status:"open",name:"Uni Florence",country:"Italy",city:"Florence",flag:"🇮🇹",rank:"Top 400 QS",deadline:"2025-07-01",program:"Bachelor, Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.8,living:9000,tags:["DSU Scholarship","English track","Art city"],bg:"#fee2e2",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:206,status:"open",name:"Uni Pisa",country:"Italy",city:"Pisa",flag:"🇮🇹",rank:"Top 400 QS",deadline:"2025-06-30",program:"Bachelor — Sciences, Engineering",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.8,living:8500,tags:["DSU Scholarship","English track","Sciences"],bg:"#dbeafe",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:207,status:"open",name:"Uni Siena",country:"Italy",city:"Siena",flag:"🇮🇹",rank:"Top 500 QS",deadline:"2025-07-03",program:"Bachelor, Masters, Foundation",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.8,living:8000,tags:["DSU Scholarship","English track","Affordable"],bg:"#dcfce7",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:208,status:"open",name:"Uni Perugia",country:"Italy",city:"Perugia",flag:"🇮🇹",rank:"Top 600 QS",deadline:"2025-05-30",program:"Bachelor, Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.5,living:7500,tags:["DSU Scholarship","Affordable","No entrance exam"],bg:"#fef3c7",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:209,status:"open",name:"Uni Cassino",country:"Italy",city:"Cassino",flag:"🇮🇹",rank:"",deadline:"2025-06-13",program:"Bachelor, Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.5,living:7000,tags:["DSU Scholarship","Affordable","Small city","No exam"],bg:"#ccfbf1",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:210,status:"open",name:"Uni Pavia",country:"Italy",city:"Pavia",flag:"🇮🇹",rank:"Top 400 QS",deadline:"2025-05-20",program:"Bachelor, Masters",tuition:"free",lang:"english",langReq:"B2 English",gpa:2.5,living:8000,tags:["Very low tuition","English track","No exam","Affordable"],bg:"#ede9fe",docs:DOCS_IT,saved:false,notes:"One of Italy's most affordable — only €400/year tuition. No entrance exam. Near Milan.",done:[false,false,false,false,false]},
+  {id:211,status:"open",name:"Uni Trieste",country:"Italy",city:"Trieste",flag:"🇮🇹",rank:"",deadline:"2025-05-31",program:"Masters",tuition:"free",lang:"english",langReq:"B2 English",gpa:2.5,living:7500,tags:["Very low tuition","English track","No exam"],bg:"#dbeafe",docs:DOCS_IT,saved:false,notes:"Only €300/year for Masters! Located on the Adriatic coast near Slovenia border.",done:[false,false,false,false,false]},
+  {id:212,status:"open",name:"Uni Milan (State)",country:"Italy",city:"Milan",flag:"🇮🇹",rank:"Top 300 QS",deadline:"2025-05-29",program:"Bachelor, Masters",tuition:"medium",lang:"english",langReq:"B2 English",gpa:3.0,living:10000,tags:["100% Scholarship","English track","Milan","Entrance exam"],bg:"#fee2e2",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:213,status:"open",name:"Bozen-Bolzano",country:"Italy",city:"Bolzano",flag:"🇮🇹",rank:"",deadline:"2025-05-06",program:"Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:3.0,living:8500,tags:["100% Scholarship","English track","Trilingual uni"],bg:"#dcfce7",docs:DOCS_IT,saved:false,notes:"100% merit scholarship available. Trilingual university (Italian/German/English). Unique in Europe.",done:[false,false,false,false,false]},
+  {id:214,status:"open",name:"Marche Polytechnic",country:"Italy",city:"Ancona",flag:"🇮🇹",rank:"",deadline:"2025-07-01",program:"Bachelor, Masters — Engineering",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.8,living:7500,tags:["DSU Scholarship","Engineering","No exam","Affordable"],bg:"#fef3c7",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:215,status:"open",name:"Uni Parma",country:"Italy",city:"Parma",flag:"🇮🇹",rank:"",deadline:"2025-06-20",program:"Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.5,living:8000,tags:["DSU Scholarship","No exam","Affordable"],bg:"#ccfbf1",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:216,status:"open",name:"Uni Messina",country:"Italy",city:"Messina",flag:"🇮🇹",rank:"",deadline:"2025-05-30",program:"Bachelor, Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.5,living:7000,tags:["DSU Scholarship","No exam","Sicily","Affordable"],bg:"#ede9fe",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:217,status:"open",name:"Uni Palermo",country:"Italy",city:"Palermo",flag:"🇮🇹",rank:"",deadline:"2025-07-20",program:"Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.5,living:7000,tags:["DSU Scholarship","No exam","Sicily"],bg:"#dbeafe",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:218,status:"open",name:"Tor Vergata",country:"Italy",city:"Rome",flag:"🇮🇹",rank:"Top 500 QS",deadline:"2025-05-23",program:"Masters, Foundation",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.8,living:9000,tags:["DSU Scholarship","Rome","No exam"],bg:"#fee2e2",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:219,status:"open",name:"Uni Genova",country:"Italy",city:"Genova",flag:"🇮🇹",rank:"",deadline:"2026-03-14",program:"Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.5,living:8500,tags:["DSU Scholarship","English track","Entrance exam"],bg:"#dcfce7",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+  {id:220,status:"open",name:"Uni Salerno",country:"Italy",city:"Salerno",flag:"🇮🇹",rank:"",deadline:"2025-05-30",program:"Masters",tuition:"low",lang:"english",langReq:"B2 English",gpa:2.5,living:7500,tags:["DSU Scholarship","No exam","Affordable"],bg:"#fef3c7",docs:DOCS_IT,saved:false,done:[false,false,false,false,false]},
+
+  /* ── SOUTH KOREA ── */
+  {id:301,status:"open",name:"Sejong University",country:"South Korea",city:"Seoul",flag:"🇰🇷",rank:"",deadline:"2025-11-05",program:"Liberal Arts, Business, IT, Engineering, Tourism",tuition:"medium",lang:"english",langReq:"IELTS 5.5+ (grant up to 100%)",gpa:3.0,living:8000,tags:["30-100% Scholarship","English track","Seoul","Entrance exam"],bg:"#dbeafe",docs:DOCS_STD,saved:false,notes:"30-100% scholarship based on GPA + IELTS. Entrance exam (online). Located in central Seoul.",done:[false,false,false,false,false,false]},
+  {id:302,status:"open",name:"Joongbu University",country:"South Korea",city:"Chungnam",flag:"🇰🇷",rank:"",deadline:"2025-11-20",program:"International Business, International Trade",tuition:"medium",lang:"english",langReq:"IELTS — 30-100% grant",gpa:2.8,living:7500,tags:["30-100% Scholarship","English track","No exam","Multiple intakes"],bg:"#dcfce7",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:303,status:"open",name:"Keimyung University",country:"South Korea",city:"Daegu",flag:"🇰🇷",rank:"",deadline:"2025-05-30",program:"Business, Automotive, Engineering, Art, IT",tuition:"medium",lang:"english",langReq:"IELTS 5.5+ → 70% grant, TOPIK 3 → 50%",gpa:2.8,living:7000,tags:["Up to 70% Scholarship","English track","Masters"],bg:"#fef3c7",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:304,status:"open",name:"Peksok University",country:"South Korea",city:"Cheonan",flag:"🇰🇷",rank:"",deadline:"2026-01-05",program:"Business, Management, Computer Engineering",tuition:"medium",lang:"english",langReq:"IELTS 5.5+ or TOPIK 3 — 30% grant",gpa:2.5,living:7000,tags:["30% Scholarship","English track","No exam","E-visa available"],bg:"#ede9fe",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:305,status:"open",name:"Daeshin University",country:"South Korea",city:"Chungnam",flag:"🇰🇷",rank:"",deadline:"2026-01-10",program:"Business Administration",tuition:"low",lang:"english",langReq:"IELTS 5.5 or TOPIK 3",gpa:2.5,living:6500,tags:["English track","No exam","Affordable"],bg:"#ccfbf1",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:306,status:"open",name:"Hansung University",country:"South Korea",city:"Seoul",flag:"🇰🇷",rank:"",deadline:"2025-12-10",program:"Business Administration (Masters)",tuition:"medium",lang:"english",langReq:"E-visa — no IELTS/TOPIK required",gpa:2.5,living:8500,tags:["30-50% Scholarship","E-visa","Seoul","No language exam"],bg:"#dbeafe",docs:DOCS_STD,saved:false,notes:"E-visa: no embassy visit needed. Classes start within weeks. 30-50% scholarship for top students.",done:[false,false,false,false,false,false]},
+  {id:307,status:"open",name:"Joongbu University Masters",country:"South Korea",city:"Chungnam",flag:"🇰🇷",rank:"",deadline:"2025-11-20",program:"International Business, International Trade (Masters)",tuition:"medium",lang:"english",langReq:"E-visa — no IELTS required, classes 2x/week",gpa:2.5,living:7500,tags:["E-visa","No IELTS needed","Flexible schedule","Masters"],bg:"#fee2e2",docs:DOCS_STD,saved:false,notes:"E-visa available. Classes only 2 days/week — good for working students. No IELTS required.",done:[false,false,false,false,false,false]},
+  {id:308,status:"open",name:"Peksok University E-visa",country:"South Korea",city:"Cheonan",flag:"🇰🇷",rank:"",deadline:"2025-11-10",program:"Sports (Masters)",tuition:"medium",lang:"english",langReq:"E-visa — 30-50% grant for top students",gpa:2.5,living:7000,tags:["E-visa","30-50% Scholarship","Masters","Sports"],bg:"#dcfce7",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:309,status:"open",name:"Gachon University",country:"South Korea",city:"Seongnam",flag:"🇰🇷",rank:"",deadline:"2025-12-31",program:"Humanities, Sciences, Engineering, Art",tuition:"high",lang:"english",langReq:"IELTS — 30-90% scholarship",gpa:3.0,living:8500,tags:["Up to 90% Scholarship","English track","Seoul area"],bg:"#fef3c7",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:310,status:"closed",name:"Hyejeon College",country:"South Korea",city:"Hongseong",flag:"🇰🇷",rank:"",deadline:"2025-01-14",program:"Fire Safety, Hospitality, Preschool, Korean, Baking",tuition:"low",lang:"both",langReq:"TOPIK 2: 80%, TOPIK 3: 100% scholarship",gpa:2.0,living:6000,tags:["Up to 100% Scholarship","College","TOPIK scholarship","Affordable"],bg:"#ede9fe",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:311,status:"open",name:"Chunchon University",country:"South Korea",city:"Chuncheon",flag:"🇰🇷",rank:"",deadline:"2025-12-31",program:"Business Management, Computer Literacy",tuition:"low",lang:"english",langReq:"IELTS — 30% grant",gpa:2.5,living:6500,tags:["30% Scholarship","English track","Affordable","No exam"],bg:"#ccfbf1",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:312,status:"open",name:"Seojeong University",country:"South Korea",city:"Yangju",flag:"🇰🇷",rank:"",deadline:"2025-11-20",program:"Hotel Management, Business Management",tuition:"low",lang:"both",langReq:"No IELTS required",gpa:2.0,living:6000,tags:["College","Affordable","No IELTS","No exam"],bg:"#dbeafe",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+
+  /* ── LATVIA ── */
+  {id:401,status:"open",name:"TSI University",country:"Latvia",city:"Riga",flag:"🇱🇻",rank:"",deadline:"2025-12-31",program:"Aviation Engineering, Business, Computer Engineering, IT, Robotics, Logistics",tuition:"medium",lang:"english",langReq:"IELTS 5.5 or Duolingo 90+",gpa:2.5,living:7000,tags:["English track","Schengen","Multiple intakes","Aviation"],bg:"#fee2e2",docs:["Apostille (diploma)","Academic transcript","Language certificate","Passport copy","Application fee €250"],saved:false,notes:"Best aviation program in the Baltics. Schengen visa gives access to all EU. 2-4 intakes/year.",done:[false,false,false,false,false]},
+  {id:402,status:"open",name:"EKA University",country:"Latvia",city:"Riga",flag:"🇱🇻",rank:"",deadline:"2025-12-31",program:"Business Economics, IT, Management, Circular Economy",tuition:"medium",lang:"english",langReq:"IELTS 5.5 or Duolingo 100+",gpa:2.5,living:7000,tags:["English track","Schengen","Business focus","Multiple intakes"],bg:"#dcfce7",docs:["Apostille (diploma)","Academic transcript","Language certificate","Passport copy","Application fee €250"],saved:false,done:[false,false,false,false,false]},
+  {id:403,status:"open",name:"RNU University",country:"Latvia",city:"Riga",flag:"🇱🇻",rank:"",deadline:"2025-12-31",program:"Business Administration, IT, Psychology, Tourism",tuition:"medium",lang:"english",langReq:"B2 level or IELTS 5.5 or Duolingo 90+",gpa:2.5,living:7000,tags:["English track","Schengen","Psychology","Multiple intakes"],bg:"#fef3c7",docs:["Apostille (diploma)","Academic transcript","Language certificate","Passport copy","Application fee €250"],saved:false,done:[false,false,false,false,false]},
+  {id:404,status:"open",name:"TSI University Masters",country:"Latvia",city:"Riga",flag:"🇱🇻",rank:"",deadline:"2025-12-31",program:"Business, Computer Engineering, Software Engineering, Transport Logistics",tuition:"medium",lang:"english",langReq:"IELTS 5.5 or Duolingo 90+",gpa:2.8,living:7000,tags:["English track","Schengen","Masters","IT focus"],bg:"#ede9fe",docs:["Apostille (diploma)","Bachelor diploma","Language certificate","Passport copy","Application fee €250"],saved:false,done:[false,false,false,false,false]},
+
+  /* ── NETHERLANDS ── */
+  {id:501,status:"open",name:"Wittenborg University",country:"Netherlands",city:"Apeldoorn",flag:"🇳🇱",rank:"",deadline:"2025-12-31",program:"Bachelor & Masters — Business, Hospitality, Education",tuition:"high",lang:"english",langReq:"IELTS 6.0+ (Holland Scholarship if IELTS 7+)",gpa:3.0,living:9000,tags:["Holland Scholarship €5k","English track","6 intakes/year","Schengen"],bg:"#dbeafe",docs:["Apostille (diploma)","Academic transcript","Motivation letter","Language certificate","CV/Resume","Recommendation letter","Passport copy","Application fee €150"],saved:false,done:[false,false,false,false,false,false,false,false]},
+
+  /* ── UK ── */
+  {id:601,status:"open",name:"Northumbria University",country:"UK",city:"Newcastle",flag:"🇬🇧",rank:"Top 801 QS",deadline:"2025-09-30",program:"Bachelor & Masters — Business, Engineering, Law, Arts",tuition:"high",lang:"english",langReq:"IELTS 6.0+ (min 5.5 per section)",gpa:3.0,living:13000,tags:["Up to 30% Grant","English track","3 intakes/year","97% visa success"],bg:"#fee2e2",docs:["Apostille (diploma)","Academic transcript","Bank statement $35,000","Language certificate","Passport copy","Application fee $200"],saved:false,notes:"97% student visa success rate. 3 intakes: Feb, Jun, Sep. Grant up to 30% of tuition.",done:[false,false,false,false,false,false]},
+  {id:602,status:"open",name:"Univ. of West Scotland",country:"UK",city:"Paisley",flag:"🇬🇧",rank:"Top 1000 QS",deadline:"2025-09-30",program:"Bachelor & Masters — Business, IT, Engineering",tuition:"high",lang:"english",langReq:"IELTS 6.0+ (min 5.5 per section)",gpa:3.0,living:13000,tags:["Affordable UK","English track","3 intakes/year","Scotland"],bg:"#dcfce7",docs:["Apostille (diploma)","Academic transcript","Bank statement $35,000","Language certificate","Passport copy","Application fee $200"],saved:false,done:[false,false,false,false,false,false]},
+
+  /* ── GERMANY (kept) ── */
+  {id:101,status:"open",name:"TU Munich",country:"Germany",city:"Munich",flag:"🇩🇪",rank:"Top 50 QS",deadline:"2025-06-15",program:"Engineering, Computer Science, Natural Sciences",tuition:"free",lang:"both",langReq:"IELTS 7.0+ or C1 German",gpa:3.5,living:10000,tags:["Tuition-free","English track","Top 100 QS","Research leader"],bg:"#ede9fe",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:102,status:"open",name:"LMU Munich",country:"Germany",city:"Munich",flag:"🇩🇪",rank:"Top 65 QS",deadline:"2025-06-15",program:"Medicine, Law, Humanities, Sciences",tuition:"free",lang:"both",langReq:"DSH-2 or IELTS 6.5+",gpa:3.3,living:10000,tags:["Tuition-free","Prestigious","Research"],bg:"#dbeafe",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+  {id:103,status:"open",name:"RWTH Aachen",country:"Germany",city:"Aachen",flag:"🇩🇪",rank:"Top 100 QS",deadline:"2025-05-30",program:"Engineering, Computer Science, Architecture",tuition:"free",lang:"both",langReq:"B2 German or IELTS 6.5+",gpa:3.0,living:8500,tags:["Tuition-free","Engineering hub","Industry connections"],bg:"#dcfce7",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+
+  /* ── POLAND (kept) ── */
+  {id:110,status:"open",name:"University of Warsaw",country:"Poland",city:"Warsaw",flag:"🇵🇱",rank:"Top 400 QS",deadline:"2025-07-01",program:"Economics, Law, IT, Humanities",tuition:"low",lang:"both",langReq:"B1 Polish or IELTS 6.0+",gpa:2.8,living:6500,tags:["CIS-friendly","Affordable","English track"],bg:"#fef3c7",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+
+  /* ── HUNGARY (kept) ── */
+  {id:113,status:"open",name:"Corvinus Budapest",country:"Hungary",city:"Budapest",flag:"🇭🇺",rank:"Top 600 QS",deadline:"2025-06-01",program:"Business, Economics, Social Sciences",tuition:"medium",lang:"english",langReq:"IELTS 5.5+",gpa:2.8,living:6000,tags:["English track","Scholarship available","Affordable"],bg:"#ccfbf1",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+
+  /* ── CZECH (kept) ── */
+  {id:106,status:"open",name:"Charles University",country:"Czech Republic",city:"Prague",flag:"🇨🇿",rank:"Top 250 QS",deadline:"2025-06-30",program:"Medicine, Law, Humanities, Sciences",tuition:"free",lang:"both",langReq:"B2 Czech or IELTS 6.0+",gpa:3.0,living:7500,tags:["Tuition-free","English track","Historic","Affordable"],bg:"#ede9fe",docs:DOCS_STD,saved:false,done:[false,false,false,false,false,false]},
+];;
+
+const ALERTS_DEF = [
+  {id:1,title:"Sapienza University deadline April 29",body:"Sapienza Rome closes applications on April 29 — DSU scholarship available. Check requirements now.",type:"urgent",time:"Today"},
+  {id:2,title:"Italy DSU Scholarship open",body:"Regional DSU scholarship up to €2,500/year is available at 15+ Italian universities. Apply now!",type:"info",time:"Today"},
+  {id:3,title:"South Korea E-visa universities",body:"Hansung, Peksok and Joongbu Masters offer E-visa — no embassy visit needed for Uzbek students.",type:"info",time:"Yesterday"},
+  {id:4,title:"Latvia multiple intakes",body:"TSI, EKA and RNU in Riga accept students 2–4 times per year. English track available.",type:"info",time:"2 days ago"},
+  {id:5,title:"UK 97% visa success rate",body:"Northumbria and UWS have 97% student visa approval. 3 intakes: Feb, Jun, Sep.",type:"info",time:"3 days ago"},
+];;
+
+
+
+const UID = (window._TG?.initDataUnsafe?.user?.id) || 'guest';
+const K = 'sf_' + UID;
+let countries = JSON.parse(localStorage.getItem('sf_c')||'null') || COUNTRIES;
+let unis = JSON.parse(localStorage.getItem(K+'_u')||'null') || UNIS;
+let alerts = JSON.parse(localStorage.getItem(K+'_a')||'null') || ALERTS_DEF;
+let curPage = 'home', chatH = [], curFilter = 'all';
+
+// Sync admin data
+try{const sc=localStorage.getItem('sf_adm_c');if(sc)countries=JSON.parse(sc);}catch(e){}
+try{const su=localStorage.getItem('sf_adm_u');if(su){const au=JSON.parse(su);au.forEach(a=>{const ex=unis.find(u=>u.id===a.id);if(!ex)unis.push({...a,saved:false,done:Array((a.docs||[]).length||5).fill(false)});else Object.assign(ex,a);});}}catch(e){}
+try{const sa=localStorage.getItem('sf_adm_a');if(sa){const aa=JSON.parse(sa);aa.forEach(a=>{if(!alerts.find(x=>x.id===a.id))alerts.unshift(a);});}}catch(e){}
+
+function migrateData(){
+  unis = unis.map(u=>({status:'open',rating:0,notes:'',bg:'#fff0eb',video:'',photos:[],reviews:[],...u,
+    tags:u.tags||[],docs:u.docs||['Apostille','Transcript','Language cert','Passport','Application fee'],
+    done:u.done||Array((u.docs||[]).length||5).fill(false)}));
+  UNIS.forEach(nu=>{if(!unis.find(u=>u.id===nu.id))unis.push({...nu});});
+}
+function save(){
+  localStorage.setItem('sf_c',JSON.stringify(countries));
+  localStorage.setItem(K+'_u',JSON.stringify(unis));
+  localStorage.setItem(K+'_a',JSON.stringify(alerts));
+}
+function toast(msg,dur){
+  const t=document.getElementById('toast');t.textContent=msg;
+  t.classList.add('on');setTimeout(()=>t.classList.remove('on'),dur||2400);
+}
+function days(d){return Math.max(0,Math.ceil((new Date(d)-new Date())/86400000));}
+
+/* ── NAVIGATION ── */
+function goPage(name, tabEl){
+  document.getElementById('pg-ai').classList.remove('on');
+  document.getElementById('pg-ai').style.display='none';
+  document.getElementById('scroller').style.display='';
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tb-btn').forEach(t=>t.classList.remove('on'));
+  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(n=>{
+    const ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
+    const nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
+  });
+  const pg=document.getElementById('pg-'+name);if(pg)pg.classList.add('on');
+  if(tabEl)tabEl.classList.add('on');
+  const ni=document.getElementById('ni-'+name);if(ni)ni.classList.add('on');
+  const nl=document.getElementById('nl-'+name);if(nl)nl.classList.add('on');
+  curPage=name; render(name);
+}
+function goAI(){
+  document.getElementById('scroller').style.display='none';
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tb-btn').forEach(t=>t.classList.remove('on'));
+  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(n=>{
+    const ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
+    const nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
+  });
+  document.getElementById('pg-ai').style.display='flex';
+  document.getElementById('pg-ai').classList.add('on');
+  document.getElementById('ni-ai').classList.add('on');
+  document.getElementById('nl-ai').classList.add('on');
+  curPage='ai';if(!chatH.length)initAI();
+}
+function render(n){
+  if(n==='home')renderHome();
+  else if(n==='countries')renderCountries();
+  else if(n==='explore')renderExplore();
+  else if(n==='saved')renderSaved();
+  else if(n==='alerts')renderAlerts();
+  else if(n==='docs')renderDocs();
+  else if(n==='admin')renderAdmin();
+  else if(n==='consult')renderConsult();
+}
+function onSearch(q){if(curPage==='explore')renderExplore();}
+
+/* ── CHIPS ── */
+function chipHtml(t){
+  var m={'Tuition-free':'cg','English track':'cb','Erasmus hub':'cp','CIS-friendly':'ct',
+    'Affordable':'cg','Research leader':'cb','Scholarship available':'co','Top 100 QS':'cb',
+    'Top 200 QS':'cb','Historic':'cp','Engineering':'cb','Aviation':'cp',
+    'E-visa':'cb','Masters':'cp','No IELTS':'ct','Seoul area':'ca','Schengen':'ct'};
+  return '<span class="chip '+(m[t]||'ca')+'">'+t+'</span>';
+}
+function scholBadge(u){
+  if(!u)return '';
+  var tags=u.tags||[];
+  var full=tags.find(function(x){return x.includes('100%');});
+  var part=!full&&tags.find(function(x){return x.includes('%')||x.toLowerCase().includes('scholarship')||x.toLowerCase().includes('grant');});
+  var evisa=tags.find(function(x){return x.toLowerCase().includes('e-visa');});
+  if(full)return '<span class="schol schol-full">🎓 '+full+'</span>';
+  if(part)return '<span class="schol schol-part">🎓 '+part+'</span>';
+  if(evisa)return '<span class="schol schol-evisa">⚡ '+evisa+'</span>';
+  return '';
+}
+function reqRow(u){
+  if(!u)return '';
+  var L=LANG||T.en;
+  var items=[];
+  if(u.langReq)items.push('<span class="req-pill">📝 '+u.langReq+'</span>');
+  if(u.gpa)items.push('<span class="req-pill">📊 GPA '+u.gpa+'+</span>');
+  var cost=u.tuition==='free'?(L.free||'Free'):u.tuition==='low'?'~€2k/yr':u.tuition==='medium'?'~€5k/yr':'€8k+/yr';
+  items.push('<span class="req-pill">💰 '+cost+'</span>');
+  if(u.living)items.push('<span class="req-pill">🏠 €'+Math.round(u.living/1000)+'k'+(L.living||'/yr')+'</span>');
+  return '<div class="req-row">'+items.join('')+'</div>';
+}
+function sortUnis(list){
+  return [...list].sort(function(a,b){return (a.status==='closed'?1:0)-(b.status==='closed'?1:0);});
+}
+function setFilter(f,btn){
+  curFilter=f;
+  document.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  renderExplore();
+}
+function applyFilter(list){
+  var r=[...list];
+  if(curFilter==='open')r=r.filter(function(u){return u.status!=='closed';});
+  else if(curFilter==='schol')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});});
+  else if(curFilter==='evisa')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.toLowerCase().includes('e-visa');});});
+  else if(curFilter==='free')r=r.filter(function(u){return u.tuition==='free'||u.tuition==='low';});
+  else if(curFilter==='masters')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('master');});
+  else if(curFilter==='bachelor')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('bachelor');});
+  return sortUnis(r);
+}
+
+/* ── UNI CARD ── */
+function uniHtml(u){
+  try{
+    var dl=u.deadline?new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
+    var tags=(u.tags||[]).filter(function(t){return !t.includes('%')&&!t.toLowerCase().includes('scholarship')&&!t.toLowerCase().includes('grant')&&!t.toLowerCase().includes('e-visa');});
+    var chips=tags.slice(0,2).map(chipHtml).join('');
+    if(dl)chips+='<span class="chip ca">'+dl+'</span>';
+    var badge=scholBadge(u);
+    var note=u.notes?'<div class="uni-note">'+u.notes+'</div>':'';
+    var reqs=reqRow(u);
+    var isOpen=u.status!=='closed';
+    var L=LANG||T.en;
+    var statusBadge=isOpen?'<span class="status-open">● '+(L.open||'Open')+'</span>':'<span class="status-closed">✕ '+(L.closed||'Closed')+'</span>';
+    var rank=u.rank?'<span class="ur">'+u.rank+'</span>':'';
+    var savedCls=u.saved?' on':'';
+    return '<div class="uc" style="opacity:'+(isOpen?'1':'0.6')+'">'
+      +'<div class="ut">'
+      +'<div class="uf" style="background:'+(u.bg||'#fff0eb')+'">'+u.flag+'</div>'
+      +'<div class="ui"><div class="un">'+u.name+'</div><div class="ul">'+u.city+', '+u.country+'</div></div>'
+      +'<div class="uactions">'+rank+statusBadge
+      +'<div class="sbtn'+savedCls+'" onclick="toggleSave('+u.id+');event.stopPropagation()">'
+      +'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>'
+      +'</div></div>'
+      +badge
+      +'<div class="chips">'+chips+'</div>'
+      +reqs+note
+      +'<button class="detail-btn" onclick="openDetail('+u.id+');event.stopPropagation()">View Details & Requirements →</button>'
+      +'</div>';
+  }catch(e){return '<div class="uc"><div class="un">'+(u&&u.name?u.name:'?')+'</div></div>';}
+}
+
+/* ── DETAIL PAGE ── */
+function openDetail(id){
+  var u=unis.find(function(x){return x.id===id;});
+  if(!u)return;
+  var L=LANG||T.en;
+  document.getElementById('detailTitle').textContent=u.name;
+  var isOpen=u.status!=='closed';
+  document.getElementById('detailStatus').innerHTML=isOpen?'<span class="status-open">● '+(L.open||'Open')+'</span>':'<span class="status-closed">✕ '+(L.closed||'Closed')+'</span>';
+
+  // Build video section
+  var videoHtml='';
+  if(u.video&&u.video.includes('youtube')){
+    var ytId=u.video.replace('https://www.youtube.com/watch?v=','').replace('https://youtu.be/','').split('&')[0];
+    videoHtml='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+ytId+'" allowfullscreen></iframe></div>';
+  } else {
+    videoHtml='<div class="video-wrap"><div class="video-placeholder">'
+      +'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>'
+      +'<span>'+L.noVideo+'</span></div></div>';
+  }
+
+  // Photos
+  var photos=u.photos||[];
+  var photosHtml='<div class="photos-row">';
+  if(photos.length){
+    photos.forEach(function(p){photosHtml+='<div class="photo-card"><img src="'+p+'" loading="lazy" onerror="this.parentElement.textContent=\'🏛\'"></div>';});
+  } else {
+    photosHtml+='<div class="photo-card" style="width:100%;font-size:11px;color:var(--t2)">'+L.noPhotos+'</div>';
+  }
+  photosHtml+='</div>';
+
+  // Info grid
+  var cost=u.tuition==='free'?(L.free||'Free'):u.tuition==='low'?'~€2,500/yr':u.tuition==='medium'?'~€5,000/yr':'€8,000+/yr';
+  var infoHtml='<div class="info-grid">'
+    +'<div class="info-cell"><div class="info-cell-l">'+L.reqLang+'</div><div class="info-cell-v" style="font-size:11px">'+u.langReq+'</div></div>'
+    +'<div class="info-cell"><div class="info-cell-l">'+L.reqGpa+'</div><div class="info-cell-v">'+(u.gpa||'—')+'</div></div>'
+    +'<div class="info-cell"><div class="info-cell-l">'+L.reqTuition+'</div><div class="info-cell-v">'+cost+'</div></div>'
+    +'<div class="info-cell"><div class="info-cell-l">'+L.reqLiving+'</div><div class="info-cell-v">'+(u.living?'€'+u.living.toLocaleString()+'/yr':'—')+'</div></div>'
+    +'</div>';
+
+  // Scholarship detail
+  var scholHtml='';
+  var scholTags=(u.tags||[]).filter(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship')||t.toLowerCase().includes('grant');});
+  if(scholTags.length){
+    scholHtml='<div class="detail-section"><div class="detail-sec-title">'+L.scholarship+'</div>'
+      +'<div style="background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br)">'
+      +scholTags.map(function(s){return '<div style="display:flex;align-items:center;gap:7px;padding:4px 0"><span style="font-size:16px">🎓</span><span style="font-size:12px;font-weight:600">'+s+'</span></div>';}).join('')
+      +'</div></div>';
+  }
+
+  // Documents checklist
+  var docsHtml='<div style="background:var(--sf);border-radius:12px;border:.5px solid var(--br);overflow:hidden">'
+    +(u.docs||[]).map(function(doc,i){
+      var done=(u.done||[])[i];
+      return '<div class="di" onclick="toggleDocDetail('+u.id+','+i+')">'
+        +'<div class="dck'+(done?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>'
+        +'<span class="dname'+(done?' done':'')+'">'+doc+'</span></div>';
+    }).join('')+'</div>';
+
+  // Reviews
+  var reviews=u.reviews||[];
+  var reviewsHtml='';
+  if(reviews.length){
+    reviewsHtml=reviews.map(function(r){
+      var stars='⭐'.repeat(r.stars||5);
+      return '<div class="review-card"><div class="review-stars">'+stars+'</div>'
+        +'<div class="review-text">'+r.text+'</div>'
+        +'<div class="review-author">— '+r.author+', '+r.year+'</div></div>';
+    }).join('');
+  } else {
+    reviewsHtml='<div style="padding:16px;text-align:center;color:var(--t2);font-size:12px">'+L.noReviews+'</div>';
+  }
+
+  // Map
+  var mapQuery=encodeURIComponent(u.name+' '+u.city+' '+u.country);
+  var mapHtml='<a href="https://maps.google.com/?q='+mapQuery+'" target="_blank" class="map-placeholder">'
+    +'<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+    +'<span>'+u.name+', '+u.city+' — '+L.location+'</span></a>';
+
+  // Apply button
+  var applyHtml=u.applyUrl?'<div style="padding:0 14px 14px"><a href="'+u.applyUrl+'" target="_blank" style="display:block;padding:12px;background:var(--ok);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;text-align:center;text-decoration:none">🎓 '+L.applyBtn+' — '+u.name+'</a></div>':'';
+
+  document.getElementById('detailBody').innerHTML=
+    '<div class="detail-section"><div class="detail-sec-title">'+L.overview2+'</div>'
+    +'<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">'+(u.program||'Bachelor & Masters programs')+'</div>'
+    +videoHtml+'</div>'
+    +'<div class="detail-section"><div class="detail-sec-title">'+L.photos+'</div>'+photosHtml+'</div>'
+    +'<div class="detail-section"><div class="detail-sec-title">'+L.requirements+'</div>'+infoHtml
+    +(u.notes?'<div class="uni-note" style="margin-bottom:14px">'+u.notes+'</div>':'')+'</div>'
+    +scholHtml
+    +'<div class="detail-section"><div class="detail-sec-title">Documents Checklist</div>'+docsHtml+'</div>'
+    +'<div class="detail-section"><div class="detail-sec-title">'+L.reviews+'</div>'+reviewsHtml+'</div>'
+    +'<div class="detail-section"><div class="detail-sec-title">'+L.location+'</div>'+mapHtml+'</div>'
+    +applyHtml
+    +'<div class="consult-cta">'
+    +'<div class="consult-cta-t">'+L.detailConsult+'</div>'
+    +'<div class="consult-cta-s">'+L.detailConsultSub+'</div>'
+    +'<button class="consult-cta-btn" onclick="openConsultForUni('+u.id+')">'+L.consultBtn+'</button>'
+    +'</div>';
+
+  document.getElementById('detailPage').classList.add('on');
+  haptic('medium');
+}
+function closeDetail(){
+  document.getElementById('detailPage').classList.remove('on');
+}
+function toggleDocDetail(id,idx){
+  var u=unis.find(function(x){return x.id===id;});
+  if(!u)return;
+  if(!u.done)u.done=Array((u.docs||[]).length).fill(false);
+  u.done[idx]=!u.done[idx];
+  save(); haptic('light'); openDetail(id);
+}
+function openConsultForUni(id){
+  var u=unis.find(function(x){return x.id===id;});
+  closeDetail();
+  goPage('consult',document.getElementById('tab-consult'));
+  if(u){
+    var el=document.getElementById('cf-saved-unis');
+    if(el)el.textContent=u.flag+' '+u.name;
+    var cf=document.getElementById('cf-country');
+    if(cf)cf.value=u.country;
+  }
+}
+
+/* ── RENDER FUNCTIONS ── */
+function renderHome(){
+  var sv=unis.filter(function(u){return u.saved;});
+  var ap=unis.filter(function(u){return u.saved&&(u.done||[]).every(Boolean);});
+  var upcoming=sv.filter(function(u){return u.deadline;}).sort(function(a,b){return new Date(a.deadline)-new Date(b.deadline);});
+  var md=upcoming.length?days(upcoming[0].deadline):'–';
+  var L=LANG||T.en;
+  document.getElementById('statsGrid').innerHTML=
+    '<div class="sc"><div class="sn">'+sv.length+'</div><div class="sl">'+L.saved+'</div></div>'
+    +'<div class="sc"><div class="sn">'+ap.length+'</div><div class="sl">Docs ready</div></div>'
+    +'<div class="sc"><div class="sn" style="color:'+(typeof md==='number'&&md<=14?'var(--err)':'var(--brand)')+'">'+md+'</div><div class="sl">'+L.daysLeft+'</div></div>';
+  document.getElementById('dlHome').innerHTML=upcoming.length?upcoming.slice(0,3).map(function(u){
+    var d=days(u.deadline);var pct=Math.max(0,Math.min(100,100-Math.round(d/180*100)));
+    var col=d<=7?'var(--err)':d<=30?'var(--warn)':'var(--ok)';
+    var done=(u.done||[]).filter(Boolean).length;
+    return '<div class="dc"><div class="df" style="background:'+(u.bg||'#fff0eb')+'">'+u.flag+'</div>'
+      +'<div class="db"><div class="dn">'+u.name+'</div><div class="dp">'+u.program+'</div>'
+      +'<div class="dpr"><div class="dpt"><span>'+done+'/'+(u.docs||[]).length+' docs</span><span>'+d+' days</span></div>'
+      +'<div class="pbar"><div class="pfill" style="width:'+pct+'%;background:'+col+'"></div></div></div></div>'
+      +'<div class="dd" style="color:'+col+'">'+new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short'})+'</div></div>';
+  }).join(''):'<div class="empty"><div class="ei">✅</div><div class="et">'+L.noDeadlines+'</div><div class="es">'+L.saveToTrack+'</div></div>';
+  document.getElementById('recHome').innerHTML=sortUnis(unis.filter(function(u){return !u.saved;})).slice(0,3).map(uniHtml).join('');
+}
+
+function renderCountries(){
+  document.getElementById('cList').innerHTML=countries.map(function(c){
+    var cUnis=unis.filter(function(u){return u.country===c.name;});
+    var openCnt=cUnis.filter(function(u){return u.status!=='closed';}).length;
+    var tags=(c.tags||[]).slice(0,3).map(function(t){return '<span class="chip ca">'+t+'</span>';}).join('');
+    var L=LANG||T.en;
+    var tv=c.tuition===0?('<span style="color:var(--ok);font-weight:700">'+(L.free||'Free')+'</span>'):'€'+c.tuition.toLocaleString();
+    return '<div class="cc">'
+      +'<div class="cbanner" style="background:'+c.color+'"><div class="cname">'+c.flag+' '+c.name+'</div>'
+      +'<div class="csub">'+c.highlight+'</div></div>'
+      +'<div class="cbody">'
+      +'<div class="cstats"><div class="cstat"><div class="cstat-l">Tuition/year</div><div class="cstat-v">'+tv+'</div></div>'
+      +'<div class="cstat"><div class="cstat-l">Living/year</div><div class="cstat-v">€'+c.living.toLocaleString()+'</div></div></div>'
+      +'<div class="chips" style="margin-bottom:8px">'+tags+'</div>'
+      +'<div style="font-size:10px;color:var(--t2);margin-bottom:5px">🎓 '+cUnis.length+' universities · '+openCnt+' open</div>'
+      +'<div style="font-size:10px;color:var(--t2);margin-bottom:8px">✈️ '+c.visa+'</div>'
+      +'</div>'
+      +'<button class="xbtn" onclick="filterCountry(this.dataset.n)" data-n="'+c.name+'">'+L.viewUnis+' '+c.name+' →</button>'
+      +'</div>';
+  }).join('');
+}
+
+function filterCountry(n){
+  curFilter='all';
+  document.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('on');});
+  var first=document.querySelector('.fpill');if(first)first.classList.add('on');
+  goPage('explore',document.getElementById('tab-explore'));
+  var cu=unis.filter(function(u){return u.country===n;});
+  document.getElementById('eList').innerHTML=sortUnis(cu).map(uniHtml).join('');
+}
+
+function renderExplore(){
+  var q=(document.getElementById('srch')?.value||'').toLowerCase();
+  var raw=q?unis.filter(function(u){
+    return u.name.toLowerCase().includes(q)||u.country.toLowerCase().includes(q)||
+      (u.program||'').toLowerCase().includes(q)||(u.city||'').toLowerCase().includes(q)||
+      (u.tags||[]).some(function(t){return t.toLowerCase().includes(q);});
+  }):unis;
+  document.getElementById('eList').innerHTML=applyFilter(raw).map(uniHtml).join('')||
+    '<div class="empty"><div class="ei">🔍</div><div class="et">No results</div></div>';
+}
+
+function renderSaved(){
+  var s=unis.filter(function(u){return u.saved;});
+  var L=LANG||T.en;
+  document.getElementById('svList').innerHTML=s.length?sortUnis(s).map(uniHtml).join(''):
+    '<div class="empty"><div class="ei">🔖</div><div class="et">'+L.noSaved+'</div><div class="es">'+L.tapBookmark+'</div></div>';
+}
+
+function renderAlerts(){
+  var L=LANG||T.en;
+  document.getElementById('alList').innerHTML=alerts.length?alerts.map(function(a){
+    var col=a.type==='urgent'?'var(--err)':a.type==='warning'?'var(--warn)':'#3b82f6';
+    return '<div class="ai-card"><div class="adot" style="background:'+col+'"></div>'
+      +'<div><div class="atit">'+a.title+'</div><div class="abody">'+a.body+'</div><div class="atime">'+a.time+'</div></div></div>';
+  }).join(''):'<div class="empty"><div class="ei">🔔</div><div class="et">'+L.noAlerts+'</div></div>';
+  if(alerts.length){var d=document.getElementById('alertDot');if(d)d.style.display='block';}
+}
+
+function renderDocs(){
+  var saved=unis.filter(function(u){return u.saved;});
+  var L=LANG||T.en;
+  if(!saved.length){document.getElementById('dList').innerHTML='<div class="empty"><div class="ei">📋</div><div class="et">'+L.noDocs+'</div><div class="es">'+L.saveFirst+'</div></div>';return;}
+  document.getElementById('dList').innerHTML=saved.map(function(u){
+    var done=(u.done||[]).filter(Boolean).length;
+    var total=(u.docs||[]).length;
+    var pct=total?Math.round(done/total*100):0;
+    return '<div class="dg"><div class="dgh"><span style="font-size:20px">'+u.flag+'</span><span class="dgn">'+u.name+'</span>'
+      +'<span class="dgp" style="background:'+(pct===100?'var(--ok)':'var(--bl)')+';color:'+(pct===100?'#fff':'var(--bd)')+'">'+pct+'%</span></div>'
+      +(u.docs||[]).map(function(doc,i){
+        var checked=(u.done||[])[i];
+        return '<div class="di" onclick="toggleDoc('+u.id+','+i+')">'
+          +'<div class="dck'+(checked?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>'
+          +'<span class="dname'+(checked?' done':'')+'">'+doc+'</span></div>';
+      }).join('')+'</div>';
+  }).join('');
+}
+
+function toggleSave(id){
+  var u=unis.find(function(x){return x.id===id;});
+  if(!u)return;
+  u.saved=!u.saved;save();haptic('light');render(curPage);
+}
+function toggleDoc(id,idx){
+  var u=unis.find(function(x){return x.id===id;});
+  if(!u)return;
+  if(!u.done)u.done=Array((u.docs||[]).length).fill(false);
+  u.done[idx]=!u.done[idx];save();haptic('light');renderDocs();
+}
+
+/* ── ADMIN ── */
+const ADMIN_PASS='studify2025';
+const ADMIN_IDS=[1869981164];
+let adminUnlocked=false;
+function checkAdmin(tabEl){
+  var tgId=window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+  if(ADMIN_IDS.includes(tgId)||adminUnlocked){goPage('admin',tabEl);return;}
+  var pass=prompt('🔐 Admin password:');
+  if(pass===ADMIN_PASS){adminUnlocked=true;goPage('admin',tabEl);}
+  else if(pass!==null)toast('❌ Wrong password');
+}
+function renderAdmin(){
+  var sv=unis.filter(function(u){return u.saved;}).length;
+  var openCnt=unis.filter(function(u){return u.status!=='closed';}).length;
+  var scholCnt=unis.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});}).length;
+  var stats=JSON.parse(localStorage.getItem('sf_stats')||'{}');
+  document.getElementById('adminStatCards').innerHTML=
+    '<div class="anl-card"><div class="anl-num">'+unis.length+'</div><div class="anl-lbl">Total unis</div></div>'
+    +'<div class="anl-card"><div class="anl-num" style="color:#166534">'+openCnt+'</div><div class="anl-lbl">Open</div></div>'
+    +'<div class="anl-card"><div class="anl-num" style="color:#991b1b">'+(unis.length-openCnt)+'</div><div class="anl-lbl">Closed</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+sv+'</div><div class="anl-lbl">User saves</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+scholCnt+'</div><div class="anl-lbl">Scholarship</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+(stats.consults||0)+'</div><div class="anl-lbl">Consults sent</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+alerts.length+'</div><div class="anl-lbl">Alerts</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+countries.length+'</div><div class="anl-lbl">Countries</div></div>';
+  document.getElementById('adminUniList').innerHTML=sortUnis(unis).map(function(u){
+    return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:.5px solid var(--br)">'
+      +'<span style="font-size:18px">'+u.flag+'</span>'
+      +'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+u.name+'</div>'
+      +'<div style="font-size:10px;color:var(--t2)">'+u.country+' · '+days(u.deadline)+'d left</div></div>'
+      +'<button onclick="adminToggleStatus('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid var(--br);background:'+(u.status==='closed'?'#fef3c7':'#dcfce7')+';color:'+(u.status==='closed'?'#92400e':'#166534')+';font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">'+(u.status==='closed'?'Open':'Close')+'</button>'
+      +'<button onclick="adminDelUni('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Del</button>'
+      +'</div>';
+  }).join('');
+}
+function adminToggleStatus(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  u.status=u.status==='closed'?'open':'closed';
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i].status=u.status;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();renderAdmin();haptic('light');
+}
+function adminDelUni(id){
+  if(!confirm('Delete this university?'))return;
+  unis=unis.filter(function(u){return u.id!==id;});
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');au=au.filter(function(u){return u.id!==id;});localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();renderAdmin();toast('Deleted ✅');
+}
+function adminAddUni(){
+  var name=document.getElementById('au-name').value.trim();
+  var country=document.getElementById('au-country').value.trim();
+  if(!name||!country){toast('Name and country required');return;}
+  var tags=document.getElementById('au-tags').value.split(',').map(function(t){return t.trim();}).filter(Boolean);
+  var tuition=document.getElementById('au-tuition').value;
+  var status=document.getElementById('au-status').value||'open';
+  if(tuition==='free'&&!tags.includes('Tuition-free'))tags.unshift('Tuition-free');
+  var BG=['#fff0eb','#ede9fe','#dcfce7','#dbeafe','#fef3c7','#fee2e2','#ccfbf1'];
+  var docsRaw=document.getElementById('au-docs').value.trim();
+  var docs=docsRaw?docsRaw.split(',').map(function(d){return d.trim();}).filter(Boolean):['Apostille (diploma)','Academic transcript','Language certificate','Passport copy','Application fee'];
+  var newUni={id:Date.now(),status:status,name:name,country:country,
+    city:document.getElementById('au-city').value.trim(),
+    flag:document.getElementById('au-flag').value.trim()||'🎓',
+    rank:document.getElementById('au-rank').value.trim(),
+    program:document.getElementById('au-program').value.trim(),
+    deadline:document.getElementById('au-deadline').value,
+    living:parseInt(document.getElementById('au-living').value)||8000,
+    tuition:tuition,lang:'english',
+    langReq:document.getElementById('au-langReq').value.trim(),
+    notes:document.getElementById('au-notes-field').value.trim(),
+    video:document.getElementById('au-video').value.trim(),
+    gpa:2.5,tags:tags,bg:BG[Math.floor(Math.random()*BG.length)],
+    docs:docs,saved:false,done:Array(docs.length).fill(false),photos:[],reviews:[]};
+  unis.push(newUni);
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');au.push(newUni);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();haptic();
+  ['au-name','au-country','au-city','au-flag','au-rank','au-program','au-langReq','au-tags','au-deadline','au-living','au-docs','au-notes-field','au-video'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
+  toast(name+' added! ✅');renderAdmin();
+}
+function adminSendAlert(){
+  var title=document.getElementById('al-title').value.trim();
+  var body=document.getElementById('al-body').value.trim();
+  if(!title||!body){toast('Title and message required');return;}
+  alerts.unshift({id:Date.now(),title:title,body:body,type:document.getElementById('al-type').value,time:'Just now'});
+  save();document.getElementById('al-title').value='';document.getElementById('al-body').value='';
+  toast('Alert sent! 🔔');renderAdmin();
+}
+
+/* ── CONSULT ── */
+const CONSULTANT_IDS=[6737772798,7428221030];
+function renderConsult(){
+  var saved=unis.filter(function(u){return u.saved;});
+  var el=document.getElementById('cf-saved-unis');
+  if(el)el.textContent=saved.length?saved.map(function(u){return u.flag+' '+u.name;}).join(', '):'—';
+}
+function sendToConsultant(){
+  var name=document.getElementById('cf-name').value.trim();
+  if(!name){toast('Please enter your name');return;}
+  var lines=[
+    '\uD83C\uDF93 *New Student Application \u2014 Studify.uz*','',
+    '\uD83D\uDC64 *Name:* '+name,
+    '\uD83C\uDF82 *Age:* '+(document.getElementById('cf-age').value||'\u2014'),
+    '\uD83D\uDCDA *Education:* '+(document.getElementById('cf-edu').value||'\u2014'),
+    '\uD83D\uDCCA *GPA/Score:* '+(document.getElementById('cf-gpa').value||'\u2014'),'',
+    '\uD83C\uDF10 *Language Certificates:*',
+    '\u2022 IELTS: '+(document.getElementById('cf-ielts').value||'\u2014'),
+    '\u2022 Duolingo: '+(document.getElementById('cf-duolingo').value||'\u2014'),
+    '\u2022 TOPIK: '+(document.getElementById('cf-topik').value||'\u2014'),
+    '\u2022 Other: '+(document.getElementById('cf-other').value||'\u2014'),'',
+    '\uD83D\uDDFA *Country:* '+(document.getElementById('cf-country').value||'Any'),
+    '\uD83C\uDFAF *Field:* '+(document.getElementById('cf-field').value||'\u2014'),
+    '\uD83D\uDCB0 *Budget:* '+(document.getElementById('cf-budget').value||'\u2014'),
+    '\uD83C\uDF93 *Level:* '+(document.getElementById('cf-level').value||'Any'),'',
+    '\uD83D\uDD16 *Saved unis:* '+unis.filter(function(u){return u.saved;}).map(function(u){return u.flag+' '+u.name;}).join(', '),'',
+    '\uD83D\uDCDD *Notes:* '+(document.getElementById('cf-notes').value||'\u2014'),'',
+    '\uD83D\uDCF1 *Telegram:* '+(window._TG?.initDataUnsafe?.user?('@'+(window._TG.initDataUnsafe.user.username||'')+'  ID:'+window._TG.initDataUnsafe.user.id):'Unknown')
+  ];
+  var msg=lines.join('\n');
+  var BOT='8484535195:AAHmzt6HZBYnVS8jLHxgzFC9D8SJo0PSCY0';
+  Promise.all(CONSULTANT_IDS.map(function(cid){
+    return fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cid,text:msg,parse_mode:'Markdown'})}).then(function(r){return r.json();});
+  })).then(function(res){
+    if(res.some(function(d){return d.ok;})){
+      toast('\u2705 Sent! We will contact you soon');
+      try{var s=JSON.parse(localStorage.getItem('sf_stats')||'{}');s.consults=(s.consults||0)+1;localStorage.setItem('sf_stats',JSON.stringify(s));}catch(e){}
+      ['cf-name','cf-age','cf-gpa','cf-ielts','cf-duolingo','cf-topik','cf-other','cf-field','cf-notes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+    } else {toast('\u274C Error: '+(res[0]?.description||'Try again'));}
+  }).catch(function(){toast('\u274C Network error');});
+}
+
+/* ── AI ADVISOR (Claude API) ── */
+const AI_SYSTEM = `You are an expert study abroad advisor for Studify.uz, an Uzbek education agency. You help Uzbek and CIS students find universities in Europe and Asia. You know all 45+ partner universities across Italy, South Korea, Latvia, Netherlands, UK, Germany, Poland, Hungary, Czech Republic.
+
+Key knowledge:
+- Italy: 19 universities, DSU scholarship up to €2500/yr, English track, Type D Schengen visa, apply at universitaly.it
+- South Korea: 12 universities, up to 100% scholarship, E-visa available (no embassy visit), D-2 student visa
+- Latvia: 4 universities in Riga, English track, Schengen, 2-4 intakes/year
+- Germany: TU Munich, LMU, RWTH Aachen — tuition FREE, IELTS 6.5-7.0
+- UK: Northumbria, UWS — IELTS 6.0+, 97% visa success, 3 intakes/year
+- Netherlands: Wittenborg — Holland Scholarship €5k if IELTS 7+
+- Hungary: Corvinus — Stipendium Hungaricum scholarship for Uzbek students
+- Poland: University of Warsaw — affordable, easy EU visa
+- Czech Republic: Charles University — free tuition in Czech language
+
+Always respond in the same language the student uses (Uzbek, Russian, or English). Be warm, helpful, specific. Mention actual deadlines and scholarship amounts when relevant. End responses by suggesting next steps or asking a follow-up question.`;
+
+async function callAI(userMsg){
+  try{
+    const response = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:AI_SYSTEM,
+        messages:chatH.filter(function(m){return m.role==='user'||m.role==='assistant';})
+          .map(function(m){return {role:m.role==='ai'?'assistant':m.role,content:m.text};})
+          .concat([{role:'user',content:userMsg}])
+      })
+    });
+    const data = await response.json();
+    if(data.content&&data.content[0]){
+      return data.content[0].text;
+    }
+    return fallbackAI(userMsg);
+  } catch(e){
+    return fallbackAI(userMsg);
+  }
+}
+
+function fallbackAI(inp){
+  var lo=inp.toLowerCase();
+  if(lo.includes('italy')||lo.includes('italiya')||lo.includes('италия'))
+    return 'Italy is one of our most popular destinations! We have 19 partner universities with DSU scholarships up to \u20AC2,500/year covering housing and food. All have English tracks. Deadlines are April-July 2025. What field would you like to study?';
+  if(lo.includes('korea')||lo.includes('korea')||lo.includes('koreya'))
+    return 'South Korea is great! We have 12 partner universities with scholarships up to 100%. Some have E-visa (no embassy visit needed). Do you have IELTS or prefer a university with no language test required?';
+  if(lo.includes('free')||lo.includes('bepul')||lo.includes('бесплатно'))
+    return 'Tuition-free options:\n\n\uD83C\uDDE9\uD83C\uDDEA Germany \u2014 TU Munich, LMU, RWTH Aachen. All free, but need IELTS 6.5+\n\uD83C\uDDF0\uD83C\uDDF7 South Korea \u2014 up to 100% scholarship at partner unis\n\uD83C\uDDED\uD83C\uDDFA Hungary \u2014 Stipendium Hungaricum full scholarship\n\nWhat is your current GPA and language score?';
+  if(lo.includes('budget')||lo.includes('cheap')||lo.includes('arzon'))
+    return 'Best budget options:\n\n1\uFE0F\u20E3 Italy \u2014 only \u20AC2,500/yr tuition + DSU covers \u20AC2,500 living costs\n2\uFE0F\u20E3 Latvia \u2014 \u20AC3,500/yr in Riga\n3\uFE0F\u20E3 Poland \u2014 \u20AC2,000/yr, easy EU visa\n\nTell me your field and I will find the exact best match!';
+  return 'I can help you find the perfect university! Could you tell me:\n\n1. What field do you want to study?\n2. What is your budget per year?\n3. Do you have IELTS or other language certificate?\n\nOr just ask about any specific country or university!';
+}
+
+function initAI(){
+  addMsg("Hi! I'm your Studify.uz AI Study Advisor \uD83C\uDF93\n\nI help Uzbek and CIS students find the perfect university based on your background, goals, and budget.\n\nWhat field would you like to study? Or ask me anything about studying in Europe and Asia!",'ai');
+}
+function addMsg(text,role){
+  var el=document.createElement('div');
+  el.className='msg msg-'+(role||'ai');
+  if(role==='ai'||!role){
+    var formatted=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    formatted=formatted.split('\n').join('<br>');
+    el.innerHTML='<div class="mlbl">Studify AI</div>'+formatted;
+  } else {
+    el.textContent=text;
+  }
+  document.getElementById('msgs').appendChild(el);
+  document.getElementById('msgs').scrollTop=99999;
+  chatH.push({role:role||'ai',text:text});
+}
+function showTyping(){
+  var t=document.createElement('div');t.className='typing';t.id='typing';
+  t.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';
+  document.getElementById('msgs').appendChild(t);
+  document.getElementById('msgs').scrollTop=99999;
+}
+function hideTyping(){var t=document.getElementById('typing');if(t)t.remove();}
+function doSug(txt){document.getElementById('cinput').value=txt;doSend();}
+function ck(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();doSend();}}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
+function doSend(){
+  var inp=document.getElementById('cinput');
+  var text=inp.value.trim();if(!text)return;
+  addMsg(text,'u');inp.value='';inp.style.height='auto';
+  showTyping();
+  callAI(text).then(function(reply){hideTyping();addMsg(reply,'ai');}).catch(function(){hideTyping();addMsg(fallbackAI(text),'ai');});
+}
+
+/* ── INIT ── */
+migrateData();
+render('home');
+applyLang();
+
+function initApp(){
+  // Re-assign TG after SDK is guaranteed loaded
+  window._TG = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+  if(window._TG){ try{ window._TG.ready(); window._TG.expand(); }catch(e){} }
+
+
+} // end initApp
+
+// Wait for Telegram SDK then init
+if(document.readyState === 'complete' || document.readyState === 'interactive'){
+  setTimeout(initApp, 50);
+} else {
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(initApp, 50); });
+}
+</script>
+</body>
+</html>
