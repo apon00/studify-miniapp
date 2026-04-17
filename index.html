@@ -362,7 +362,19 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         </div>
         <input class="adm-inp" id="au-program" placeholder="Programs offered">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <input class="adm-inp" id="au-deadline" type="date">
+          <div>
+          <div class="cf-label" style="font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;margin-bottom:3px">Application Deadline</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div>
+              <div style="font-size:10px;color:var(--t3);margin-bottom:3px">From</div>
+              <input class="adm-inp" id="au-deadline-from" type="date">
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--t3);margin-bottom:3px">To (main deadline)</div>
+              <input class="adm-inp" id="au-deadline" type="date">
+            </div>
+          </div>
+        </div>
           <input class="adm-inp" id="au-living" type="number" placeholder="Living cost EUR/yr">
         </div>
         <select class="adm-inp" id="au-tuition">
@@ -596,11 +608,11 @@ const ALERTS_DEF = [
 ];;
 
 
-// TRANSLATIONS - defined first, always available
+// ── TRANSLATIONS ──────────────────────────────────────
 const TR={
-  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Type your message...',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',viewUnis:'View universities in',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',reqLiving:'Living',scholarship:'Scholarship',reviews:'Student Reviews',location:'Location',reqTitle:'Requirements',overview:'Overview',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants'},
-  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Xabar yozing...',open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',viewUnis:"Ko'rish:",reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",reqLiving:'Yashash',scholarship:'Stipendiya',reviews:'Sharhlar',location:'Joylashuv',reqTitle:'Talablar',overview:"Ma'lumot",detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi"},
-  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Введите сообщение...',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',viewUnis:'Университеты в:',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',reqLiving:'Проживание',scholarship:'Стипендия',reviews:'Отзывы',location:'Расположение',reqTitle:'Требования',overview:'Обзор',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план'}
+  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark icon on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Type your message...',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',viewUnis:'View universities in',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',overview:'Overview',reqTitle:'Requirements',scholarship:'Scholarship',reviews:'Student Reviews',location:'Location',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants',viewDetails:'View Details',applyBtn:'Apply',applyNow:'Apply Now',freeConsult:'Free Consultation'},
+  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgi tugmasini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Xabar yozing...',open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',viewUnis:"Ko'rish:",reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",overview:"Ma'lumot",reqTitle:'Talablar',scholarship:'Stipendiya',reviews:'Sharhlar',location:'Joylashuv',detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi",viewDetails:"Batafsil ko'rish",applyBtn:'Ariza',applyNow:'Ariza berish',freeConsult:'Bepul maslahat'},
+  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Введите сообщение...',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',viewUnis:'Университеты в:',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',overview:'Обзор',reqTitle:'Требования',scholarship:'Стипендия',reviews:'Отзывы',location:'Расположение',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план',viewDetails:'Подробнее',applyBtn:'Подать',applyNow:'Подать заявку',freeConsult:'Бесплатная консультация'}
 };
 var curLang='en', L=TR.en, LANG=TR.en;
 
@@ -611,9 +623,8 @@ function setLang(lang,btn){
   applyLang(); render(curPage);
 }
 function applyLang(){
-  var tmap=[['tab-home','home'],['tab-countries','countries'],['tab-explore','universities'],['tab-saved','saved'],['tab-alerts','alerts'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']];
-  tmap.forEach(function(p){var e=document.getElementById(p[0]);if(e&&LANG[p[1]])e.textContent=LANG[p[1]];});
-  ['home','countries','ai','saved','alerts'].forEach(function(k){var e=document.getElementById('nl-'+k);if(e&&LANG[k])e.textContent=LANG[k];});
+  [['tab-home','home'],['tab-countries','countries'],['tab-explore','universities'],['tab-saved','saved'],['tab-alerts','alerts'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']].forEach(function(p){var el=document.getElementById(p[0]);if(el)el.textContent=LANG[p[1]];});
+  ['home','countries','ai','saved','alerts'].forEach(function(k){var el=document.getElementById('nl-'+k);if(el&&LANG[k])el.textContent=LANG[k];});
   var si=document.getElementById('srch');if(si)si.placeholder=LANG.searchPh;
   var at=document.getElementById('ai-t');if(at)at.textContent=LANG.aiT;
   var as=document.getElementById('ai-s');if(as)as.textContent=LANG.aiS;
@@ -622,67 +633,58 @@ function applyLang(){
   var sp=document.getElementById('sh-picks');if(sp)sp.textContent=LANG.topPicks;
 }
 
-// Telegram
+// ── TELEGRAM ──────────────────────────────────────────
 var _TG=null;
 function initApp(){
   _TG=window.Telegram&&window.Telegram.WebApp?window.Telegram.WebApp:null;
   try{if(_TG){_TG.ready();_TG.expand();}}catch(e){}
   var u=_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user;
-  if(u){
-    document.getElementById('tgAv').textContent=((u.first_name||'S')[0]).toUpperCase();
-    document.getElementById('tgNm').textContent=u.first_name||u.username||'Student';
-  }
+  if(u){document.getElementById('tgAv').textContent=((u.first_name||'S')[0]).toUpperCase();document.getElementById('tgNm').textContent=u.first_name||u.username||'Student';}
   migrateData();
   render('home');
   applyLang();
 }
 
-// DATA SETUP
-var UID=(_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user&&_TG.initDataUnsafe.user.id)||'guest';
-// UID will be reset in initApp - use localStorage key based on it
-var K='sf_guest'; // overridden after TG loads
-
+// ── DATA ──────────────────────────────────────────────
 var countries=JSON.parse(localStorage.getItem('sf_c')||'null')||COUNTRIES;
 var unis=JSON.parse(localStorage.getItem('sf_unis')||'null')||UNIS;
 var alerts=JSON.parse(localStorage.getItem('sf_alerts')||'null')||ALERTS_DEF;
-var curPage='home', chatH=[], curFilter='all';
+var appForms=JSON.parse(localStorage.getItem('sf_forms')||'[]');
+var curPage='home', chatH=[], curFilter='all', activeFilters=[], curCountry='all';
 
-try{var sc=localStorage.getItem('sf_adm_c');if(sc)countries=JSON.parse(sc);}catch(e){}
-try{var su=localStorage.getItem('sf_adm_u');if(su){var au=JSON.parse(su);au.forEach(function(a){var ex=unis.find(function(u){return u.id===a.id;});if(!ex)unis.push(Object.assign({},a,{saved:false,done:Array((a.docs||[]).length||5).fill(false)}));else Object.assign(ex,a);});}}catch(e){}
-try{var saa=localStorage.getItem('sf_adm_a');if(saa){var aa=JSON.parse(saa);aa.forEach(function(a){if(!alerts.find(function(x){return x.id===a.id;}))alerts.unshift(a);});}}catch(e){}
+// Merge admin data
+try{var _sc=localStorage.getItem('sf_adm_c');if(_sc)countries=JSON.parse(_sc);}catch(e){}
+try{var _su=localStorage.getItem('sf_adm_u');if(_su){var _au=JSON.parse(_su);_au.forEach(function(a){var ex=unis.find(function(u){return u.id===a.id;});if(!ex)unis.push(Object.assign({},a,{saved:false,done:Array((a.docs||[]).length||5).fill(false)}));else Object.assign(ex,a);});}}catch(e){}
+try{var _sa=localStorage.getItem('sf_adm_a');if(_sa){var _aa=JSON.parse(_sa);_aa.forEach(function(a){if(!alerts.find(function(x){return x.id===a.id;}))alerts.unshift(a);});}}catch(e){}
 
 function migrateData(){
-  unis=unis.map(function(u){
-    return Object.assign({status:'open',rating:0,notes:'',bg:'#fff0eb',video:'',logo:'',photos:[],reviews:[]},u,{
-      tags:u.tags||[],
-      docs:u.docs||['Apostille','Transcript','Language cert','Passport','Application fee'],
-      done:u.done||Array((u.docs||[]).length||5).fill(false)
-    });
-  });
+  unis=unis.map(function(u){return Object.assign({status:'open',notes:'',bg:'#fff0eb',video:'',logo:'',photos:[],reviews:[],deadline_from:''},u,{tags:u.tags||[],docs:u.docs||['Apostille','Transcript','Language cert','Passport','Application fee'],done:u.done||Array((u.docs||[]).length||5).fill(false)});});
   UNIS.forEach(function(nu){if(!unis.find(function(u){return u.id===nu.id;}))unis.push(Object.assign({},nu));});
 }
-function save(){
-  localStorage.setItem('sf_c',JSON.stringify(countries));
-  localStorage.setItem('sf_unis',JSON.stringify(unis));
-  localStorage.setItem('sf_alerts',JSON.stringify(alerts));
-}
+function save(){localStorage.setItem('sf_c',JSON.stringify(countries));localStorage.setItem('sf_unis',JSON.stringify(unis));localStorage.setItem('sf_alerts',JSON.stringify(alerts));}
+function saveForms(){localStorage.setItem('sf_forms',JSON.stringify(appForms));}
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(function(){t.classList.remove('on');},2400);}
 function days(d){return Math.max(0,Math.ceil((new Date(d)-new Date())/86400000));}
 function haptic(t){try{if(_TG)_TG.HapticFeedback.impactOccurred(t||'light');}catch(e){}}
+var EUR_COUNTRIES=['Italy','Latvia','Netherlands','UK','Germany','Poland','Hungary','Czech Republic'];
+function isEur(country){return EUR_COUNTRIES.indexOf(country)>=0;}
+function cSym(country){return isEur(country)?'EUR ':'USD ';}
 
-// NAVIGATION
+// ── NAVIGATION ────────────────────────────────────────
 function goPage(name,tabEl){
   document.getElementById('pg-ai').classList.remove('on');
   document.getElementById('pg-ai').style.display='none';
   document.getElementById('scroller').style.display='';
   document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
   document.querySelectorAll('.tb-btn').forEach(function(t){t.classList.remove('on');});
-  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(function(n){
+  // Clear ALL nav highlights first
+  ['home','countries','explore','saved','alerts','docs','consult','admin','ai'].forEach(function(n){
     var ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
     var nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
   });
   var pg=document.getElementById('pg-'+name);if(pg)pg.classList.add('on');
   if(tabEl)tabEl.classList.add('on');
+  // Only highlight the correct bottom nav item
   var ni=document.getElementById('ni-'+name);if(ni)ni.classList.add('on');
   var nl=document.getElementById('nl-'+name);if(nl)nl.classList.add('on');
   curPage=name; render(name);
@@ -691,7 +693,7 @@ function goAI(){
   document.getElementById('scroller').style.display='none';
   document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
   document.querySelectorAll('.tb-btn').forEach(function(t){t.classList.remove('on');});
-  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(function(n){
+  ['home','countries','explore','saved','alerts','docs','consult','admin','ai'].forEach(function(n){
     var ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
     var nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
   });
@@ -713,13 +715,69 @@ function render(n){
 }
 function onSearch(){if(curPage==='explore')renderExplore();}
 
-// UNI HELPERS
+// ── FILTERS (multi-select toggle) ─────────────────────
+function setFilter(f,btn){
+  if(f==='all'){
+    activeFilters=[];
+    document.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('on');});
+    var ab=document.querySelector('.fpill');if(ab)ab.classList.add('on');
+  } else {
+    var idx=activeFilters.indexOf(f);
+    if(idx>=0){
+      // Already active — deselect
+      activeFilters.splice(idx,1);
+      if(btn)btn.classList.remove('on');
+    } else {
+      // Not active — select
+      activeFilters.push(f);
+      if(btn)btn.classList.add('on');
+    }
+    // 'All' pill: active only when nothing else is
+    var ab=document.querySelector('.fpill');
+    if(ab){
+      if(activeFilters.length>0)ab.classList.remove('on');
+      else ab.classList.add('on');
+    }
+  }
+  renderExplore();
+}
+function setCFilter(c,btn){
+  curCountry=c;
+  document.querySelectorAll('.cpill').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  renderExplore();
+}
+
+function matchFilter(u,f){
+  if(f==='open')   return u.status!=='closed';
+  if(f==='schol')  return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});
+  if(f==='evisa')  return (u.tags||[]).some(function(t){return t.toLowerCase().includes('e-visa');});
+  if(f==='free')   return u.tuition==='free'||u.tuition==='low';
+  if(f==='bachelor') return (u.program||'').toLowerCase().includes('bachelor');
+  if(f==='masters')  return (u.program||'').toLowerCase().includes('master');
+  if(f==='foundation')return (u.program||'').toLowerCase().includes('foundation')||(u.program||'').toLowerCase().includes('pathway');
+  if(f==='language') return (u.program||'').toLowerCase().includes('language')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('language');});
+  if(f==='college')  return (u.program||'').toLowerCase().includes('college')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('college')||t.toLowerCase().includes('diploma');});
+  if(f==='phd')    return (u.program||'').toLowerCase().includes('phd')||(u.program||'').toLowerCase().includes('doctorate');
+  if(f==='summer') return (u.program||'').toLowerCase().includes('summer')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('summer');});
+  return true;
+}
+function applyFilter(list){
+  var r=[...list];
+  if(curCountry&&curCountry!=='all')r=r.filter(function(u){return u.country===curCountry;});
+  if(activeFilters.length>0){
+    r=r.filter(function(u){return activeFilters.some(function(f){return matchFilter(u,f);});});
+  }
+  return sortUnis(r);
+}
+function sortUnis(list){return [...list].sort(function(a,b){return (a.status==='closed'?1:0)-(b.status==='closed'?1:0);});}
+
+// ── UNI HELPERS ───────────────────────────────────────
 function chipHtml(t){
-  var m={'Tuition-free':'cg','English track':'cb','CIS-friendly':'ct','Affordable':'cg','Scholarship available':'co','Top 100 QS':'cb','Top 200 QS':'cb','Historic':'cp','Engineering':'cb','Aviation':'cp','E-visa':'cb','Masters':'cp','No IELTS':'ct','Schengen':'ct'};
+  var m={'Tuition-free':'cg','English track':'cb','CIS-friendly':'ct','Affordable':'cg','Scholarship available':'co','Top 100 QS':'cb','Top 200 QS':'cb','Historic':'cp','Engineering':'cb','E-visa':'cb','No IELTS':'ct','Schengen':'ct'};
   return '<span class="chip '+(m[t]||'ca')+'">'+t+'</span>';
 }
 function scholBadge(u){
-  if(!u)return '';
   var tags=u.tags||[];
   var full=tags.find(function(x){return x.includes('100%');});
   var part=!full&&tags.find(function(x){return x.includes('%')||x.toLowerCase().includes('scholarship')||x.toLowerCase().includes('grant');});
@@ -729,53 +787,67 @@ function scholBadge(u){
   if(ev)return '<span class="schol schol-evisa">'+ev+'</span>';
   return '';
 }
+function progTag(u){
+  var p=(u.program||'').toLowerCase();
+  if(p.includes('master'))  return '<span class="chip cp">Masters</span>';
+  if(p.includes('bachelor'))return '<span class="chip cb">Bachelor</span>';
+  if(p.includes('phd')||p.includes('doctorate'))return '<span class="chip cr">PhD</span>';
+  if(p.includes('foundation')||p.includes('pathway'))return '<span class="chip co">Foundation</span>';
+  if(p.includes('language'))return '<span class="chip ct">Language</span>';
+  if(p.includes('college')||p.includes('diploma'))return '<span class="chip ca">College</span>';
+  if(p.includes('summer'))  return '<span class="chip cg">Summer</span>';
+  return '';
+}
 function reqRow(u){
-  if(!u)return '';
   var items=[];
   if(u.langReq)items.push('<span class="req-pill">'+u.langReq+'</span>');
   if(u.gpa)items.push('<span class="req-pill">GPA '+u.gpa+'+</span>');
-  var euroCountries=['Italy','Latvia','Netherlands','Germany','Poland','Hungary','Czech Republic','France','Spain'];
-  var isEuro=euroCountries.indexOf(u.country)>=0;
-  var sym=isEuro?'€':'$';
-  var cost=u.tuition==='free'?(LANG.free||'Free'):u.tuition==='low'?'~'+sym+'2k/yr':u.tuition==='medium'?'~'+sym+'5k/yr':sym+'8k+/yr';
+  var cs=cSym(u.country);
+  var cost=u.tuition==='free'?(LANG.free||'Free'):u.tuition==='low'?'~'+cs+'2k/yr':u.tuition==='medium'?'~'+cs+'5k/yr':cs+'8k+/yr';
   items.push('<span class="req-pill">'+cost+'</span>');
-  if(u.living){
-    var livSym=euroCountries.indexOf(u.country)>=0?'€':'$';
-    items.push('<span class="req-pill">'+livSym+Math.round(u.living/1000)+'k'+(LANG.living||'/yr')+'</span>');
-  }
   return '<div class="req-row">'+items.join('')+'</div>';
 }
-function sortUnis(list){return [...list].sort(function(a,b){return (a.status==='closed'?1:0)-(b.status==='closed'?1:0);});}
+function deadlineChip(u){
+  if(!u.deadline)return '';
+  var to=new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  if(u.deadline_from){
+    var from=new Date(u.deadline_from).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    return '<span class="chip ca">'+from+' - '+to+'</span>';
+  }
+  return '<span class="chip ca">'+to+'</span>';
+}
+
+// ── UNIVERSITY CARD ───────────────────────────────────
 function uniHtml(u){
   try{
-    var dl=u.deadline?new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
-    var tags=(u.tags||[]).filter(function(t){return !t.includes('%')&&!t.toLowerCase().includes('scholarship')&&!t.toLowerCase().includes('grant')&&!t.toLowerCase().includes('e-visa');});
-    var chips=tags.slice(0,2).map(chipHtml).join('');
-    if(dl)chips+='<span class="chip ca">'+dl+'</span>';
-    var badge=scholBadge(u);
-    var note=u.notes?'<div class="uni-note">'+u.notes+'</div>':'';
-    var reqs=reqRow(u);
+    var logo=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:11px" onerror="this.parentElement.textContent=\''+u.flag+'\'">':u.flag;
     var isOpen=u.status!=='closed';
     var sb=isOpen?'<span class="status-open">'+(LANG.open||'Open')+'</span>':'<span class="status-closed">'+(LANG.closed||'Closed')+'</span>';
     var rank=u.rank?'<span class="ur">'+u.rank+'</span>':'';
-    var sc=u.saved?' on':'';
-    var logoContent=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:11px" onerror="this.parentElement.textContent=\''+u.flag+'\'">':u.flag;
+    var sv=u.saved?' on':'';
+    var pt=progTag(u);
+    var dl=deadlineChip(u);
+    var tags=(u.tags||[]).filter(function(t){return !t.includes('%')&&!t.toLowerCase().includes('scholarship')&&!t.toLowerCase().includes('grant')&&!t.toLowerCase().includes('e-visa');});
+    var chips=pt+tags.slice(0,2).map(chipHtml).join('')+dl;
     return '<div class="uc" style="opacity:'+(isOpen?'1':'0.6')+'">'
-      +'<div class="ut"><div class="uf" style="background:'+(u.bg||'#fff0eb')+'">'+logoContent+'</div>'
+      +'<div class="ut"><div class="uf" style="background:'+(u.bg||'#fff0eb')+'">'+logo+'</div>'
       +'<div class="ui"><div class="un">'+u.name+'</div><div class="ul">'+u.city+', '+u.country+'</div></div>'
       +'<div class="uacts">'+rank+sb
-      +'<div class="sbtn'+sc+'" onclick="toggleSave('+u.id+');event.stopPropagation()">'
+      +'<div class="sbtn'+sv+'" onclick="toggleSave('+u.id+');event.stopPropagation()">'
       +'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
       +'</div></div></div>'
-      +badge+'<div class="chips">'+chips+'</div>'+reqs+note
+      +scholBadge(u)
+      +'<div class="chips">'+chips+'</div>'
+      +reqRow(u)
+      +(u.notes?'<div class="uni-note">'+u.notes+'</div>':'')
       +'<div style="display:flex;gap:7px;margin-top:8px">'
-      +'<button class="detail-btn" style="margin-top:0" onclick="openDet('+u.id+');event.stopPropagation()">View Details</button>'
-      +'<button class="apply-btn" style="margin-top:0;width:auto;padding:9px 14px;flex-shrink:0" onclick="showApply('+u.id+');event.stopPropagation()">Apply</button>'
-      +'</div>'
-      +'</div>';
-  }catch(e){return '<div class="uc"><div class="un">'+(u?u.name:'?')+'</div></div>';}
+      +'<button class="detail-btn" style="margin-top:0" onclick="openDet('+u.id+');event.stopPropagation()">'+( LANG.viewDetails||'View Details')+'</button>'
+      +'<button class="apply-btn" style="margin-top:0;width:auto;padding:9px 16px;flex-shrink:0" onclick="showApply('+u.id+');event.stopPropagation()">'+( LANG.applyBtn||'Apply')+'</button>'
+      +'</div></div>';
+  }catch(err){return '<div class="uc"><div class="un">'+(u?u.name:'?')+'</div></div>';}
 }
 
+// ── DETAIL PAGE ───────────────────────────────────────
 function openDet(id){
   var u=unis.find(function(x){return x.id===id;});if(!u)return;
   document.getElementById('detTitle').textContent=u.name;
@@ -788,36 +860,26 @@ function openDet(id){
   }else{
     vidHtml='<div class="vid-wrap"><div class="vid-ph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><span>Video coming soon</span></div></div>';
   }
-  var isEurDet=['Italy','Latvia','Netherlands','UK','Germany','Poland','Hungary','Czech Republic'].indexOf(u.country)>=0;
-  var csDet=isEurDet?'EUR ':'USD ';
-  var cost=u.tuition==='free'?(LANG.free||'Free'):u.tuition==='low'?'~'+csDet+'2,500/yr':u.tuition==='medium'?'~'+csDet+'5,000/yr':csDet+'8,000+/yr';
+  var cs=cSym(u.country);
+  var cost=u.tuition==='free'?(LANG.free||'Free'):u.tuition==='low'?'~'+cs+'2,500/yr':u.tuition==='medium'?'~'+cs+'5,000/yr':cs+'8,000+/yr';
   var infoHtml='<div class="info-grid">'
     +'<div class="ic"><div class="ic-l">'+(LANG.reqLang||'Language')+'</div><div class="ic-v" style="font-size:11px">'+(u.langReq||'-')+'</div></div>'
     +'<div class="ic"><div class="ic-l">'+(LANG.reqGpa||'Min GPA')+'</div><div class="ic-v">'+(u.gpa||'-')+'</div></div>'
     +'<div class="ic"><div class="ic-l">'+(LANG.reqFee||'Tuition')+'</div><div class="ic-v">'+cost+'</div></div>'
-    +'<div class="ic"><div class="ic-l">'+(LANG.reqLiving||'Living')+'</div><div class="ic-v">'+(u.living?csDet+u.living.toLocaleString()+'/yr':'-')+'</div></div>'
+    +'<div class="ic"><div class="ic-l">Deadline</div><div class="ic-v" style="font-size:11px">'+(u.deadline?new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'-')+'</div></div>'
     +'</div>';
   var scholTags=(u.tags||[]).filter(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship')||t.toLowerCase().includes('grant');});
   var scholHtml=scholTags.length?'<div class="det-sec"><div class="det-sec-t">'+(LANG.scholarship||'Scholarship')+'</div>'
-    +'<div style="background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br)">'
-    +scholTags.map(function(ss){return '<div style="padding:4px 0;font-size:12px;font-weight:600">'+ss+'</div>';}).join('')
-    +'</div></div>':'';
+    +'<div style="background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br)">'+scholTags.map(function(ss){return '<div style="padding:4px 0;font-size:12px;font-weight:600">'+ss+'</div>';}).join('')+'</div></div>':'';
   var docsHtml='<div style="background:var(--sf);border-radius:12px;border:.5px solid var(--br);overflow:hidden">'
-    +(u.docs||[]).map(function(doc,i){
-      var done=(u.done||[])[i];
+    +(u.docs||[]).map(function(doc,i){var done=(u.done||[])[i];
       return '<div class="di" onclick="toggleDocDet('+u.id+','+i+')">'
         +'<div class="dck'+(done?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>'
         +'<span class="dname'+(done?' done':'')+'">'+doc+'</span></div>';
     }).join('')+'</div>';
   var revs=u.reviews||[];
-  var revHtml=revs.length?revs.map(function(r){
-    return '<div class="rev-card"><div class="rev-stars">'+'★'.repeat(r.stars||5)+'</div>'
-      +'<div class="rev-text">'+r.text+'</div><div class="rev-author">- '+r.author+(r.year?', '+r.year:'')+'</div></div>';
-  }).join(''):'<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px">No reviews yet</div>';
+  var revHtml=revs.length?revs.map(function(r){return '<div class="rev-card"><div class="rev-stars">'+'★'.repeat(r.stars||5)+'</div><div class="rev-text">'+r.text+'</div><div class="rev-author">- '+r.author+(r.year?', '+r.year:'')+'</div></div>';}).join(''):'<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px">No reviews yet</div>';
   var mapQ=encodeURIComponent(u.name+' '+u.city+' '+u.country);
-  var mapHtml='<a href="https://maps.google.com/?q='+mapQ+'" target="_blank" class="map-ph">'
-    +'<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
-    +'<span>'+u.name+' - '+u.city+', '+u.country+'</span></a>';
   document.getElementById('detBody').innerHTML=
     '<div class="det-sec"><div class="det-sec-t">'+(LANG.overview||'Overview')+'</div>'
     +'<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">'+(u.program||'Bachelor and Masters programs')+'</div>'
@@ -827,147 +889,101 @@ function openDet(id){
     +scholHtml
     +'<div class="det-sec"><div class="det-sec-t">Documents Checklist</div>'+docsHtml+'</div>'
     +'<div class="det-sec"><div class="det-sec-t">'+(LANG.reviews||'Reviews')+'</div>'+revHtml+'</div>'
-    +'<div class="det-sec" style="padding-bottom:14px"><div class="det-sec-t">'+(LANG.location||'Location')+'</div>'+mapHtml+'</div>'
+    +'<div class="det-sec" style="padding-bottom:14px"><div class="det-sec-t">'+(LANG.location||'Location')+'</div>'
+    +'<a href="https://maps.google.com/?q='+mapQ+'" target="_blank" class="map-ph"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>'+u.name+' - '+u.city+', '+u.country+'</span></a></div>'
     +'<div class="cta-box"><div class="cta-t">'+(LANG.detConsult||'Contact Our Expert')+'</div>'
     +'<div class="cta-s">'+(LANG.detConsultSub||'Get a free personalised plan')+'</div>'
     +'<div style="display:flex;flex-direction:column;gap:8px;width:100%">'
-    +'<button class="cta-btn" onclick="showApply('+u.id+')">Apply Now</button>'
-    +'<button class="cta-btn" style="background:rgba(255,255,255,.25)" onclick="openConsultFor('+u.id+')">Free Consultation</button>'
+    +'<button class="cta-btn" onclick="showApply('+u.id+')">'+(LANG.applyNow||'Apply Now')+'</button>'
+    +'<button class="cta-btn" style="background:rgba(255,255,255,.25)" onclick="openConsultFor('+u.id+')">'+(LANG.freeConsult||'Free Consultation')+'</button>'
     +'</div></div>';
-  document.getElementById('detPage').classList.add('on');
-  haptic('medium');
+  document.getElementById('detPage').classList.add('on'); haptic('medium');
 }
-
 function closeDet(){document.getElementById('detPage').classList.remove('on');}
+function toggleDocDet(id,idx){var u=unis.find(function(x){return x.id===id;});if(!u)return;if(!u.done)u.done=Array((u.docs||[]).length).fill(false);u.done[idx]=!u.done[idx];save();haptic('light');openDet(id);}
+function openConsultFor(id){var u=unis.find(function(x){return x.id===id;});closeDet();goPage('consult',document.getElementById('tab-consult'));if(u){var el=document.getElementById('cf-saved-unis');if(el)el.textContent=u.flag+' '+u.name;}}
 
-function toggleDocDet(id,idx){
-  var u=unis.find(function(x){return x.id===id;});if(!u)return;
-  if(!u.done)u.done=Array((u.docs||[]).length).fill(false);
-  u.done[idx]=!u.done[idx];save();haptic('light');openDet(id);
-}
-
-function openConsultFor(id){
-  var u=unis.find(function(x){return x.id===id;});
-  closeDet();goPage('consult',document.getElementById('tab-consult'));
-  if(u){var el=document.getElementById('cf-saved-unis');if(el)el.textContent=u.flag+' '+u.name;}
-}
-
-
-
-
-var curCountry='all';
-function setCFilter(c,btn){curCountry=c;document.querySelectorAll('.cpill').forEach(function(b){b.classList.remove('on');});if(btn)btn.classList.add('on');renderExplore();}
-function setFilter(f,btn){
-  curFilter=f;
-  // only deselect row 2 pills
-  document.querySelectorAll('[id^="filt-"]').forEach(function(b){b.classList.remove('on');});
-  if(btn)btn.classList.add('on');
-  renderExplore();
-}
-function applyFilter(list){
-  var r=[...list];
-  if(curCountry&&curCountry!=='all')r=r.filter(function(u){return u.country===curCountry;});
-  if(curFilter==='open')r=r.filter(function(u){return u.status!=='closed';});
-  else if(curFilter==='schol')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});});
-  else if(curFilter==='evisa')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.toLowerCase().includes('e-visa');});});
-  else if(curFilter==='free')r=r.filter(function(u){return u.tuition==='free'||u.tuition==='low';});
-  else if(curFilter==='bachelor')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('bachelor');});
-  else if(curFilter==='masters')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('master');});
-  else if(curFilter==='foundation')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('foundation')||(u.program||'').toLowerCase().includes('pathway');});
-  else if(curFilter==='language')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('language')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('language');});});
-  else if(curFilter==='college')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('college')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('college')||t.toLowerCase().includes('diploma');});});
-  else if(curFilter==='phd')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('phd')||(u.program||'').toLowerCase().includes('doctorate')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('phd')||t.toLowerCase().includes('doctorate');});});
-  else if(curFilter==='summer')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('summer')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('summer');});});
-  return sortUnis(r);
-}
-
+// ── RENDER FUNCTIONS ──────────────────────────────────
 function renderHome(){
   var sv=unis.filter(function(u){return u.saved;});
   var ap=unis.filter(function(u){return u.saved&&(u.done||[]).every(Boolean);});
   var upcoming=sv.filter(function(u){return u.deadline;}).sort(function(a,b){return new Date(a.deadline)-new Date(b.deadline);});
   var md=upcoming.length?days(upcoming[0].deadline):'-';
   document.getElementById('statsGrid').innerHTML=
-    '<div class="sc"><div class="sn">'+sv.length+'</div><div class="sl">'+LANG.saved+'</div></div>'
-    +'<div class="sc"><div class="sn">'+ap.length+'</div><div class="sl">'+LANG.docsReady+'</div></div>'
-    +'<div class="sc"><div class="sn" style="color:'+(typeof md==='number'&&md<=14?'var(--err)':'var(--brand)')+'">'+md+'</div><div class="sl">'+LANG.daysLeft+'</div></div>';
+    '<div class="sc"><div class="sn">'+sv.length+'</div><div class="sl">'+(LANG.saved||'Saved')+'</div></div>'
+    +'<div class="sc"><div class="sn">'+ap.length+'</div><div class="sl">'+(LANG.docsReady||'Docs ready')+'</div></div>'
+    +'<div class="sc"><div class="sn" style="color:'+(typeof md==='number'&&md<=14?'var(--err)':'var(--brand)')+'">'+md+'</div><div class="sl">'+(LANG.daysLeft||'days left')+'</div></div>';
   document.getElementById('dlHome').innerHTML=upcoming.length?upcoming.slice(0,3).map(function(u){
-    var d=days(u.deadline);var pct=Math.max(0,Math.min(100,100-Math.round(d/180*100)));
+    var d=days(u.deadline),pct=Math.max(0,Math.min(100,100-Math.round(d/180*100)));
     var col=d<=7?'var(--err)':d<=30?'var(--warn)':'var(--ok)';
     var done=(u.done||[]).filter(Boolean).length;
-    var logoContent=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px" onerror="this.parentElement.textContent=\''+u.flag+'\'">':u.flag;
-    return '<div class="dc"><div class="df" style="background:'+(u.bg||'#fff0eb')+'">'+logoContent+'</div>'
+    var logo=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px">':u.flag;
+    return '<div class="dc"><div class="df" style="background:'+(u.bg||'#fff0eb')+'">'+logo+'</div>'
       +'<div class="db"><div class="dn">'+u.name+'</div><div class="dp">'+u.program+'</div>'
       +'<div class="dpr"><div class="dpt"><span>'+done+'/'+(u.docs||[]).length+' docs</span><span>'+d+' days</span></div>'
       +'<div class="pbar"><div class="pfill" style="width:'+pct+'%;background:'+col+'"></div></div></div></div>'
       +'<div class="dd" style="color:'+col+'">'+new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short'})+'</div></div>';
-  }).join(''):'<div class="empty"><div class="ei">✅</div><div class="et">'+LANG.noDeadlines+'</div><div class="es">'+LANG.saveToTrack+'</div></div>';
+  }).join(''):'<div class="empty"><div class="ei">✅</div><div class="et">'+(LANG.noDeadlines||'No urgent deadlines')+'</div><div class="es">'+(LANG.saveToTrack||'Save universities to track deadlines')+'</div></div>';
   document.getElementById('recHome').innerHTML=sortUnis(unis.filter(function(u){return !u.saved;})).slice(0,3).map(uniHtml).join('');
 }
 
-// RENDER COUNTRIES
 function renderCountries(){
   document.getElementById('cList').innerHTML=countries.map(function(c){
     var cUnis=unis.filter(function(u){return u.country===c.name;});
     var openCnt=cUnis.filter(function(u){return u.status!=='closed';}).length;
     var tags=(c.tags||[]).slice(0,3).map(function(t){return '<span class="chip ca">'+t+'</span>';}).join('');
-    var euroCtry=['Italy','Latvia','Netherlands','Germany','Poland','Hungary','Czech Republic','France','Spain'];
-    var cSym=euroCtry.indexOf(c.name)>=0?'€':'$';
-    var tv=c.tuition===0?('<span style="color:var(--ok);font-weight:700">'+(LANG.free||'Free')+'</span>'):(cSym+c.tuition.toLocaleString()+'/yr');
+    var cs=isEur(c.name)?'EUR ':'USD ';
+    var tv=c.tuition===0?('<span style="color:var(--ok);font-weight:700">'+(LANG.free||'Free')+'</span>'):(cs+c.tuition.toLocaleString());
+    var lv=cs+c.living.toLocaleString();
     return '<div class="cc"><div class="cbanner" style="background:'+c.color+'"><div class="cname">'+c.flag+' '+c.name+'</div><div class="csub">'+c.highlight+'</div></div>'
       +'<div class="cbody"><div class="cstats">'
       +'<div class="cstat"><div class="cstat-l">Tuition/year</div><div class="cstat-v">'+tv+'</div></div>'
-      +'<div class="cstat"><div class="cstat-l">Living/year</div><div class="cstat-v">'+(isEurCtry?'EUR ':'USD ')+c.living.toLocaleString()+'</div></div>'
+      +'<div class="cstat"><div class="cstat-l">Living/year</div><div class="cstat-v">'+lv+'</div></div>'
       +'</div><div class="chips" style="margin-bottom:8px">'+tags+'</div>'
       +'<div style="font-size:10px;color:var(--t2);margin-bottom:4px">'+cUnis.length+' universities - '+openCnt+' open</div>'
       +'<div style="font-size:10px;color:var(--t2);margin-bottom:8px">'+c.visa+'</div></div>'
-      +'<button class="xbtn" onclick="filterCountry(this.dataset.n)" data-n="'+c.name+'">'+LANG.viewUnis+' '+c.name+' ></button>'
+      +'<button class="xbtn" onclick="filterCountry(\''+c.name+'\')">'+(LANG.viewUnis||'View universities in')+' '+c.name+' ></button>'
       +'</div>';
   }).join('');
 }
 function filterCountry(n){
-  curFilter='all'; curProg='all'; curCountry=n;
-  // Reset all filter pills
-  document.querySelectorAll('[id^="filt-"]').forEach(function(b){b.classList.remove('on');});
-  document.querySelectorAll('[id^="prog-"]').forEach(function(b){b.classList.remove('on');});
-  document.getElementById('prog-all').classList.add('on');
-  // Highlight the matching country pill if it exists
-  var countryPillMap={'Italy':'filt-it','South Korea':'filt-kr','Latvia':'filt-lv','Germany':'filt-de','UK':'filt-uk','Netherlands':'filt-nl','Poland':'filt-pl','Hungary':'filt-hu','Czech Republic':'filt-cz','USA':'filt-us'};
-  var pillId=countryPillMap[n];
-  if(pillId&&document.getElementById(pillId))document.getElementById(pillId).classList.add('on');
-  else document.getElementById('filt-all').classList.add('on');
+  curCountry=n; activeFilters=[];
+  document.querySelectorAll('.cpill').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('on');});
+  var ab=document.querySelector('.fpill');if(ab)ab.classList.add('on');
   goPage('explore',document.getElementById('tab-explore'));
-  renderExplore();
 }
 function renderExplore(){
   var q=(document.getElementById('srch')?document.getElementById('srch').value:'').toLowerCase();
-  var raw=q?unis.filter(function(u){return u.name.toLowerCase().includes(q)||u.country.toLowerCase().includes(q)||(u.program||'').toLowerCase().includes(q)||(u.city||'').toLowerCase().includes(q)||(u.tags||[]).some(function(t){return t.toLowerCase().includes(q);});}):unis;
+  var raw=q?unis.filter(function(u){return u.name.toLowerCase().includes(q)||u.country.toLowerCase().includes(q)||(u.program||'').toLowerCase().includes(q)||(u.tags||[]).some(function(t){return t.toLowerCase().includes(q);});}):unis;
   var filtered=applyFilter(raw);
-  document.getElementById('eList').innerHTML=filtered.map(uniHtml).join('')||'<div class="empty"><div class="ei">🔍</div><div class="et">No results</div><div class="es">Try a different filter or country</div></div>';
+  document.getElementById('eList').innerHTML=filtered.map(uniHtml).join('')||'<div class="empty"><div class="ei">🔍</div><div class="et">No results</div><div class="es">Try a different filter</div></div>';
   var cnt=document.getElementById('exploreCount');
   if(cnt)cnt.textContent=filtered.length+' '+(filtered.length===1?'university':'universities')+(curCountry!=='all'?' in '+curCountry:'');
 }
 function renderSaved(){
-  var s=unis.filter(function(u){return u.saved;});
-  document.getElementById('svList').innerHTML=s.length?sortUnis(s).map(uniHtml).join(''):'<div class="empty"><div class="ei">🔖</div><div class="et">'+LANG.noSaved+'</div><div class="es">'+LANG.tapHint+'</div></div>';
+  var sv=unis.filter(function(u){return u.saved;});
+  document.getElementById('svList').innerHTML=sv.length?sortUnis(sv).map(uniHtml).join(''):'<div class="empty"><div class="ei">🔖</div><div class="et">'+(LANG.noSaved||'No saved universities')+'</div><div class="es">'+(LANG.tapHint||'Tap the bookmark icon')+'</div></div>';
 }
 function renderAlerts(){
-  document.getElementById('alList').innerHTML=alerts.length?alerts.map(function(a){var col=a.type==='urgent'?'var(--err)':a.type==='warning'?'var(--warn)':'#3b82f6';return '<div class="alc"><div class="adot" style="background:'+col+'"></div><div><div class="atit">'+a.title+'</div><div class="abody">'+a.body+'</div><div class="atime">'+a.time+'</div></div></div>';}).join(''):'<div class="empty"><div class="ei">🔔</div><div class="et">'+LANG.noAlerts+'</div></div>';
+  document.getElementById('alList').innerHTML=alerts.length?alerts.map(function(a){var col=a.type==='urgent'?'var(--err)':a.type==='warning'?'var(--warn)':'#3b82f6';return '<div class="alc"><div class="adot" style="background:'+col+'"></div><div><div class="atit">'+a.title+'</div><div class="abody">'+a.body+'</div><div class="atime">'+a.time+'</div></div></div>';}).join(''):'<div class="empty"><div class="ei">🔔</div><div class="et">'+(LANG.noAlerts||'No alerts yet')+'</div></div>';
   if(alerts.length){var d=document.getElementById('alertDot');if(d)d.style.display='block';}
 }
 function renderDocs(){
   var sv=unis.filter(function(u){return u.saved;});
-  if(!sv.length){document.getElementById('dList').innerHTML='<div class="empty"><div class="ei">📋</div><div class="et">'+LANG.noDocs+'</div><div class="es">'+LANG.saveFirst+'</div></div>';return;}
+  if(!sv.length){document.getElementById('dList').innerHTML='<div class="empty"><div class="ei">📋</div><div class="et">'+(LANG.noDocs||'No docs')+'</div><div class="es">'+(LANG.saveFirst||'Save universities first')+'</div></div>';return;}
   document.getElementById('dList').innerHTML=sv.map(function(u){
     var done=(u.done||[]).filter(Boolean).length,total=(u.docs||[]).length,pct=total?Math.round(done/total*100):0;
     return '<div class="dg"><div class="dgh"><span style="font-size:20px">'+u.flag+'</span><span class="dgn">'+u.name+'</span><span class="dgp" style="background:'+(pct===100?'var(--ok)':'var(--bl)')+';color:'+(pct===100?'#fff':'var(--bd)')+'">'+pct+'%</span></div>'
       +(u.docs||[]).map(function(doc,i){var ch=(u.done||[])[i];return '<div class="di" onclick="toggleDoc('+u.id+','+i+')"><div class="dck'+(ch?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div><span class="dname'+(ch?' done':'')+'">'+doc+'</span></div>';}).join('')+'</div>';
   }).join('');
 }
+function renderConsult(){var sv=unis.filter(function(u){return u.saved;});var el=document.getElementById('cf-saved-unis');if(el)el.textContent=sv.length?sv.map(function(u){return u.flag+' '+u.name;}).join(', '):'-';}
 function toggleSave(id){var u=unis.find(function(x){return x.id===id;});if(!u)return;u.saved=!u.saved;save();haptic('light');render(curPage);}
 function toggleDoc(id,idx){var u=unis.find(function(x){return x.id===id;});if(!u)return;if(!u.done)u.done=Array((u.docs||[]).length).fill(false);u.done[idx]=!u.done[idx];save();haptic('light');renderDocs();}
 
-// ADMIN
-var ADMIN_PASS='studify2025', ADMIN_IDS=[1869981164], adminUnlocked=false;
+// ── ADMIN ─────────────────────────────────────────────
+var ADMIN_PASS='studify2025',ADMIN_IDS=[1869981164],adminUnlocked=false;
 function checkAdmin(tabEl){
   var tgId=_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user&&_TG.initDataUnsafe.user.id;
   if(ADMIN_IDS.indexOf(tgId)>=0||adminUnlocked){goPage('admin',tabEl);return;}
@@ -975,43 +991,36 @@ function checkAdmin(tabEl){
   if(pass===ADMIN_PASS){adminUnlocked=true;goPage('admin',tabEl);}
   else if(pass!==null)toast('Wrong password');
 }
-
-// PHOTO UPLOAD IN ADMIN
 function handlePhotoUpload(input){
   var file=input.files[0];if(!file)return;
   var reader=new FileReader();
-  reader.onload=function(e){
-    var dataUrl=e.target.result;
-    // Show preview
+  reader.onload=function(ev){
     var prev=document.getElementById('au-photo-preview');
-    prev.innerHTML='<img class="photo-preview" src="'+dataUrl+'"><div style="font-size:10px;color:var(--ok);margin-top:4px;font-weight:700">Photo ready</div>';
-    // Store in hidden field
-    document.getElementById('au-logo-url').value=dataUrl;
+    prev.innerHTML='<img class="photo-preview" src="'+ev.target.result+'"><div style="font-size:10px;color:var(--ok);margin-top:4px;font-weight:700">Photo ready</div>';
+    document.getElementById('au-logo-url').value=ev.target.result;
   };
   reader.readAsDataURL(file);
 }
-
 function renderAdmin(){
   var sv=unis.filter(function(u){return u.saved;}).length;
   var oc=unis.filter(function(u){return u.status!=='closed';}).length;
   var sc=unis.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});}).length;
-  var stats=JSON.parse(localStorage.getItem('sf_stats')||'{}');
+  var st=JSON.parse(localStorage.getItem('sf_stats')||'{}');
   document.getElementById('adminStatCards').innerHTML=
     '<div class="anl-card"><div class="anl-num">'+unis.length+'</div><div class="anl-lbl">Total unis</div></div>'
     +'<div class="anl-card"><div class="anl-num" style="color:#166534">'+oc+'</div><div class="anl-lbl">Open</div></div>'
     +'<div class="anl-card"><div class="anl-num" style="color:#991b1b">'+(unis.length-oc)+'</div><div class="anl-lbl">Closed</div></div>'
     +'<div class="anl-card"><div class="anl-num">'+sv+'</div><div class="anl-lbl">Saves</div></div>'
     +'<div class="anl-card"><div class="anl-num">'+sc+'</div><div class="anl-lbl">Scholarship</div></div>'
-    +'<div class="anl-card"><div class="anl-num">'+(stats.consults||0)+'</div><div class="anl-lbl">Consults</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+(st.consults||0)+'</div><div class="anl-lbl">Consults</div></div>'
     +'<div class="anl-card"><div class="anl-num">'+alerts.length+'</div><div class="anl-lbl">Alerts</div></div>'
     +'<div class="anl-card"><div class="anl-num">'+countries.length+'</div><div class="anl-lbl">Countries</div></div>';
   renderFormsAdmin();
   document.getElementById('adminUniList').innerHTML=sortUnis(unis).map(function(u){
-    var logoThumb=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display=\'none\'">':'<span style="font-size:18px;flex-shrink:0">'+u.flag+'</span>';
+    var logo=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0">':'<span style="font-size:18px;flex-shrink:0">'+u.flag+'</span>';
     return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:.5px solid var(--br)">'
-      +logoThumb
-      +'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+u.name+'</div>'
-      +'<div style="font-size:10px;color:var(--t2)">'+u.country+' - '+days(u.deadline)+'d</div></div>'
+      +logo+'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+u.name+'</div>'
+      +'<div style="font-size:10px;color:var(--t2)">'+u.country+(u.deadline?' - '+days(u.deadline)+'d':'')+'</div></div>'
       +'<button onclick="adminToggle('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid var(--br);background:'+(u.status==='closed'?'#fef3c7':'#dcfce7')+';color:'+(u.status==='closed'?'#92400e':'#166534')+';font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">'+(u.status==='closed'?'Open':'Close')+'</button>'
       +'<button onclick="adminDel('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Del</button>'
       +'</div>';
@@ -1030,12 +1039,10 @@ function adminDel(id){
   save();renderAdmin();toast('Deleted');
 }
 function adminAddUni(){
-  var name=document.getElementById('au-name').value.trim();
-  var country=document.getElementById('au-country').value.trim();
+  var name=document.getElementById('au-name').value.trim(),country=document.getElementById('au-country').value.trim();
   if(!name||!country){toast('Name and country required');return;}
   var tags=document.getElementById('au-tags').value.split(',').map(function(t){return t.trim();}).filter(Boolean);
-  var tuition=document.getElementById('au-tuition').value;
-  var status=document.getElementById('au-status').value||'open';
+  var tuition=document.getElementById('au-tuition').value,status=document.getElementById('au-status').value||'open';
   if(tuition==='free'&&!tags.includes('Tuition-free'))tags.unshift('Tuition-free');
   var BG=['#fff0eb','#ede9fe','#dcfce7','#dbeafe','#fef3c7','#fee2e2','#ccfbf1'];
   var docsRaw=document.getElementById('au-docs').value.trim();
@@ -1047,20 +1054,19 @@ function adminAddUni(){
     rank:document.getElementById('au-rank').value.trim(),
     program:document.getElementById('au-program').value.trim(),
     deadline:document.getElementById('au-deadline').value,
+    deadline_from:document.getElementById('au-deadline-from')?document.getElementById('au-deadline-from').value:'',
     living:parseInt(document.getElementById('au-living').value)||8000,
-    tuition:tuition,lang:'english',
-    langReq:document.getElementById('au-langReq').value.trim(),
+    tuition:tuition,langReq:document.getElementById('au-langReq').value.trim(),
     notes:document.getElementById('au-notesf').value.trim(),
     video:document.getElementById('au-video').value.trim(),
-    logo:logoVal,
-    gpa:2.5,tags:tags,bg:BG[Math.floor(Math.random()*BG.length)],
+    logo:logoVal,gpa:2.5,tags:tags,bg:BG[Math.floor(Math.random()*BG.length)],
     docs:docs,saved:false,done:Array(docs.length).fill(false),photos:[],reviews:[]};
   unis.push(nu);
   try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');au.push(nu);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
   save();haptic();
-  // Reset form
-  ['au-name','au-country','au-city','au-flag','au-rank','au-program','au-langReq','au-tags','au-deadline','au-living','au-docs','au-notesf','au-video','au-logo-url'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
-  document.getElementById('au-photo-preview').innerHTML='<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:11px;color:var(--t2)">Tap to upload photo or logo</span>';
+  ['au-name','au-country','au-city','au-flag','au-rank','au-program','au-langReq','au-tags','au-deadline','au-deadline-from','au-living','au-docs','au-notesf','au-video','au-logo-url'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var prev=document.getElementById('au-photo-preview');
+  if(prev)prev.innerHTML='<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:11px;color:var(--t2)">Tap to upload</span>';
   toast(name+' added!');renderAdmin();
 }
 function adminSendAlert(){
@@ -1071,68 +1077,139 @@ function adminSendAlert(){
   toast('Alert sent!');renderAdmin();
 }
 
-// CONSULT
+// ── CONSULT ───────────────────────────────────────────
 var CIDS=[6737772798,7428221030];
-function renderConsult(){var sv=unis.filter(function(u){return u.saved;});var el=document.getElementById('cf-saved-unis');if(el)el.textContent=sv.length?sv.map(function(u){return u.flag+' '+u.name;}).join(', '):'-';}
 function sendToConsultant(){
   var name=document.getElementById('cf-name').value.trim();
   if(!name){toast('Please enter your name');return;}
   var lines=['New Student Application - Studify.uz','',
     'Name: '+name,'Age: '+(document.getElementById('cf-age').value||'-'),
     'Education: '+(document.getElementById('cf-edu').value||'-'),'GPA: '+(document.getElementById('cf-gpa').value||'-'),'',
-    'Language Certificates:','IELTS: '+(document.getElementById('cf-ielts').value||'-'),
-    'Duolingo: '+(document.getElementById('cf-duolingo').value||'-'),'TOPIK: '+(document.getElementById('cf-topik').value||'-'),
-    'Other: '+(document.getElementById('cf-other').value||'-'),'',
+    'IELTS: '+(document.getElementById('cf-ielts').value||'-'),'Duolingo: '+(document.getElementById('cf-duolingo').value||'-'),
+    'TOPIK: '+(document.getElementById('cf-topik').value||'-'),'Other: '+(document.getElementById('cf-other').value||'-'),'',
     'Country: '+(document.getElementById('cf-country').value||'Any'),'Field: '+(document.getElementById('cf-field').value||'-'),
     'Budget: '+(document.getElementById('cf-budget').value||'-'),'Level: '+(document.getElementById('cf-level').value||'Any'),'',
     'Saved unis: '+unis.filter(function(u){return u.saved;}).map(function(u){return u.flag+' '+u.name;}).join(', '),'',
     'Notes: '+(document.getElementById('cf-notes').value||'-'),'',
-    'Telegram: '+(_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user?('@'+(_TG.initDataUnsafe.user.username||'')+' ID:'+_TG.initDataUnsafe.user.id):'Unknown')
-  ];
+    'Telegram: '+(_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user?('@'+(_TG.initDataUnsafe.user.username||'')+' ID:'+_TG.initDataUnsafe.user.id):'Unknown')];
   var msg=lines.join('\n');
   var BOT='8484535195:AAHmzt6HZBYnVS8jLHxgzFC9D8SJo0PSCY0';
-  Promise.all(CIDS.map(function(cid){
-    return fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cid,text:msg})}).then(function(r){return r.json();});
-  })).then(function(res){
+  Promise.all(CIDS.map(function(cid){return fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cid,text:msg})}).then(function(r){return r.json();});}))
+  .then(function(res){
     if(res.some(function(d){return d.ok;})){
       toast('Sent! We will contact you soon');
-      try{var s=JSON.parse(localStorage.getItem('sf_stats')||'{}');s.consults=(s.consults||0)+1;localStorage.setItem('sf_stats',JSON.stringify(s));}catch(e){}
-      ['cf-name','cf-age','cf-gpa','cf-ielts','cf-duolingo','cf-topik','cf-other','cf-field','cf-notes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-    }else{toast('Error sending. Try again.');}
+      try{var st=JSON.parse(localStorage.getItem('sf_stats')||'{}');st.consults=(st.consults||0)+1;localStorage.setItem('sf_stats',JSON.stringify(st));}catch(e){}
+    }else{toast('Error. Try again.');}
   }).catch(function(){toast('Network error');});
 }
 
-// AI CHAT
-var AI_SYS='You are an expert study abroad advisor for Studify.uz, an Uzbek education agency. Help Uzbek and CIS students find universities in Europe and Asia. Respond in the same language the student uses (Uzbek, Russian, or English). Be warm, specific and helpful. Key facts: Italy has 19 partner universities with DSU scholarship up to 2500 EUR/yr, English track, Schengen visa. South Korea has 12 universities with scholarships up to 100%, E-visa available (no embassy visit). Latvia has 4 universities in Riga, Schengen. Germany: TU Munich, LMU, RWTH - tuition free. UK: 97% visa success. Hungary: Stipendium Hungaricum full scholarship for Uzbek students. Always end with a helpful follow-up question.';
+// ── APPLICATION FORMS (simple swap model) ─────────────
+var PROG_LABELS={general:'All Programs',bachelor:"Bachelor's",masters:"Master's",evisa:'E-visa',foundation:'Foundation',language:'Language',college:'College/Diploma',phd:'PhD',summer:'Summer Camp'};
+function detectProgType(u){
+  var p=(u.program||'').toLowerCase(),tags=(u.tags||[]).map(function(t){return t.toLowerCase();});
+  if(tags.some(function(t){return t.includes('e-visa');}))return 'evisa';
+  if(p.includes('phd')||p.includes('doctorate'))return 'phd';
+  if(p.includes('summer'))return 'summer';
+  if(p.includes('master'))return 'masters';
+  if(p.includes('bachelor'))return 'bachelor';
+  if(p.includes('foundation')||p.includes('pathway'))return 'foundation';
+  if(p.includes('language'))return 'language';
+  if(p.includes('college')||p.includes('diploma'))return 'college';
+  return 'general';
+}
+function getFormForUni(u){
+  if(!u)return null;
+  var active=appForms.filter(function(f){return f.country===u.country&&f.active;});
+  if(!active.length)return null;
+  var type=detectProgType(u);
+  return active.find(function(f){return f.type===type;})||active.find(function(f){return f.type==='general';})||active[0];
+}
+var _notionUrl='';
+function showApply(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  var form=getFormForUni(u);
+  if(!form){toast('Application form coming soon for '+u.country);return;}
+  _notionUrl=form.url;
+  document.getElementById('notionTitle').textContent=u.flag+' Apply - '+u.name;
+  var desc=u.country+' - '+(PROG_LABELS[form.type]||form.type);
+  if(form.note)desc=desc+' - '+form.note;
+  document.getElementById('notionDesc').textContent=desc+'. Fill in the form and our consultant will guide you within 24 hours.';
+  document.getElementById('notionOverlay').classList.add('on');
+  haptic('medium');
+}
+function openNotionLink(){if(_notionUrl)window.open(_notionUrl,'_blank');closeNotion();}
+function closeNotion(e){if(!e||e.target===document.getElementById('notionOverlay'))document.getElementById('notionOverlay').classList.remove('on');}
+function adminSaveForm(){
+  var country=document.getElementById('af-country').value,type=document.getElementById('af-type').value||'general';
+  var url=document.getElementById('af-url').value.trim(),note=document.getElementById('af-note').value.trim();
+  if(!country){toast('Select a country');return;}
+  if(!url||!url.startsWith('http')){toast('Enter a valid URL starting with http');return;}
+  appForms.forEach(function(f){if(f.country===country&&f.type===type)f.active=false;});
+  appForms.push({id:Date.now(),country:country,type:type,url:url,note:note,active:true,updatedAt:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})});
+  saveForms();
+  document.getElementById('af-country').value='';document.getElementById('af-url').value='';document.getElementById('af-note').value='';
+  toast(country+' form saved ✅');renderAdmin();
+}
+function adminDeleteForm(id){
+  if(!confirm('Delete this form?'))return;
+  appForms=appForms.filter(function(f){return f.id!==id;});
+  saveForms();renderAdmin();toast('Deleted');
+}
+function renderFormsAdmin(){
+  var el=document.getElementById('adminFormsList');if(!el)return;
+  var active=appForms.filter(function(f){return f.active;});
+  if(!active.length){el.innerHTML='<div style="font-size:11px;color:var(--t2);padding:8px 0;text-align:center">No forms added yet.</div>';return;}
+  var byCountry={};
+  active.forEach(function(f){if(!byCountry[f.country])byCountry[f.country]=[];byCountry[f.country].push(f);});
+  el.innerHTML=Object.keys(byCountry).sort().map(function(country){
+    return '<div style="background:var(--sf);border-radius:11px;padding:10px 12px;border:.5px solid var(--br);margin-bottom:8px">'
+      +'<div style="font-size:12px;font-weight:800;margin-bottom:6px">'+country+'</div>'
+      +byCountry[country].map(function(f){
+        return '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:.5px solid var(--br)">'
+          +'<div style="flex:1;min-width:0"><span style="font-size:11px;font-weight:700">'+(PROG_LABELS[f.type]||f.type)+'</span>'
+          +(f.note?'<div style="font-size:10px;color:var(--t2)">'+f.note+'</div>':'')
+          +'<div style="font-size:10px;color:var(--brand);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px">'+f.url+'</div></div>'
+          +'<button onclick="adminDeleteForm('+f.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;margin-left:8px">Del</button>'
+          +'</div>';
+      }).join('')+'</div>';
+  }).join('');
+}
+
+// ── AI CHAT ───────────────────────────────────────────
+var AI_SYS='You are an expert study abroad advisor for Studify.uz, an Uzbek education agency. Help Uzbek and CIS students find universities in Europe and Asia. CRITICAL: Always respond in the SAME LANGUAGE the student uses. If they write Uzbek respond in Uzbek. If Russian respond in Russian. If English respond in English. Be warm, specific and helpful. Italy: 19 universities DSU scholarship up to EUR2500/yr English programs Schengen visa. Korea: 12 universities 100% scholarships E-visa available. Latvia: 4 universities Riga Schengen. Germany: TU Munich LMU RWTH tuition free. Hungary: Stipendium Hungaricum full scholarship. Always end with a follow-up question.';
 function fbAI(inp){
-  var lo=inp.toLowerCase();
-  if(lo.includes('italy')||lo.includes('italiya'))return 'Italy is our top destination! 19 partner universities with DSU scholarships covering housing and food (up to 2,500 EUR/year). All have English programs. Deadlines are April-July 2025.\n\nWhat field would you like to study?';
-  if(lo.includes('korea')||lo.includes('koreya'))return 'South Korea is excellent! 12 partner universities with scholarships up to 100%. Some offer E-visa - no embassy visit needed!\n\nDo you have IELTS or would you prefer a no-language-test option?';
-  if(lo.includes('free')||lo.includes('bepul')||lo.includes('besp'))return 'Tuition-free options:\n\nGermany - TU Munich, LMU, RWTH Aachen. Free but need IELTS 6.5+\nSouth Korea - up to 100% scholarship\nHungary - Stipendium Hungaricum full scholarship\nItaly - DSU covers 2,500 EUR/yr of costs\n\nWhat is your current GPA?';
-  if(lo.includes('budget')||lo.includes('cheap')||lo.includes('arzon'))return 'Best budget options:\n\n1. Italy - 2,500 EUR/yr + DSU covers living costs\n2. Latvia - 3,500 EUR/yr in Riga\n3. Poland - 2,000 EUR/yr, easy EU visa\n4. South Korea - 1,500 USD/yr with scholarship\n\nWhat field do you want to study?';
-  if(lo.includes('visa')||lo.includes('easy'))return 'Easiest visas for Uzbek students:\n\nSouth Korea E-visa - completely online, no embassy visit!\nItaly - Type D Schengen, good approval rate\nLatvia - Schengen, straightforward process\nHungary - EU, Stipendium covers everything\n\nWhich country interests you?';
-  return 'I can help you find the perfect university! Tell me:\n\n1. What field do you want to study?\n2. What is your budget per year?\n3. Do you have IELTS or other language certificate?\n\nOr just ask about any specific country or university!';
+  var lo=inp.toLowerCase(),lang=curLang||'en';
+  var italy={en:'Italy is our top destination! 19 partner universities with DSU scholarships (up to EUR 2,500/year covering housing and food). All have English programs. Deadlines April-July.\n\nWhat field would you like to study?',uz:"Italiya eng mashhur yo'nalishimiz! 19 ta hamkor universitet, DSU stipendiyasi (yiliga 2500 EUR gacha, turar joy va ovqat). Barchasi ingliz tilida.\n\nQaysi sohada o'qimoqchisiz?",ru:'Италия — наш топ-выбор! 19 университетов-партнёров, стипендия DSU (до EUR 2500/год). Все с английскими программами.\n\nКакую специальность хотите изучать?'};
+  var korea={en:'South Korea is excellent! 12 partner universities with scholarships up to 100%. E-visa available — no embassy visit needed!\n\nDo you have IELTS?',uz:"Janubiy Koreya ajoyib! 12 ta hamkor universitetda 100% gacha stipendiya. E-viza bor — elchixonasiz!\n\nIELTS bor?",ru:'Южная Корея — отличный выбор! 12 университетов, стипендии до 100%. E-visa без посольства!\n\nЕсть IELTS?'};
+  var free={en:'Tuition-free options:\n\nGermany — TU Munich, LMU, RWTH. Free but need IELTS 6.5+\nSouth Korea — up to 100% scholarship\nHungary — Stipendium Hungaricum full scholarship\nItaly — DSU covers EUR 2,500/yr\n\nWhat is your current GPA?',uz:"Bepul ta'lim:\n\nGermaniya — TU Munich, LMU, RWTH. Bepul, IELTS 6.5+ kerak\nJanubiy Koreya — 100% gacha stipendiya\nVengriya — Stipendium Hungaricum to'liq stipendiya\nItaliya — DSU 2500 EUR yopadi\n\nGPAingiz qancha?",ru:'Без оплаты за обучение:\n\nГермания — TU Munich, LMU, RWTH. Бесплатно, нужен IELTS 6.5+\nЮжная Корея — до 100% стипендии\nВенгрия — Stipendium Hungaricum полная стипендия\nИталия — DSU покрывает EUR 2500/год\n\nКакой у вас GPA?'};
+  var budget={en:'Best budget options:\n\n1. Italy — EUR 2,500/yr + DSU covers living costs\n2. Latvia — EUR 3,500/yr in Riga\n3. Poland — EUR 2,000/yr, easy EU visa\n4. South Korea — USD 1,500/yr with scholarship\n\nWhat field interests you?',uz:"Byudjetga mos:\n\n1. Italiya — 2500 EUR/yil + DSU yashash xarajatlarini yopadi\n2. Latviya — 3500 EUR/yil, Riga\n3. Polsha — 2000 EUR/yil, oson EU vizasi\n4. Janubiy Koreya — stipendiya bilan 1500 USD/yil\n\nQaysi soha?",ru:'Бюджетные варианты:\n\n1. Италия — EUR 2500/год + DSU покрывает расходы\n2. Латвия — EUR 3500/год в Риге\n3. Польша — EUR 2000/год, лёгкая виза\n4. Южная Корея — USD 1500/год со стипендией\n\nКакое направление?'};
+  var dflt={en:'I can help you find the perfect university!\n\n1. What field do you want to study?\n2. What is your budget per year?\n3. Do you have IELTS?\n\nOr ask about any country!',uz:"Sizga eng yaxshi universitetni topishga yordam beraman!\n\n1. Qaysi sohada o'qimoqchisiz?\n2. Yillik byudjetingiz?\n3. IELTS bor?\n\nYoki istalgan mamlakat haqida so'rang!",ru:'Помогу найти идеальный университет!\n\n1. Какую специальность хотите?\n2. Какой бюджет в год?\n3. Есть IELTS?\n\nИли спросите о любой стране!'};
+  if(lo.includes('italy')||lo.includes('italiya')||lo.includes('итали'))return italy[lang]||italy.en;
+  if(lo.includes('korea')||lo.includes('koreya')||lo.includes('корея'))return korea[lang]||korea.en;
+  if(lo.includes('free')||lo.includes('bepul')||lo.includes('бесплат')||lo.includes('tuition'))return free[lang]||free.en;
+  if(lo.includes('budget')||lo.includes('cheap')||lo.includes('arzon')||lo.includes('бюджет')||lo.includes('дешев'))return budget[lang]||budget.en;
+  return dflt[lang]||dflt.en;
 }
 function callAI(msg){
   return new Promise(function(resolve){
     var hist=chatH.slice(-8).map(function(m){return {role:m.role==='ai'?'assistant':'user',content:m.text};});
-    fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+    fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:AI_SYS,messages:hist.concat([{role:'user',content:msg}])})
     }).then(function(r){return r.json();}).then(function(d){
-      if(d.content&&d.content[0])resolve(d.content[0].text);
-      else resolve(fbAI(msg));
+      resolve((d.content&&d.content[0])?d.content[0].text:fbAI(msg));
     }).catch(function(){resolve(fbAI(msg));});
   });
 }
-function initAI(){addMsg('Hi! I am your Studify.uz AI Study Advisor.\n\nI help Uzbek and CIS students find the perfect university in Europe and Asia.\n\nWhat would you like to know?','ai');}
+function initAI(){
+  var greet={en:'Hi! I am your Studify.uz AI Study Advisor.\n\nI help Uzbek and CIS students find the perfect university in Europe and Asia.\n\nWhat would you like to know?',
+    uz:"Salom! Men Studify.uz AI Maslahatchisman.\n\nO'zbekiston va MDH talabalariga Evropa va Osiyodagi eng yaxshi universitetni topishda yordam beraman.\n\nNimani bilmoqchisiz?",
+    ru:'Привет! Я ваш ИИ-советник Studify.uz.\n\nПомогаю студентам из Узбекистана и СНГ найти идеальный университет в Европе и Азии.\n\nЧто хотите узнать?'};
+  addMsg((greet[curLang]||greet.en),'ai');
+}
 function addMsg(text,role){
   var el=document.createElement('div');el.className='msg msg-'+(role||'ai');
-  if(role==='ai'||!role){
-    var f=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').split('\n').join('<br>');
-    el.innerHTML='<div class="mlbl">Studify AI</div>'+f;
-  }else{el.textContent=text;}
+  if(role==='ai'||!role){var f=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').split('\n').join('<br>');el.innerHTML='<div class="mlbl">Studify AI</div>'+f;}
+  else{el.textContent=text;}
   document.getElementById('msgs').appendChild(el);
   document.getElementById('msgs').scrollTop=99999;
   chatH.push({role:role||'ai',text:text});
@@ -1149,225 +1226,7 @@ function doSend(){
   callAI(text).then(function(r){hideTyping();addMsg(r,'ai');});
 }
 
-
-// NOTION APPLICATION FORMS - update these URLs with your real Notion form links
-var NOTION_FORMS={
-  'Italy':'https://www.notion.so/studify-apply-italy',
-  'South Korea':'https://www.notion.so/studify-apply-korea',
-  'Latvia':'https://www.notion.so/studify-apply-latvia',
-  'Netherlands':'https://www.notion.so/studify-apply-netherlands',
-  'UK':'https://www.notion.so/studify-apply-uk',
-  'USA':'https://www.notion.so/studify-apply-usa',
-  'Germany':'https://www.notion.so/studify-apply-germany',
-  'Poland':'https://www.notion.so/studify-apply-poland',
-  'Hungary':'https://www.notion.so/studify-apply-hungary',
-  'Czech Republic':'https://www.notion.so/studify-apply-czech'
-};
-
-function openApply(uniId){
-  var u=unis.find(function(x){return x.id===uniId;});
-  if(!u)return;
-  var url=NOTION_FORMS[u.country]||'https://notion.so';
-  // Show apply modal
-  var modal=document.getElementById('applyModal');
-  document.getElementById('applyModalTitle').textContent='Apply to '+u.name;
-  document.getElementById('applyModalCountry').textContent=u.flag+' '+u.country;
-  document.getElementById('applyModalDeadline').textContent=u.deadline?new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'Check university website';
-  document.getElementById('applyModalBtn').onclick=function(){window.open(url,'_blank');};
-  modal.classList.add('on');
-  haptic('medium');
-}
-function closeApply(){document.getElementById('applyModal').classList.remove('on');}
-
-
-// ── NOTION APPLICATION FORMS ──
-// Add your Notion form links here per country
-var NOTION_FORMS = {
-  'Italy':         'NOTION_ITALY_FORM_URL',
-  'South Korea':   'NOTION_KOREA_FORM_URL',
-  'Latvia':        'NOTION_LATVIA_FORM_URL',
-  'Germany':       'NOTION_GERMANY_FORM_URL',
-  'UK':            'NOTION_UK_FORM_URL',
-  'Netherlands':   'NOTION_NETHERLANDS_FORM_URL',
-  'Poland':        'NOTION_POLAND_FORM_URL',
-  'Hungary':       'NOTION_HUNGARY_FORM_URL',
-  'Czech Republic':'NOTION_CZECH_FORM_URL',
-  'USA':           'NOTION_USA_FORM_URL',
-  'default':       'NOTION_DEFAULT_FORM_URL'
-};
-var _notionUrl = '';
-
-
-function openNotionLink(){
-  if(_notionUrl){
-    window.open(_notionUrl,'_blank');
-    closeNotion();
-  }
-}
-function closeNotion(e){
-  if(!e||e.target===document.getElementById('notionOverlay'))
-    document.getElementById('notionOverlay').classList.remove('on');
-}
-
-
-// ═══════════════════════════════════════════════
-// APPLICATION FORMS - Simple: Country + Program
-// Stored in localStorage. Managed via Admin panel.
-// ═══════════════════════════════════════════════
-
-// Load forms from storage
-var appForms = JSON.parse(localStorage.getItem('sf_forms') || '[]');
-
-function saveForms(){
-  localStorage.setItem('sf_forms', JSON.stringify(appForms));
-}
-
-// Program type labels (also used as filter keys)
-var PROG_LABELS = {
-  'general':      'All Programs',
-  'bachelor':     "Bachelor's",
-  'masters':      "Master's",
-  'foundation':   'Foundation / Pathway',
-  'language':     'Language Course',
-  'college':      'College / Diploma',
-  'phd':          'PhD / Doctorate',
-  'summer':       'Summer Camp',
-  'evisa':        'E-visa Programs'
-};
-
-// Detect program type from a university object
-function detectProgType(u){
-  var prog = (u.program||'').toLowerCase();
-  var tags = (u.tags||[]).map(function(t){return t.toLowerCase();});
-  var hasEvisa = tags.some(function(t){return t.includes('e-visa');});
-  if(hasEvisa) return 'evisa';
-  if(prog.includes('phd')||prog.includes('doctorate')) return 'phd';
-  if(prog.includes('summer')) return 'summer';
-  if(prog.includes('master')) return 'masters';
-  if(prog.includes('bachelor')) return 'bachelor';
-  if(prog.includes('foundation')||prog.includes('pathway')) return 'foundation';
-  if(prog.includes('language')) return 'language';
-  if(prog.includes('college')||prog.includes('diploma')) return 'college';
-  return 'general';
-}
-
-// Get the active form for a university (country + best type match)
-function getFormForUni(u){
-  if(!u) return null;
-  var country = u.country;
-  var progType = detectProgType(u);
-  var countryForms = appForms.filter(function(f){
-    return f.country === country && f.active;
-  });
-  if(!countryForms.length) return null;
-  // Exact match first, then general fallback
-  return countryForms.find(function(f){return f.type===progType;})
-      || countryForms.find(function(f){return f.type==='general';})
-      || countryForms[0];
-}
-
-// ADMIN: Save or replace a form
-function adminSaveForm(){
-  var country = document.getElementById('af-country').value;
-  var type    = document.getElementById('af-type').value || 'general';
-  var url     = document.getElementById('af-url').value.trim();
-  var note    = document.getElementById('af-note').value.trim();
-  if(!country){ toast('Select a country'); return; }
-  if(!url||!url.startsWith('http')){ toast('Enter a valid URL'); return; }
-
-  // Swap: deactivate any existing form for same country + type
-  appForms.forEach(function(f){
-    if(f.country===country && f.type===type) f.active = false;
-  });
-
-  // Add the new active form
-  appForms.push({
-    id: Date.now(),
-    country: country,
-    type: type,
-    url: url,
-    note: note,
-    active: true,
-    updatedAt: new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})
-  });
-
-  saveForms();
-  document.getElementById('af-country').value = '';
-  document.getElementById('af-url').value = '';
-  document.getElementById('af-note').value = '';
-  toast(country + ' form saved ✅');
-  renderAdmin();
-}
-
-// ADMIN: Delete a form entry
-function adminDeleteForm(id){
-  if(!confirm('Delete this form?')) return;
-  appForms = appForms.filter(function(f){return f.id!==id;});
-  saveForms(); renderAdmin(); toast('Deleted');
-}
-
-// ADMIN: Render the forms list inside Admin panel
-function renderFormsAdmin(){
-  var el = document.getElementById('adminFormsList');
-  if(!el) return;
-
-  var active = appForms.filter(function(f){return f.active;});
-
-  if(!active.length){
-    el.innerHTML = '<div style="font-size:11px;color:var(--t2);padding:8px 0;text-align:center">No forms added yet. Add one above.</div>';
-    return;
-  }
-
-  // Group by country
-  var byCountry = {};
-  active.forEach(function(f){
-    if(!byCountry[f.country]) byCountry[f.country] = [];
-    byCountry[f.country].push(f);
-  });
-
-  el.innerHTML = Object.keys(byCountry).sort().map(function(country){
-    var forms = byCountry[country];
-    var rows = forms.map(function(f){
-      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:.5px solid var(--br)">'
-        + '<div style="flex:1;min-width:0">'
-        + '<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">'
-        + '<span style="font-size:11px;font-weight:700">'+(PROG_LABELS[f.type]||f.type)+'</span>'
-        + '<span style="font-size:10px;color:var(--t3)">Updated '+f.updatedAt+'</span>'
-        + '</div>'
-        + (f.note ? '<div style="font-size:10px;color:var(--t2);margin-top:1px">'+f.note+'</div>' : '')
-        + '<div style="font-size:10px;color:var(--brand);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px">'+f.url+'</div>'
-        + '</div>'
-        + '<button onclick="adminDeleteForm('+f.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;margin-left:8px">Del</button>'
-        + '</div>';
-    }).join('');
-    return '<div style="background:var(--sf);border-radius:11px;padding:10px 12px;border:.5px solid var(--br);margin-bottom:8px">'
-      + '<div style="font-size:12px;font-weight:800;margin-bottom:6px">'+country+'</div>'
-      + rows
-      + '</div>';
-  }).join('');
-}
-
-// Show apply modal - picks the right form automatically
-function showApply(id){
-  var u = unis.find(function(x){return x.id===id;});
-  if(!u) return;
-  var form = getFormForUni(u);
-  if(!form){
-    toast('Application form coming soon for '+u.country);
-    return;
-  }
-  _notionUrl = form.url;
-  var progLabel = PROG_LABELS[form.type] || form.type;
-  document.getElementById('notionTitle').textContent = u.flag + ' Apply - ' + u.name;
-  var desc = u.country + ' - ' + progLabel;
-  if(form.note) desc = desc + ' - ' + form.note;
-  desc = desc + '. Fill in the form and our consultant will guide you within 24 hours.';
-  document.getElementById('notionDesc').textContent = desc;
-    document.getElementById('notionOverlay').classList.add('on');
-  haptic('medium');
-}
-
-// BOOT
+// ── BOOT ──────────────────────────────────────────────
 if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',function(){setTimeout(initApp,50);});
 }else{
