@@ -34,9 +34,6 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .scroller{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .pg{display:none;padding:12px 12px calc(68px + env(safe-area-inset-bottom,0px))}
 .pg.on{display:block}
-.pg-flush{display:none;padding:0}
-.pg-flush.on{display:block}
-.gap{display:flex;flex-direction:column;gap:10px}
 .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:4px}
 .sc{background:var(--sf);border-radius:12px;padding:11px 8px;text-align:center;border:.5px solid var(--br)}
 .sn{font-size:20px;font-weight:700;color:var(--brand)}
@@ -56,7 +53,8 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .xbtn{padding:10px 14px;width:100%;border:none;background:var(--bl);color:var(--bd);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border-top:.5px solid rgba(255,107,53,.15);text-align:left;display:block}
 .uc{background:var(--sf);border-radius:var(--r);padding:13px;border:.5px solid var(--br);margin-bottom:10px}
 .ut{display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
-.uf{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.uf{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden;background:var(--bl)}
+.uf img{width:100%;height:100%;object-fit:cover;border-radius:11px}
 .ui{flex:1;min-width:0}
 .un{font-size:13px;font-weight:700;line-height:1.3}
 .ul{font-size:11px;color:var(--t2);margin-top:2px}
@@ -77,8 +75,10 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .req-pill{font-size:10px;color:var(--t2);background:var(--sf2);border:.5px solid var(--br);border-radius:20px;padding:2px 7px}
 .uni-note{font-size:11px;color:var(--t2);line-height:1.5;margin-top:6px;padding:7px 9px;background:var(--sf2);border-radius:8px;border-left:3px solid var(--brand)}
 .detail-btn{width:100%;padding:9px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px}
+.apply-btn{width:100%;padding:10px;background:var(--ok);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:6px}
 .dc{background:var(--sf);border-radius:var(--r);padding:11px;border:.5px solid var(--br);display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
-.df{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.df{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden;background:var(--bl)}
+.df img{width:100%;height:100%;object-fit:cover;border-radius:10px}
 .db{flex:1;min-width:0}.dn{font-size:12px;font-weight:700}.dp{font-size:11px;color:var(--t2);margin-top:1px}
 .dpr{margin-top:6px}.dpt{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-bottom:3px}
 .pbar{height:3px;background:#eee;border-radius:3px;overflow:hidden}.pfill{height:100%;border-radius:3px;transition:width .4s}
@@ -97,6 +97,8 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .fbar::-webkit-scrollbar{display:none}
 .fpill{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
 .fpill.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.cpill{flex-shrink:0;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
+.cpill.on{background:#1A1207;color:#fff;border-color:#1A1207}
 .cf-label{font-size:11px;font-weight:700;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
 .send-btn{padding:13px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
 .adm-inp{width:100%;padding:9px 12px;border:.5px solid var(--br);border-radius:9px;font-size:12px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none}
@@ -104,14 +106,20 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .anl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 .anl-card{background:var(--sf2);border-radius:10px;padding:10px;border:.5px solid var(--br);text-align:center}
 .anl-num{font-size:20px;font-weight:700;color:var(--brand)}.anl-lbl{font-size:10px;color:var(--t2);font-weight:600;margin-top:2px}
-.aip{display:none;flex-direction:column;flex:1;overflow:hidden;background:var(--bg)}
-.aip.on{display:flex}
+/* photo upload in admin */
+.photo-upload-box{border:2px dashed var(--br);border-radius:12px;padding:16px;text-align:center;cursor:pointer;margin-bottom:4px;transition:border-color .15s}
+.photo-upload-box:hover{border-color:var(--brand)}
+.photo-upload-box input{display:none}
+.photo-preview{width:60px;height:60px;border-radius:10px;object-fit:cover;border:.5px solid var(--br)}
+/* AI page */
+.aip{display:none;flex-direction:column;height:100%;overflow:hidden;background:var(--bg);padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
+.aip.on{display:flex;top:0;bottom:calc(56px + env(safe-area-inset-bottom,0px))}
 .aih{padding:12px 14px;border-bottom:.5px solid var(--br);background:var(--sf);flex-shrink:0}
 .aih-t{font-size:14px;font-weight:700}.aih-s{font-size:11px;color:var(--t2);margin-top:2px}
 .sugrow{display:flex;gap:5px;overflow-x:auto;padding:8px 12px;scrollbar-width:none;flex-shrink:0;border-bottom:.5px solid var(--br);background:var(--sf)}
 .sugrow::-webkit-scrollbar{display:none}
 .sug{flex-shrink:0;padding:6px 12px;border-radius:20px;border:.5px solid var(--brand);background:var(--bl);color:var(--bd);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
-.msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.msgs{flex:1;overflow-y:auto;padding:12px;padding-bottom:8px;display:flex;flex-direction:column;gap:8px}
 .msg{max-width:88%;border-radius:14px;padding:10px 13px;font-size:12px;line-height:1.6;word-break:break-word}
 .msg-ai{align-self:flex-start;background:var(--sf);border:.5px solid var(--br)}
 .msg-u{align-self:flex-end;background:var(--brand);color:#fff}
@@ -120,11 +128,13 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .td{width:6px;height:6px;border-radius:50%;background:var(--t3);animation:bl 1.2s infinite}
 .td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
 @keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
-.cinp{display:flex;gap:7px;align-items:flex-end;padding:8px 10px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));background:var(--sf);border-top:.5px solid var(--br);flex-shrink:0}
-.cinput{flex:1;padding:9px 12px;border:.5px solid var(--br);border-radius:12px;font-size:13px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none;resize:none;max-height:80px;line-height:1.4}
+/* AI input bar */
+.cinp{display:flex;gap:7px;align-items:flex-end;padding:10px 12px;background:var(--sf);border-top:.5px solid var(--br);flex-shrink:0}
+.cinput{flex:1;padding:10px 14px;border:1.5px solid var(--br);border-radius:22px;font-size:13px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none;resize:none;max-height:80px;line-height:1.4;transition:border-color .15s}
 .cinput:focus{border-color:var(--brand)}
-.csend{width:36px;height:36px;border-radius:10px;background:var(--brand);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.csend svg{width:15px;height:15px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.csend{width:38px;height:38px;border-radius:50%;background:var(--brand);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s}
+.csend:active{background:var(--bd)}
+.csend svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .bnav{position:absolute;bottom:0;left:0;right:0;background:var(--sf);border-top:.5px solid var(--br);display:flex;padding:6px 0 calc(10px + env(safe-area-inset-bottom,0px));z-index:50}
 .ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:3px 0}
 .nic{width:22px;height:22px;display:flex;align-items:center;justify-content:center;position:relative}
@@ -135,9 +145,30 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .empty{display:flex;flex-direction:column;align-items:center;gap:9px;padding:40px 18px;text-align:center}
 .ei{width:52px;height:52px;border-radius:15px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:24px}
 .et{font-size:14px;font-weight:700}.es{font-size:12px;color:var(--t2);line-height:1.5}
+.notion-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.notion-overlay.on{display:flex}
+.notion-sheet{background:var(--sf);border-radius:18px 18px 0 0;width:100%;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
+.notion-sheet-t{font-size:16px;font-weight:700;text-align:center}
+.notion-sheet-s{font-size:12px;color:var(--t2);text-align:center;line-height:1.5}
+.notion-open-btn{padding:14px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.notion-close-btn{padding:12px;background:var(--sf2);color:var(--t2);border:.5px solid var(--br);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%}
 .toast{position:absolute;top:14px;left:50%;transform:translateX(-50%) translateY(-80px);background:#1A1207;color:#fff;padding:9px 18px;border-radius:20px;font-size:12px;font-weight:700;z-index:999;transition:transform .3s;white-space:nowrap;pointer-events:none}
 .toast.on{transform:translateX(-50%) translateY(0)}
-/* DETAIL PAGE */
+
+/* Apply Modal */
+.modal-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.on{display:flex}
+.modal-box{background:var(--sf);border-radius:20px 20px 0 0;padding:20px;width:100%;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.modal-handle{width:36px;height:4px;background:var(--br);border-radius:2px;margin:0 auto 16px}
+.modal-title{font-size:16px;font-weight:800;margin-bottom:4px}
+.modal-sub{font-size:12px;color:var(--t2);margin-bottom:16px;line-height:1.5}
+.modal-info{background:var(--sf2);border-radius:12px;padding:12px;margin-bottom:16px;display:flex;flex-direction:column;gap:8px}
+.modal-info-row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.modal-info-label{color:var(--t2);font-weight:600}
+.modal-info-val{font-weight:700}
+.apply-btn{width:100%;padding:14px;background:var(--brand);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.modal-cancel{width:100%;padding:11px;background:transparent;color:var(--t2);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
+
 .det{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:100;display:none;flex-direction:column;overflow:hidden}
 .det.on{display:flex}
 .det-hdr{background:var(--brand);padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top,12px));display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -151,10 +182,6 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .vid-ph{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a1207,#3d2b1f)}
 .vid-ph svg{width:38px;height:38px;fill:rgba(255,255,255,.25)}.vid-ph span{font-size:11px;color:rgba(255,255,255,.4);font-weight:600}
-.photos-row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
-.photos-row::-webkit-scrollbar{display:none}
-.photo-card{flex-shrink:0;width:110px;height:75px;border-radius:10px;background:var(--sf2);border:.5px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden}
-.photo-card img{width:100%;height:100%;object-fit:cover}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .ic{background:var(--sf);border-radius:11px;padding:10px 11px;border:.5px solid var(--br)}
 .ic-l{font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
@@ -178,7 +205,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   </div>
   <div class="sbox">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input id="srch" type="text" placeholder="Search universities, countries..." oninput="onSearch(this.value)">
+    <input id="srch" type="text" placeholder="Search universities..." oninput="onSearch()">
   </div>
 </div>
 <div class="tabs">
@@ -208,14 +235,39 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   </div>
   <div class="pg" id="pg-countries"><div id="cList"></div></div>
   <div class="pg" id="pg-explore" style="padding:0">
-    <div class="fbar">
-      <button class="fpill on" onclick="setFilter('all',this)">All</button>
-      <button class="fpill" onclick="setFilter('open',this)">Open</button>
-      <button class="fpill" onclick="setFilter('schol',this)">Scholarship</button>
-      <button class="fpill" onclick="setFilter('evisa',this)">E-visa</button>
-      <button class="fpill" onclick="setFilter('free',this)">Free/Low</button>
-      <button class="fpill" onclick="setFilter('masters',this)">Masters</button>
-      <button class="fpill" onclick="setFilter('bachelor',this)">Bachelor</button>
+    <!-- Filter section -->
+    <div style="background:var(--sf);border-bottom:.5px solid var(--br)">
+      <!-- Row 1: Type filter -->
+      <div class="fbar" style="padding-bottom:5px;border-bottom:.5px solid var(--br)">
+        <button class="fpill on" onclick="setFilter('all',this)">All</button>
+        <button class="fpill" onclick="setFilter('open',this)">Open</button>
+        <button class="fpill" onclick="setFilter('schol',this)">Scholarship</button>
+        <button class="fpill" onclick="setFilter('evisa',this)">E-visa</button>
+        <button class="fpill" onclick="setFilter('free',this)">Free/Low</button>
+        <button class="fpill" onclick="setFilter('bachelor',this)">Bachelor</button>
+        <button class="fpill" onclick="setFilter('masters',this)">Masters</button>
+        <button class="fpill" onclick="setFilter('foundation',this)">Foundation</button>
+        <button class="fpill" onclick="setFilter('language',this)">Language</button>
+        <button class="fpill" onclick="setFilter('college',this)">College/Diploma</button>
+        <button class="fpill" onclick="setFilter('phd',this)">PhD</button>
+        <button class="fpill" onclick="setFilter('summer',this)">Summer Camp</button>
+      </div>
+      <!-- Row 2: Country filter -->
+      <div class="fbar" style="padding-top:5px">
+        <button class="cpill on" onclick="setCFilter('all',this)">All Countries</button>
+        <button class="cpill" onclick="setCFilter('Italy',this)">🇮🇹 Italy</button>
+        <button class="cpill" onclick="setCFilter('South Korea',this)">🇰🇷 Korea</button>
+        <button class="cpill" onclick="setCFilter('Latvia',this)">🇱🇻 Latvia</button>
+        <button class="cpill" onclick="setCFilter('Germany',this)">🇩🇪 Germany</button>
+        <button class="cpill" onclick="setCFilter('UK',this)">🇬🇧 UK</button>
+        <button class="cpill" onclick="setCFilter('Netherlands',this)">🇳🇱 Netherlands</button>
+        <button class="cpill" onclick="setCFilter('Poland',this)">🇵🇱 Poland</button>
+        <button class="cpill" onclick="setCFilter('Hungary',this)">🇭🇺 Hungary</button>
+        <button class="cpill" onclick="setCFilter('Czech Republic',this)">🇨🇿 Czech Rep.</button>
+        <button class="cpill" onclick="setCFilter('USA',this)">🇺🇸 USA</button>
+      </div>
+      <!-- Result count -->
+      <div id="exploreCount" style="font-size:11px;color:var(--t2);padding:4px 14px 8px;font-weight:600"></div>
     </div>
     <div id="eList" style="padding:12px 12px calc(68px + env(safe-area-inset-bottom,0px))"></div>
   </div>
@@ -226,20 +278,20 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
     <div style="background:var(--sf);border-radius:var(--r);border:.5px solid var(--br);overflow:hidden">
       <div style="background:var(--brand);padding:13px 15px;color:#fff;font-size:14px;font-weight:700">Free Consultation</div>
       <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
-        <div style="font-size:11px;color:var(--t2);line-height:1.6;background:var(--bl);border-radius:10px;padding:10px 12px">Our expert consultants will review your profile and contact you within 24 hours with a personalised plan — completely free.</div>
-        <div><div class="cf-label" id="lbl-fullname">Full Name</div><input class="adm-inp" id="cf-name" placeholder="Your full name"></div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.6;background:var(--bl);border-radius:10px;padding:10px 12px">Our expert consultants will review your profile and contact you within 24 hours — completely free.</div>
+        <div><div class="cf-label">Full Name *</div><input class="adm-inp" id="cf-name" placeholder="Your full name"></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div><div class="cf-label" id="lbl-age">Age</div><input class="adm-inp" id="cf-age" type="number" placeholder="e.g. 20"></div>
-          <div><div class="cf-label" id="lbl-gpa">GPA / Score</div><input class="adm-inp" id="cf-gpa" placeholder="e.g. 85%"></div>
+          <div><div class="cf-label">Age</div><input class="adm-inp" id="cf-age" type="number" placeholder="e.g. 20"></div>
+          <div><div class="cf-label">GPA</div><input class="adm-inp" id="cf-gpa" placeholder="e.g. 85%"></div>
         </div>
-        <div><div class="cf-label" id="lbl-edu">Education Level</div>
+        <div><div class="cf-label">Education Level</div>
           <select class="adm-inp" id="cf-edu">
             <option value="">Select...</option>
             <option>High School (11th grade)</option><option>High School Graduate</option>
             <option>Bachelor's Student</option><option>Bachelor's Graduate</option><option>Master's Graduate</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-certs">Language Certificates</div>
+        <div><div class="cf-label">Language Certificates</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <input class="adm-inp" id="cf-ielts" placeholder="IELTS e.g. 6.5">
             <input class="adm-inp" id="cf-duolingo" placeholder="Duolingo e.g. 110">
@@ -249,7 +301,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
             <input class="adm-inp" id="cf-other" placeholder="Other cert">
           </div>
         </div>
-        <div><div class="cf-label" id="lbl-cntry">Preferred Country</div>
+        <div><div class="cf-label">Preferred Country</div>
           <select class="adm-inp" id="cf-country">
             <option value="">Any / Not sure</option>
             <option>Italy</option><option>South Korea</option><option>Latvia</option>
@@ -257,27 +309,27 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
             <option>Germany</option><option>Poland</option><option>Hungary</option><option>Czech Republic</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-field">Field of Study</div><input class="adm-inp" id="cf-field" placeholder="e.g. Business, Engineering, IT..."></div>
-        <div><div class="cf-label" id="lbl-budget">Yearly Budget</div>
+        <div><div class="cf-label">Field of Study</div><input class="adm-inp" id="cf-field" placeholder="e.g. Business, Engineering, IT..."></div>
+        <div><div class="cf-label">Budget / Year</div>
           <select class="adm-inp" id="cf-budget">
             <option value="">Select range...</option>
             <option>Under $5,000/year</option><option>$5,000 - $10,000/year</option>
             <option>$10,000 - $20,000/year</option><option>Over $20,000/year</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-lvl">Program Level</div>
+        <div><div class="cf-label">Program Level</div>
           <select class="adm-inp" id="cf-level">
             <option value="">Any</option><option>Bachelor's</option><option>Master's</option><option>Foundation</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-saved">Saved Universities</div>
+        <div><div class="cf-label">Saved Universities</div>
           <div id="cf-saved-unis" style="font-size:11px;color:var(--t2);padding:9px 11px;background:var(--sf2);border-radius:9px;border:.5px solid var(--br)">-</div>
         </div>
-        <div><div class="cf-label" id="lbl-notes">Notes</div>
+        <div><div class="cf-label">Notes</div>
           <textarea class="adm-inp" id="cf-notes" rows="2" placeholder="Anything else..." style="resize:none"></textarea>
         </div>
-        <button class="send-btn" id="sendbtn" onclick="sendToConsultant()">Send - Get Free Consultation</button>
-        <div style="font-size:10px;color:var(--t2);text-align:center" id="consult-sub">We respond within 24 hours. Your data is kept private.</div>
+        <button class="send-btn" onclick="sendToConsultant()">Send — Get Free Consultation</button>
+        <div style="font-size:10px;color:var(--t2);text-align:center">We respond within 24 hours. Your data is private.</div>
       </div>
     </div>
   </div>
@@ -286,7 +338,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
       <div style="background:var(--brand);padding:14px;color:#fff;font-size:14px;font-weight:700">Admin Console</div>
       <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
         <div class="anl-grid" id="adminStatCards"></div>
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Add University</div>
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Add University</div>
         <input class="adm-inp" id="au-name" placeholder="University name *">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <input class="adm-inp" id="au-country" placeholder="Country *">
@@ -295,6 +347,18 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <input class="adm-inp" id="au-flag" placeholder="Flag emoji">
           <input class="adm-inp" id="au-rank" placeholder="QS Rank">
+        </div>
+        <!-- PHOTO UPLOAD -->
+        <div>
+          <div class="cf-label">University Logo / Photo</div>
+          <div class="photo-upload-box" onclick="document.getElementById('au-photo-input').click()">
+            <input type="file" id="au-photo-input" accept="image/*" onchange="handlePhotoUpload(this)">
+            <div id="au-photo-preview" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span style="font-size:11px;color:var(--t2)">Tap to upload photo or logo</span>
+            </div>
+          </div>
+          <input class="adm-inp" id="au-logo-url" placeholder="Or paste image URL (optional)" style="margin-top:6px">
         </div>
         <input class="adm-inp" id="au-program" placeholder="Programs offered">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -308,17 +372,51 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         <select class="adm-inp" id="au-status">
           <option value="open">Open - accepting</option><option value="closed">Closed</option>
         </select>
-        <input class="adm-inp" id="au-langReq" placeholder="Language requirement (e.g. IELTS 6.0+)">
+        <input class="adm-inp" id="au-langReq" placeholder="Language requirement e.g. IELTS 6.0+">
         <input class="adm-inp" id="au-tags" placeholder="Tags comma-separated">
         <input class="adm-inp" id="au-video" placeholder="YouTube URL (optional)">
         <textarea class="adm-inp" id="au-docs" rows="2" placeholder="Docs checklist comma-separated" style="resize:none"></textarea>
         <textarea class="adm-inp" id="au-notesf" rows="2" placeholder="Important notes for students" style="resize:none"></textarea>
         <button onclick="adminAddUni()" style="padding:11px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Save University</button>
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Send Alert</div>
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Send Alert</div>
         <input class="adm-inp" id="al-title" placeholder="Alert title *">
         <textarea class="adm-inp" id="al-body" rows="2" placeholder="Alert message..." style="resize:none"></textarea>
         <select class="adm-inp" id="al-type"><option value="info">Info</option><option value="warning">Warning</option><option value="urgent">Urgent</option></select>
         <button onclick="adminSendAlert()" style="padding:11px;background:#ef4444;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Send Alert</button>
+        <!-- FORMS MANAGER SECTION -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Application Forms Manager</div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.5;background:var(--bl);border-radius:10px;padding:10px 12px">Manage Notion application forms per country and program type. Students see the correct form when they tap Apply.</div>
+        <!-- Add / Edit Form -->
+        <div style="background:var(--sf2);border-radius:12px;padding:12px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:12px;font-weight:700">Add / Update Form Link</div>
+          <select class="adm-inp" id="af-country">
+            <option value="">Select Country *</option>
+            <option>Italy</option><option>South Korea</option><option>Latvia</option>
+            <option>Germany</option><option>UK</option><option>Netherlands</option>
+            <option>Poland</option><option>Hungary</option><option>Czech Republic</option><option>USA</option>
+          </select>
+          <select class="adm-inp" id="af-type">
+            <option value="general">General (all programs)</option>
+            <option value="bachelor">Bachelor's</option>
+            <option value="masters">Master's</option>
+            <option value="evisa">E-visa (no embassy)</option>
+            <option value="masters_evisa">Masters E-visa</option>
+            <option value="foundation">Foundation / Pathway</option>
+            <option value="language">Language Course</option>
+            <option value="college">College / Diploma</option>
+            <option value="phd">PhD / Doctorate</option>
+            <option value="summer">Summer Camp</option>
+          </select>
+          <input class="adm-inp" id="af-url" placeholder="Notion form URL *" type="url">
+          <textarea class="adm-inp" id="af-note" rows="2" placeholder="Notes e.g. Only for IELTS 6.0+ applicants (optional)" style="resize:none"></textarea>
+          <button onclick="adminSaveForm()" style="padding:10px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Save Form Link</button>
+        </div>
+        <!-- Active Forms List -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Active Forms</div>
+        <div id="adminFormsList"></div>
+        <!-- Archived Forms -->
+        <div id="adminFormsArchive"></div>
+
         <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">All Universities</div>
         <div id="adminUniList"></div>
         <button onclick="if(confirm('Reset all data?')){localStorage.clear();location.reload();}" style="padding:11px;background:#7f1d1d;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%">Reset App Data</button>
@@ -326,24 +424,28 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
     </div>
   </div>
 </div>
+<!-- AI PAGE - full screen with visible input bar -->
 <div class="aip" id="pg-ai">
   <div class="aih">
     <div class="aih-t" id="ai-t">AI Study Advisor</div>
     <div class="aih-s" id="ai-s">Ask me anything about studying abroad</div>
   </div>
   <div class="sugrow">
-    <button class="sug" onclick="doSug(this.textContent)" id="sug1">Tight budget options</button>
-    <button class="sug" onclick="doSug(this.textContent)" id="sug2">Tuition-free universities</button>
-    <button class="sug" onclick="doSug(this.textContent)" id="sug3">Easy visa for Uzbeks</button>
-    <button class="sug" onclick="doSug(this.textContent)" id="sug4">Best for IT</button>
-    <button class="sug" onclick="doSug(this.textContent)" id="sug5">Compare countries</button>
+    <button class="sug" onclick="doSug(this.textContent)">Tight budget</button>
+    <button class="sug" onclick="doSug(this.textContent)">Free tuition</button>
+    <button class="sug" onclick="doSug(this.textContent)">Easy visa</button>
+    <button class="sug" onclick="doSug(this.textContent)">IT programs</button>
+    <button class="sug" onclick="doSug(this.textContent)">Compare countries</button>
   </div>
   <div class="msgs" id="msgs"></div>
   <div class="cinp">
-    <textarea class="cinput" id="cinput" rows="1" placeholder="Ask anything..." onkeydown="ck(event)" oninput="ar(this)"></textarea>
-    <button class="csend" onclick="doSend()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    <textarea class="cinput" id="cinput" rows="1" placeholder="Type your message..." onkeydown="ck(event)" oninput="ar(this)"></textarea>
+    <button class="csend" onclick="doSend()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
   </div>
 </div>
+<!-- DETAIL PAGE -->
 <div class="det" id="detPage">
   <div class="det-hdr">
     <button class="back-btn" onclick="closeDet()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -374,7 +476,33 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
     <span class="nl" id="nl-alerts">Alerts</span>
   </div>
 </nav>
+
+<!-- APPLY MODAL -->
+<div class="modal-overlay" id="applyModal" onclick="if(event.target===this)closeApply()">
+  <div class="modal-box">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="applyModalTitle">Apply to University</div>
+    <div class="modal-sub">You will be taken to our application form. Fill in your details and our team will contact you within 24 hours.</div>
+    <div class="modal-info">
+      <div class="modal-info-row"><span class="modal-info-label">Country</span><span class="modal-info-val" id="applyModalCountry"></span></div>
+      <div class="modal-info-row"><span class="modal-info-label">Deadline</span><span class="modal-info-val" id="applyModalDeadline"></span></div>
+      <div class="modal-info-row"><span class="modal-info-label">Form</span><span class="modal-info-val" style="color:var(--brand)">Notion Application</span></div>
+    </div>
+    <button class="apply-btn" id="applyModalBtn">Open Application Form</button>
+    <button class="modal-cancel" onclick="closeApply()">Cancel</button>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
+<!-- Notion Apply Modal -->
+<div class="notion-overlay" id="notionOverlay" onclick="closeNotion(event)">
+  <div class="notion-sheet">
+    <div style="width:36px;height:4px;background:var(--br);border-radius:2px;margin:0 auto -6px"></div>
+    <div class="notion-sheet-t" id="notionTitle">Apply Now</div>
+    <div class="notion-sheet-s" id="notionDesc">Fill in our application form and our consultant will contact you within 24 hours to guide you through the process.</div>
+    <button class="notion-open-btn" id="notionOpenBtn" onclick="openNotionLink()">Open Application Form</button>
+    <button class="notion-close-btn" onclick="closeNotion()">Maybe Later</button>
+  </div>
+</div>
 </div>
 
 <script>
@@ -468,66 +596,110 @@ const ALERTS_DEF = [
 ];;
 
 
+// TRANSLATIONS - defined first, always available
+const TR={
+  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Type your message...',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',viewUnis:'View universities in',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',reqLiving:'Living',scholarship:'Scholarship',reviews:'Student Reviews',location:'Location',reqTitle:'Requirements',overview:'Overview',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants'},
+  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Xabar yozing...',open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',viewUnis:"Ko'rish:",reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",reqLiving:'Yashash',scholarship:'Stipendiya',reviews:'Sharhlar',location:'Joylashuv',reqTitle:'Talablar',overview:"Ma'lumot",detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi"},
+  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Введите сообщение...',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',viewUnis:'Университеты в:',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',reqLiving:'Проживание',scholarship:'Стипендия',reviews:'Отзывы',location:'Расположение',reqTitle:'Требования',overview:'Обзор',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план'}
+};
+var curLang='en', L=TR.en, LANG=TR.en;
 
-const UID = (window._TG?.initDataUnsafe?.user?.id) || 'guest';
-const K = 'sf_' + UID;
-let countries = JSON.parse(localStorage.getItem('sf_c')||'null') || COUNTRIES;
-let unis = JSON.parse(localStorage.getItem(K+'_u')||'null') || UNIS;
-let alerts = JSON.parse(localStorage.getItem(K+'_a')||'null') || ALERTS_DEF;
-let curPage = 'home', chatH = [], curFilter = 'all';
+function setLang(lang,btn){
+  curLang=lang; L=TR[lang]; LANG=TR[lang];
+  document.querySelectorAll('.lang-pill').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  applyLang(); render(curPage);
+}
+function applyLang(){
+  var tmap=[['tab-home','home'],['tab-countries','countries'],['tab-explore','universities'],['tab-saved','saved'],['tab-alerts','alerts'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']];
+  tmap.forEach(function(p){var e=document.getElementById(p[0]);if(e&&LANG[p[1]])e.textContent=LANG[p[1]];});
+  ['home','countries','ai','saved','alerts'].forEach(function(k){var e=document.getElementById('nl-'+k);if(e&&LANG[k])e.textContent=LANG[k];});
+  var si=document.getElementById('srch');if(si)si.placeholder=LANG.searchPh;
+  var at=document.getElementById('ai-t');if(at)at.textContent=LANG.aiT;
+  var as=document.getElementById('ai-s');if(as)as.textContent=LANG.aiS;
+  var ci=document.getElementById('cinput');if(ci)ci.placeholder=LANG.aiPh;
+  var sd=document.getElementById('sh-dead');if(sd)sd.textContent=LANG.upcomingDead;
+  var sp=document.getElementById('sh-picks');if(sp)sp.textContent=LANG.topPicks;
+}
 
-// Sync admin data
-try{const sc=localStorage.getItem('sf_adm_c');if(sc)countries=JSON.parse(sc);}catch(e){}
-try{const su=localStorage.getItem('sf_adm_u');if(su){const au=JSON.parse(su);au.forEach(a=>{const ex=unis.find(u=>u.id===a.id);if(!ex)unis.push({...a,saved:false,done:Array((a.docs||[]).length||5).fill(false)});else Object.assign(ex,a);});}}catch(e){}
-try{const sa=localStorage.getItem('sf_adm_a');if(sa){const aa=JSON.parse(sa);aa.forEach(a=>{if(!alerts.find(x=>x.id===a.id))alerts.unshift(a);});}}catch(e){}
+// Telegram
+var _TG=null;
+function initApp(){
+  _TG=window.Telegram&&window.Telegram.WebApp?window.Telegram.WebApp:null;
+  try{if(_TG){_TG.ready();_TG.expand();}}catch(e){}
+  var u=_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user;
+  if(u){
+    document.getElementById('tgAv').textContent=((u.first_name||'S')[0]).toUpperCase();
+    document.getElementById('tgNm').textContent=u.first_name||u.username||'Student';
+  }
+  migrateData();
+  render('home');
+  applyLang();
+}
+
+// DATA SETUP
+var UID=(_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user&&_TG.initDataUnsafe.user.id)||'guest';
+// UID will be reset in initApp - use localStorage key based on it
+var K='sf_guest'; // overridden after TG loads
+
+var countries=JSON.parse(localStorage.getItem('sf_c')||'null')||COUNTRIES;
+var unis=JSON.parse(localStorage.getItem('sf_unis')||'null')||UNIS;
+var alerts=JSON.parse(localStorage.getItem('sf_alerts')||'null')||ALERTS_DEF;
+var curPage='home', chatH=[], curFilter='all';
+
+try{var sc=localStorage.getItem('sf_adm_c');if(sc)countries=JSON.parse(sc);}catch(e){}
+try{var su=localStorage.getItem('sf_adm_u');if(su){var au=JSON.parse(su);au.forEach(function(a){var ex=unis.find(function(u){return u.id===a.id;});if(!ex)unis.push(Object.assign({},a,{saved:false,done:Array((a.docs||[]).length||5).fill(false)}));else Object.assign(ex,a);});}}catch(e){}
+try{var saa=localStorage.getItem('sf_adm_a');if(saa){var aa=JSON.parse(saa);aa.forEach(function(a){if(!alerts.find(function(x){return x.id===a.id;}))alerts.unshift(a);});}}catch(e){}
 
 function migrateData(){
-  unis = unis.map(u=>({status:'open',rating:0,notes:'',bg:'#fff0eb',video:'',photos:[],reviews:[],...u,
-    tags:u.tags||[],docs:u.docs||['Apostille','Transcript','Language cert','Passport','Application fee'],
-    done:u.done||Array((u.docs||[]).length||5).fill(false)}));
-  UNIS.forEach(nu=>{if(!unis.find(u=>u.id===nu.id))unis.push({...nu});});
+  unis=unis.map(function(u){
+    return Object.assign({status:'open',rating:0,notes:'',bg:'#fff0eb',video:'',logo:'',photos:[],reviews:[]},u,{
+      tags:u.tags||[],
+      docs:u.docs||['Apostille','Transcript','Language cert','Passport','Application fee'],
+      done:u.done||Array((u.docs||[]).length||5).fill(false)
+    });
+  });
+  UNIS.forEach(function(nu){if(!unis.find(function(u){return u.id===nu.id;}))unis.push(Object.assign({},nu));});
 }
 function save(){
   localStorage.setItem('sf_c',JSON.stringify(countries));
-  localStorage.setItem(K+'_u',JSON.stringify(unis));
-  localStorage.setItem(K+'_a',JSON.stringify(alerts));
+  localStorage.setItem('sf_unis',JSON.stringify(unis));
+  localStorage.setItem('sf_alerts',JSON.stringify(alerts));
 }
-function toast(msg,dur){
-  const t=document.getElementById('toast');t.textContent=msg;
-  t.classList.add('on');setTimeout(()=>t.classList.remove('on'),dur||2400);
-}
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(function(){t.classList.remove('on');},2400);}
 function days(d){return Math.max(0,Math.ceil((new Date(d)-new Date())/86400000));}
+function haptic(t){try{if(_TG)_TG.HapticFeedback.impactOccurred(t||'light');}catch(e){}}
 
-/* ── NAVIGATION ── */
-function goPage(name, tabEl){
+// NAVIGATION
+function goPage(name,tabEl){
   document.getElementById('pg-ai').classList.remove('on');
   document.getElementById('pg-ai').style.display='none';
   document.getElementById('scroller').style.display='';
-  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.tb-btn').forEach(t=>t.classList.remove('on'));
-  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(n=>{
-    const ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
-    const nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.tb-btn').forEach(function(t){t.classList.remove('on');});
+  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(function(n){
+    var ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
+    var nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
   });
-  const pg=document.getElementById('pg-'+name);if(pg)pg.classList.add('on');
+  var pg=document.getElementById('pg-'+name);if(pg)pg.classList.add('on');
   if(tabEl)tabEl.classList.add('on');
-  const ni=document.getElementById('ni-'+name);if(ni)ni.classList.add('on');
-  const nl=document.getElementById('nl-'+name);if(nl)nl.classList.add('on');
+  var ni=document.getElementById('ni-'+name);if(ni)ni.classList.add('on');
+  var nl=document.getElementById('nl-'+name);if(nl)nl.classList.add('on');
   curPage=name; render(name);
 }
 function goAI(){
   document.getElementById('scroller').style.display='none';
-  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.tb-btn').forEach(t=>t.classList.remove('on'));
-  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(n=>{
-    const ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
-    const nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.tb-btn').forEach(function(t){t.classList.remove('on');});
+  ['home','countries','explore','saved','alerts','docs','consult','admin'].forEach(function(n){
+    var ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
+    var nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
   });
   document.getElementById('pg-ai').style.display='flex';
   document.getElementById('pg-ai').classList.add('on');
   document.getElementById('ni-ai').classList.add('on');
   document.getElementById('nl-ai').classList.add('on');
-  curPage='ai';if(!chatH.length)initAI();
+  curPage='ai'; if(!chatH.length)initAI();
 }
 function render(n){
   if(n==='home')renderHome();
@@ -539,14 +711,11 @@ function render(n){
   else if(n==='admin')renderAdmin();
   else if(n==='consult')renderConsult();
 }
-function onSearch(q){if(curPage==='explore')renderExplore();}
+function onSearch(){if(curPage==='explore')renderExplore();}
 
-/* ── CHIPS ── */
+// UNI HELPERS
 function chipHtml(t){
-  var m={'Tuition-free':'cg','English track':'cb','Erasmus hub':'cp','CIS-friendly':'ct',
-    'Affordable':'cg','Research leader':'cb','Scholarship available':'co','Top 100 QS':'cb',
-    'Top 200 QS':'cb','Historic':'cp','Engineering':'cb','Aviation':'cp',
-    'E-visa':'cb','Masters':'cp','No IELTS':'ct','Seoul area':'ca','Schengen':'ct'};
+  var m={'Tuition-free':'cg','English track':'cb','CIS-friendly':'ct','Affordable':'cg','Scholarship available':'co','Top 100 QS':'cb','Top 200 QS':'cb','Historic':'cp','Engineering':'cb','Aviation':'cp','E-visa':'cb','Masters':'cp','No IELTS':'ct','Schengen':'ct'};
   return '<span class="chip '+(m[t]||'ca')+'">'+t+'</span>';
 }
 function scholBadge(u){
@@ -554,44 +723,29 @@ function scholBadge(u){
   var tags=u.tags||[];
   var full=tags.find(function(x){return x.includes('100%');});
   var part=!full&&tags.find(function(x){return x.includes('%')||x.toLowerCase().includes('scholarship')||x.toLowerCase().includes('grant');});
-  var evisa=tags.find(function(x){return x.toLowerCase().includes('e-visa');});
-  if(full)return '<span class="schol schol-full">🎓 '+full+'</span>';
-  if(part)return '<span class="schol schol-part">🎓 '+part+'</span>';
-  if(evisa)return '<span class="schol schol-evisa">⚡ '+evisa+'</span>';
+  var ev=tags.find(function(x){return x.toLowerCase().includes('e-visa');});
+  if(full)return '<span class="schol schol-full">'+full+'</span>';
+  if(part)return '<span class="schol schol-part">'+part+'</span>';
+  if(ev)return '<span class="schol schol-evisa">'+ev+'</span>';
   return '';
 }
 function reqRow(u){
   if(!u)return '';
-  var L=LANG||T.en;
   var items=[];
-  if(u.langReq)items.push('<span class="req-pill">📝 '+u.langReq+'</span>');
-  if(u.gpa)items.push('<span class="req-pill">📊 GPA '+u.gpa+'+</span>');
-  var cost=u.tuition==='free'?(L.free||'Free'):u.tuition==='low'?'~€2k/yr':u.tuition==='medium'?'~€5k/yr':'€8k+/yr';
-  items.push('<span class="req-pill">💰 '+cost+'</span>');
-  if(u.living)items.push('<span class="req-pill">🏠 €'+Math.round(u.living/1000)+'k'+(L.living||'/yr')+'</span>');
+  if(u.langReq)items.push('<span class="req-pill">'+u.langReq+'</span>');
+  if(u.gpa)items.push('<span class="req-pill">GPA '+u.gpa+'+</span>');
+  var euroCountries=['Italy','Latvia','Netherlands','Germany','Poland','Hungary','Czech Republic','France','Spain'];
+  var isEuro=euroCountries.indexOf(u.country)>=0;
+  var sym=isEuro?'€':'$';
+  var cost=u.tuition==='free'?(LANG.free||'Free'):u.tuition==='low'?'~'+sym+'2k/yr':u.tuition==='medium'?'~'+sym+'5k/yr':sym+'8k+/yr';
+  items.push('<span class="req-pill">'+cost+'</span>');
+  if(u.living){
+    var livSym=euroCountries.indexOf(u.country)>=0?'€':'$';
+    items.push('<span class="req-pill">'+livSym+Math.round(u.living/1000)+'k'+(LANG.living||'/yr')+'</span>');
+  }
   return '<div class="req-row">'+items.join('')+'</div>';
 }
-function sortUnis(list){
-  return [...list].sort(function(a,b){return (a.status==='closed'?1:0)-(b.status==='closed'?1:0);});
-}
-function setFilter(f,btn){
-  curFilter=f;
-  document.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('on');});
-  if(btn)btn.classList.add('on');
-  renderExplore();
-}
-function applyFilter(list){
-  var r=[...list];
-  if(curFilter==='open')r=r.filter(function(u){return u.status!=='closed';});
-  else if(curFilter==='schol')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});});
-  else if(curFilter==='evisa')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.toLowerCase().includes('e-visa');});});
-  else if(curFilter==='free')r=r.filter(function(u){return u.tuition==='free'||u.tuition==='low';});
-  else if(curFilter==='masters')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('master');});
-  else if(curFilter==='bachelor')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('bachelor');});
-  return sortUnis(r);
-}
-
-/* ── UNI CARD ── */
+function sortUnis(list){return [...list].sort(function(a,b){return (a.status==='closed'?1:0)-(b.status==='closed'?1:0);});}
 function uniHtml(u){
   try{
     var dl=u.deadline?new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'';
@@ -602,310 +756,278 @@ function uniHtml(u){
     var note=u.notes?'<div class="uni-note">'+u.notes+'</div>':'';
     var reqs=reqRow(u);
     var isOpen=u.status!=='closed';
-    var L=LANG||T.en;
-    var statusBadge=isOpen?'<span class="status-open">● '+(L.open||'Open')+'</span>':'<span class="status-closed">✕ '+(L.closed||'Closed')+'</span>';
+    var sb=isOpen?'<span class="status-open">'+(LANG.open||'Open')+'</span>':'<span class="status-closed">'+(LANG.closed||'Closed')+'</span>';
     var rank=u.rank?'<span class="ur">'+u.rank+'</span>':'';
-    var savedCls=u.saved?' on':'';
+    var sc=u.saved?' on':'';
+    var logoContent=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:11px" onerror="this.parentElement.textContent=\''+u.flag+'\'">':u.flag;
     return '<div class="uc" style="opacity:'+(isOpen?'1':'0.6')+'">'
-      +'<div class="ut">'
-      +'<div class="uf" style="background:'+(u.bg||'#fff0eb')+'">'+u.flag+'</div>'
+      +'<div class="ut"><div class="uf" style="background:'+(u.bg||'#fff0eb')+'">'+logoContent+'</div>'
       +'<div class="ui"><div class="un">'+u.name+'</div><div class="ul">'+u.city+', '+u.country+'</div></div>'
-      +'<div class="uactions">'+rank+statusBadge
-      +'<div class="sbtn'+savedCls+'" onclick="toggleSave('+u.id+');event.stopPropagation()">'
-      +'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>'
-      +'</div></div>'
-      +badge
-      +'<div class="chips">'+chips+'</div>'
-      +reqs+note
-      +'<button class="detail-btn" onclick="openDetail('+u.id+');event.stopPropagation()">View Details & Requirements →</button>'
+      +'<div class="uacts">'+rank+sb
+      +'<div class="sbtn'+sc+'" onclick="toggleSave('+u.id+');event.stopPropagation()">'
+      +'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
+      +'</div></div></div>'
+      +badge+'<div class="chips">'+chips+'</div>'+reqs+note
+      +'<div style="display:flex;gap:7px;margin-top:8px">'
+      +'<button class="detail-btn" style="margin-top:0" onclick="openDet('+u.id+');event.stopPropagation()">View Details</button>'
+      +'<button class="apply-btn" style="margin-top:0;width:auto;padding:9px 14px;flex-shrink:0" onclick="showApply('+u.id+');event.stopPropagation()">Apply</button>'
+      +'</div>'
       +'</div>';
-  }catch(e){return '<div class="uc"><div class="un">'+(u&&u.name?u.name:'?')+'</div></div>';}
+  }catch(e){return '<div class="uc"><div class="un">'+(u?u.name:'?')+'</div></div>';}
 }
 
-/* ── DETAIL PAGE ── */
-function openDetail(id){
-  var u=unis.find(function(x){return x.id===id;});
-  if(!u)return;
-  var L=LANG||T.en;
-  document.getElementById('detailTitle').textContent=u.name;
+function openDet(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  document.getElementById('detTitle').textContent=u.name;
   var isOpen=u.status!=='closed';
-  document.getElementById('detailStatus').innerHTML=isOpen?'<span class="status-open">● '+(L.open||'Open')+'</span>':'<span class="status-closed">✕ '+(L.closed||'Closed')+'</span>';
-
-  // Build video section
-  var videoHtml='';
-  if(u.video&&u.video.includes('youtube')){
-    var ytId=u.video.replace('https://www.youtube.com/watch?v=','').replace('https://youtu.be/','').split('&')[0];
-    videoHtml='<div class="video-wrap"><iframe src="https://www.youtube.com/embed/'+ytId+'" allowfullscreen></iframe></div>';
-  } else {
-    videoHtml='<div class="video-wrap"><div class="video-placeholder">'
-      +'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>'
-      +'<span>'+L.noVideo+'</span></div></div>';
+  document.getElementById('detStatus').innerHTML=isOpen?'<span class="status-open">'+(LANG.open||'Open')+'</span>':'<span class="status-closed">'+(LANG.closed||'Closed')+'</span>';
+  var vidHtml='';
+  if(u.video&&u.video.includes('youtu')){
+    var ytId=u.video.replace('https://www.youtube.com/watch?v=','').replace('https://youtu.be/','').split('&')[0].split('?')[0];
+    vidHtml='<div class="vid-wrap"><iframe src="https://www.youtube.com/embed/'+ytId+'" allowfullscreen loading="lazy"></iframe></div>';
+  }else{
+    vidHtml='<div class="vid-wrap"><div class="vid-ph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><span>Video coming soon</span></div></div>';
   }
-
-  // Photos
-  var photos=u.photos||[];
-  var photosHtml='<div class="photos-row">';
-  if(photos.length){
-    photos.forEach(function(p){photosHtml+='<div class="photo-card"><img src="'+p+'" loading="lazy" onerror="this.parentElement.textContent=\'🏛\'"></div>';});
-  } else {
-    photosHtml+='<div class="photo-card" style="width:100%;font-size:11px;color:var(--t2)">'+L.noPhotos+'</div>';
-  }
-  photosHtml+='</div>';
-
-  // Info grid
-  var cost=u.tuition==='free'?(L.free||'Free'):u.tuition==='low'?'~€2,500/yr':u.tuition==='medium'?'~€5,000/yr':'€8,000+/yr';
+  var isEurDet=['Italy','Latvia','Netherlands','UK','Germany','Poland','Hungary','Czech Republic'].indexOf(u.country)>=0;
+  var csDet=isEurDet?'EUR ':'USD ';
+  var cost=u.tuition==='free'?(LANG.free||'Free'):u.tuition==='low'?'~'+csDet+'2,500/yr':u.tuition==='medium'?'~'+csDet+'5,000/yr':csDet+'8,000+/yr';
   var infoHtml='<div class="info-grid">'
-    +'<div class="info-cell"><div class="info-cell-l">'+L.reqLang+'</div><div class="info-cell-v" style="font-size:11px">'+u.langReq+'</div></div>'
-    +'<div class="info-cell"><div class="info-cell-l">'+L.reqGpa+'</div><div class="info-cell-v">'+(u.gpa||'—')+'</div></div>'
-    +'<div class="info-cell"><div class="info-cell-l">'+L.reqTuition+'</div><div class="info-cell-v">'+cost+'</div></div>'
-    +'<div class="info-cell"><div class="info-cell-l">'+L.reqLiving+'</div><div class="info-cell-v">'+(u.living?'€'+u.living.toLocaleString()+'/yr':'—')+'</div></div>'
+    +'<div class="ic"><div class="ic-l">'+(LANG.reqLang||'Language')+'</div><div class="ic-v" style="font-size:11px">'+(u.langReq||'-')+'</div></div>'
+    +'<div class="ic"><div class="ic-l">'+(LANG.reqGpa||'Min GPA')+'</div><div class="ic-v">'+(u.gpa||'-')+'</div></div>'
+    +'<div class="ic"><div class="ic-l">'+(LANG.reqFee||'Tuition')+'</div><div class="ic-v">'+cost+'</div></div>'
+    +'<div class="ic"><div class="ic-l">'+(LANG.reqLiving||'Living')+'</div><div class="ic-v">'+(u.living?csDet+u.living.toLocaleString()+'/yr':'-')+'</div></div>'
     +'</div>';
-
-  // Scholarship detail
-  var scholHtml='';
   var scholTags=(u.tags||[]).filter(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship')||t.toLowerCase().includes('grant');});
-  if(scholTags.length){
-    scholHtml='<div class="detail-section"><div class="detail-sec-title">'+L.scholarship+'</div>'
-      +'<div style="background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br)">'
-      +scholTags.map(function(s){return '<div style="display:flex;align-items:center;gap:7px;padding:4px 0"><span style="font-size:16px">🎓</span><span style="font-size:12px;font-weight:600">'+s+'</span></div>';}).join('')
-      +'</div></div>';
-  }
-
-  // Documents checklist
+  var scholHtml=scholTags.length?'<div class="det-sec"><div class="det-sec-t">'+(LANG.scholarship||'Scholarship')+'</div>'
+    +'<div style="background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br)">'
+    +scholTags.map(function(ss){return '<div style="padding:4px 0;font-size:12px;font-weight:600">'+ss+'</div>';}).join('')
+    +'</div></div>':'';
   var docsHtml='<div style="background:var(--sf);border-radius:12px;border:.5px solid var(--br);overflow:hidden">'
     +(u.docs||[]).map(function(doc,i){
       var done=(u.done||[])[i];
-      return '<div class="di" onclick="toggleDocDetail('+u.id+','+i+')">'
+      return '<div class="di" onclick="toggleDocDet('+u.id+','+i+')">'
         +'<div class="dck'+(done?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>'
         +'<span class="dname'+(done?' done':'')+'">'+doc+'</span></div>';
     }).join('')+'</div>';
-
-  // Reviews
-  var reviews=u.reviews||[];
-  var reviewsHtml='';
-  if(reviews.length){
-    reviewsHtml=reviews.map(function(r){
-      var stars='⭐'.repeat(r.stars||5);
-      return '<div class="review-card"><div class="review-stars">'+stars+'</div>'
-        +'<div class="review-text">'+r.text+'</div>'
-        +'<div class="review-author">— '+r.author+', '+r.year+'</div></div>';
-    }).join('');
-  } else {
-    reviewsHtml='<div style="padding:16px;text-align:center;color:var(--t2);font-size:12px">'+L.noReviews+'</div>';
-  }
-
-  // Map
-  var mapQuery=encodeURIComponent(u.name+' '+u.city+' '+u.country);
-  var mapHtml='<a href="https://maps.google.com/?q='+mapQuery+'" target="_blank" class="map-placeholder">'
+  var revs=u.reviews||[];
+  var revHtml=revs.length?revs.map(function(r){
+    return '<div class="rev-card"><div class="rev-stars">'+'★'.repeat(r.stars||5)+'</div>'
+      +'<div class="rev-text">'+r.text+'</div><div class="rev-author">- '+r.author+(r.year?', '+r.year:'')+'</div></div>';
+  }).join(''):'<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px">No reviews yet</div>';
+  var mapQ=encodeURIComponent(u.name+' '+u.city+' '+u.country);
+  var mapHtml='<a href="https://maps.google.com/?q='+mapQ+'" target="_blank" class="map-ph">'
     +'<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
-    +'<span>'+u.name+', '+u.city+' — '+L.location+'</span></a>';
-
-  // Apply button
-  var applyHtml=u.applyUrl?'<div style="padding:0 14px 14px"><a href="'+u.applyUrl+'" target="_blank" style="display:block;padding:12px;background:var(--ok);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;text-align:center;text-decoration:none">🎓 '+L.applyBtn+' — '+u.name+'</a></div>':'';
-
-  document.getElementById('detailBody').innerHTML=
-    '<div class="detail-section"><div class="detail-sec-title">'+L.overview2+'</div>'
-    +'<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">'+(u.program||'Bachelor & Masters programs')+'</div>'
-    +videoHtml+'</div>'
-    +'<div class="detail-section"><div class="detail-sec-title">'+L.photos+'</div>'+photosHtml+'</div>'
-    +'<div class="detail-section"><div class="detail-sec-title">'+L.requirements+'</div>'+infoHtml
-    +(u.notes?'<div class="uni-note" style="margin-bottom:14px">'+u.notes+'</div>':'')+'</div>'
+    +'<span>'+u.name+' - '+u.city+', '+u.country+'</span></a>';
+  document.getElementById('detBody').innerHTML=
+    '<div class="det-sec"><div class="det-sec-t">'+(LANG.overview||'Overview')+'</div>'
+    +'<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">'+(u.program||'Bachelor and Masters programs')+'</div>'
+    +vidHtml+'</div>'
+    +'<div class="det-sec"><div class="det-sec-t">'+(LANG.reqTitle||'Requirements')+'</div>'+infoHtml
+    +(u.notes?'<div class="uni-note" style="margin-top:10px">'+u.notes+'</div>':'')+'</div>'
     +scholHtml
-    +'<div class="detail-section"><div class="detail-sec-title">Documents Checklist</div>'+docsHtml+'</div>'
-    +'<div class="detail-section"><div class="detail-sec-title">'+L.reviews+'</div>'+reviewsHtml+'</div>'
-    +'<div class="detail-section"><div class="detail-sec-title">'+L.location+'</div>'+mapHtml+'</div>'
-    +applyHtml
-    +'<div class="consult-cta">'
-    +'<div class="consult-cta-t">'+L.detailConsult+'</div>'
-    +'<div class="consult-cta-s">'+L.detailConsultSub+'</div>'
-    +'<button class="consult-cta-btn" onclick="openConsultForUni('+u.id+')">'+L.consultBtn+'</button>'
-    +'</div>';
-
-  document.getElementById('detailPage').classList.add('on');
+    +'<div class="det-sec"><div class="det-sec-t">Documents Checklist</div>'+docsHtml+'</div>'
+    +'<div class="det-sec"><div class="det-sec-t">'+(LANG.reviews||'Reviews')+'</div>'+revHtml+'</div>'
+    +'<div class="det-sec" style="padding-bottom:14px"><div class="det-sec-t">'+(LANG.location||'Location')+'</div>'+mapHtml+'</div>'
+    +'<div class="cta-box"><div class="cta-t">'+(LANG.detConsult||'Contact Our Expert')+'</div>'
+    +'<div class="cta-s">'+(LANG.detConsultSub||'Get a free personalised plan')+'</div>'
+    +'<div style="display:flex;flex-direction:column;gap:8px;width:100%">'
+    +'<button class="cta-btn" onclick="showApply('+u.id+')">Apply Now</button>'
+    +'<button class="cta-btn" style="background:rgba(255,255,255,.25)" onclick="openConsultFor('+u.id+')">Free Consultation</button>'
+    +'</div></div>';
+  document.getElementById('detPage').classList.add('on');
   haptic('medium');
 }
-function closeDetail(){
-  document.getElementById('detailPage').classList.remove('on');
-}
-function toggleDocDetail(id,idx){
-  var u=unis.find(function(x){return x.id===id;});
-  if(!u)return;
+
+function closeDet(){document.getElementById('detPage').classList.remove('on');}
+
+function toggleDocDet(id,idx){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
   if(!u.done)u.done=Array((u.docs||[]).length).fill(false);
-  u.done[idx]=!u.done[idx];
-  save(); haptic('light'); openDetail(id);
-}
-function openConsultForUni(id){
-  var u=unis.find(function(x){return x.id===id;});
-  closeDetail();
-  goPage('consult',document.getElementById('tab-consult'));
-  if(u){
-    var el=document.getElementById('cf-saved-unis');
-    if(el)el.textContent=u.flag+' '+u.name;
-    var cf=document.getElementById('cf-country');
-    if(cf)cf.value=u.country;
-  }
+  u.done[idx]=!u.done[idx];save();haptic('light');openDet(id);
 }
 
-/* ── RENDER FUNCTIONS ── */
+function openConsultFor(id){
+  var u=unis.find(function(x){return x.id===id;});
+  closeDet();goPage('consult',document.getElementById('tab-consult'));
+  if(u){var el=document.getElementById('cf-saved-unis');if(el)el.textContent=u.flag+' '+u.name;}
+}
+
+
+
+
+var curCountry='all';
+function setCFilter(c,btn){curCountry=c;document.querySelectorAll('.cpill').forEach(function(b){b.classList.remove('on');});if(btn)btn.classList.add('on');renderExplore();}
+function setFilter(f,btn){
+  curFilter=f;
+  // only deselect row 2 pills
+  document.querySelectorAll('[id^="filt-"]').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  renderExplore();
+}
+function applyFilter(list){
+  var r=[...list];
+  if(curCountry&&curCountry!=='all')r=r.filter(function(u){return u.country===curCountry;});
+  if(curFilter==='open')r=r.filter(function(u){return u.status!=='closed';});
+  else if(curFilter==='schol')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});});
+  else if(curFilter==='evisa')r=r.filter(function(u){return (u.tags||[]).some(function(t){return t.toLowerCase().includes('e-visa');});});
+  else if(curFilter==='free')r=r.filter(function(u){return u.tuition==='free'||u.tuition==='low';});
+  else if(curFilter==='bachelor')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('bachelor');});
+  else if(curFilter==='masters')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('master');});
+  else if(curFilter==='foundation')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('foundation')||(u.program||'').toLowerCase().includes('pathway');});
+  else if(curFilter==='language')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('language')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('language');});});
+  else if(curFilter==='college')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('college')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('college')||t.toLowerCase().includes('diploma');});});
+  else if(curFilter==='phd')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('phd')||(u.program||'').toLowerCase().includes('doctorate')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('phd')||t.toLowerCase().includes('doctorate');});});
+  else if(curFilter==='summer')r=r.filter(function(u){return (u.program||'').toLowerCase().includes('summer')||(u.tags||[]).some(function(t){return t.toLowerCase().includes('summer');});});
+  return sortUnis(r);
+}
+
 function renderHome(){
   var sv=unis.filter(function(u){return u.saved;});
   var ap=unis.filter(function(u){return u.saved&&(u.done||[]).every(Boolean);});
   var upcoming=sv.filter(function(u){return u.deadline;}).sort(function(a,b){return new Date(a.deadline)-new Date(b.deadline);});
-  var md=upcoming.length?days(upcoming[0].deadline):'–';
-  var L=LANG||T.en;
+  var md=upcoming.length?days(upcoming[0].deadline):'-';
   document.getElementById('statsGrid').innerHTML=
-    '<div class="sc"><div class="sn">'+sv.length+'</div><div class="sl">'+L.saved+'</div></div>'
-    +'<div class="sc"><div class="sn">'+ap.length+'</div><div class="sl">Docs ready</div></div>'
-    +'<div class="sc"><div class="sn" style="color:'+(typeof md==='number'&&md<=14?'var(--err)':'var(--brand)')+'">'+md+'</div><div class="sl">'+L.daysLeft+'</div></div>';
+    '<div class="sc"><div class="sn">'+sv.length+'</div><div class="sl">'+LANG.saved+'</div></div>'
+    +'<div class="sc"><div class="sn">'+ap.length+'</div><div class="sl">'+LANG.docsReady+'</div></div>'
+    +'<div class="sc"><div class="sn" style="color:'+(typeof md==='number'&&md<=14?'var(--err)':'var(--brand)')+'">'+md+'</div><div class="sl">'+LANG.daysLeft+'</div></div>';
   document.getElementById('dlHome').innerHTML=upcoming.length?upcoming.slice(0,3).map(function(u){
     var d=days(u.deadline);var pct=Math.max(0,Math.min(100,100-Math.round(d/180*100)));
     var col=d<=7?'var(--err)':d<=30?'var(--warn)':'var(--ok)';
     var done=(u.done||[]).filter(Boolean).length;
-    return '<div class="dc"><div class="df" style="background:'+(u.bg||'#fff0eb')+'">'+u.flag+'</div>'
+    var logoContent=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:10px" onerror="this.parentElement.textContent=\''+u.flag+'\'">':u.flag;
+    return '<div class="dc"><div class="df" style="background:'+(u.bg||'#fff0eb')+'">'+logoContent+'</div>'
       +'<div class="db"><div class="dn">'+u.name+'</div><div class="dp">'+u.program+'</div>'
       +'<div class="dpr"><div class="dpt"><span>'+done+'/'+(u.docs||[]).length+' docs</span><span>'+d+' days</span></div>'
       +'<div class="pbar"><div class="pfill" style="width:'+pct+'%;background:'+col+'"></div></div></div></div>'
       +'<div class="dd" style="color:'+col+'">'+new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'short'})+'</div></div>';
-  }).join(''):'<div class="empty"><div class="ei">✅</div><div class="et">'+L.noDeadlines+'</div><div class="es">'+L.saveToTrack+'</div></div>';
+  }).join(''):'<div class="empty"><div class="ei">✅</div><div class="et">'+LANG.noDeadlines+'</div><div class="es">'+LANG.saveToTrack+'</div></div>';
   document.getElementById('recHome').innerHTML=sortUnis(unis.filter(function(u){return !u.saved;})).slice(0,3).map(uniHtml).join('');
 }
 
+// RENDER COUNTRIES
 function renderCountries(){
   document.getElementById('cList').innerHTML=countries.map(function(c){
     var cUnis=unis.filter(function(u){return u.country===c.name;});
     var openCnt=cUnis.filter(function(u){return u.status!=='closed';}).length;
     var tags=(c.tags||[]).slice(0,3).map(function(t){return '<span class="chip ca">'+t+'</span>';}).join('');
-    var L=LANG||T.en;
-    var tv=c.tuition===0?('<span style="color:var(--ok);font-weight:700">'+(L.free||'Free')+'</span>'):'€'+c.tuition.toLocaleString();
-    return '<div class="cc">'
-      +'<div class="cbanner" style="background:'+c.color+'"><div class="cname">'+c.flag+' '+c.name+'</div>'
-      +'<div class="csub">'+c.highlight+'</div></div>'
-      +'<div class="cbody">'
-      +'<div class="cstats"><div class="cstat"><div class="cstat-l">Tuition/year</div><div class="cstat-v">'+tv+'</div></div>'
-      +'<div class="cstat"><div class="cstat-l">Living/year</div><div class="cstat-v">€'+c.living.toLocaleString()+'</div></div></div>'
-      +'<div class="chips" style="margin-bottom:8px">'+tags+'</div>'
-      +'<div style="font-size:10px;color:var(--t2);margin-bottom:5px">🎓 '+cUnis.length+' universities · '+openCnt+' open</div>'
-      +'<div style="font-size:10px;color:var(--t2);margin-bottom:8px">✈️ '+c.visa+'</div>'
-      +'</div>'
-      +'<button class="xbtn" onclick="filterCountry(this.dataset.n)" data-n="'+c.name+'">'+L.viewUnis+' '+c.name+' →</button>'
+    var euroCtry=['Italy','Latvia','Netherlands','Germany','Poland','Hungary','Czech Republic','France','Spain'];
+    var cSym=euroCtry.indexOf(c.name)>=0?'€':'$';
+    var tv=c.tuition===0?('<span style="color:var(--ok);font-weight:700">'+(LANG.free||'Free')+'</span>'):(cSym+c.tuition.toLocaleString()+'/yr');
+    return '<div class="cc"><div class="cbanner" style="background:'+c.color+'"><div class="cname">'+c.flag+' '+c.name+'</div><div class="csub">'+c.highlight+'</div></div>'
+      +'<div class="cbody"><div class="cstats">'
+      +'<div class="cstat"><div class="cstat-l">Tuition/year</div><div class="cstat-v">'+tv+'</div></div>'
+      +'<div class="cstat"><div class="cstat-l">Living/year</div><div class="cstat-v">'+(isEurCtry?'EUR ':'USD ')+c.living.toLocaleString()+'</div></div>'
+      +'</div><div class="chips" style="margin-bottom:8px">'+tags+'</div>'
+      +'<div style="font-size:10px;color:var(--t2);margin-bottom:4px">'+cUnis.length+' universities - '+openCnt+' open</div>'
+      +'<div style="font-size:10px;color:var(--t2);margin-bottom:8px">'+c.visa+'</div></div>'
+      +'<button class="xbtn" onclick="filterCountry(this.dataset.n)" data-n="'+c.name+'">'+LANG.viewUnis+' '+c.name+' ></button>'
       +'</div>';
   }).join('');
 }
-
 function filterCountry(n){
-  curFilter='all';
-  document.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('on');});
-  var first=document.querySelector('.fpill');if(first)first.classList.add('on');
+  curFilter='all'; curProg='all'; curCountry=n;
+  // Reset all filter pills
+  document.querySelectorAll('[id^="filt-"]').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('[id^="prog-"]').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('prog-all').classList.add('on');
+  // Highlight the matching country pill if it exists
+  var countryPillMap={'Italy':'filt-it','South Korea':'filt-kr','Latvia':'filt-lv','Germany':'filt-de','UK':'filt-uk','Netherlands':'filt-nl','Poland':'filt-pl','Hungary':'filt-hu','Czech Republic':'filt-cz','USA':'filt-us'};
+  var pillId=countryPillMap[n];
+  if(pillId&&document.getElementById(pillId))document.getElementById(pillId).classList.add('on');
+  else document.getElementById('filt-all').classList.add('on');
   goPage('explore',document.getElementById('tab-explore'));
-  var cu=unis.filter(function(u){return u.country===n;});
-  document.getElementById('eList').innerHTML=sortUnis(cu).map(uniHtml).join('');
+  renderExplore();
 }
-
 function renderExplore(){
-  var q=(document.getElementById('srch')?.value||'').toLowerCase();
-  var raw=q?unis.filter(function(u){
-    return u.name.toLowerCase().includes(q)||u.country.toLowerCase().includes(q)||
-      (u.program||'').toLowerCase().includes(q)||(u.city||'').toLowerCase().includes(q)||
-      (u.tags||[]).some(function(t){return t.toLowerCase().includes(q);});
-  }):unis;
-  document.getElementById('eList').innerHTML=applyFilter(raw).map(uniHtml).join('')||
-    '<div class="empty"><div class="ei">🔍</div><div class="et">No results</div></div>';
+  var q=(document.getElementById('srch')?document.getElementById('srch').value:'').toLowerCase();
+  var raw=q?unis.filter(function(u){return u.name.toLowerCase().includes(q)||u.country.toLowerCase().includes(q)||(u.program||'').toLowerCase().includes(q)||(u.city||'').toLowerCase().includes(q)||(u.tags||[]).some(function(t){return t.toLowerCase().includes(q);});}):unis;
+  var filtered=applyFilter(raw);
+  document.getElementById('eList').innerHTML=filtered.map(uniHtml).join('')||'<div class="empty"><div class="ei">🔍</div><div class="et">No results</div><div class="es">Try a different filter or country</div></div>';
+  var cnt=document.getElementById('exploreCount');
+  if(cnt)cnt.textContent=filtered.length+' '+(filtered.length===1?'university':'universities')+(curCountry!=='all'?' in '+curCountry:'');
 }
-
 function renderSaved(){
   var s=unis.filter(function(u){return u.saved;});
-  var L=LANG||T.en;
-  document.getElementById('svList').innerHTML=s.length?sortUnis(s).map(uniHtml).join(''):
-    '<div class="empty"><div class="ei">🔖</div><div class="et">'+L.noSaved+'</div><div class="es">'+L.tapBookmark+'</div></div>';
+  document.getElementById('svList').innerHTML=s.length?sortUnis(s).map(uniHtml).join(''):'<div class="empty"><div class="ei">🔖</div><div class="et">'+LANG.noSaved+'</div><div class="es">'+LANG.tapHint+'</div></div>';
 }
-
 function renderAlerts(){
-  var L=LANG||T.en;
-  document.getElementById('alList').innerHTML=alerts.length?alerts.map(function(a){
-    var col=a.type==='urgent'?'var(--err)':a.type==='warning'?'var(--warn)':'#3b82f6';
-    return '<div class="ai-card"><div class="adot" style="background:'+col+'"></div>'
-      +'<div><div class="atit">'+a.title+'</div><div class="abody">'+a.body+'</div><div class="atime">'+a.time+'</div></div></div>';
-  }).join(''):'<div class="empty"><div class="ei">🔔</div><div class="et">'+L.noAlerts+'</div></div>';
+  document.getElementById('alList').innerHTML=alerts.length?alerts.map(function(a){var col=a.type==='urgent'?'var(--err)':a.type==='warning'?'var(--warn)':'#3b82f6';return '<div class="alc"><div class="adot" style="background:'+col+'"></div><div><div class="atit">'+a.title+'</div><div class="abody">'+a.body+'</div><div class="atime">'+a.time+'</div></div></div>';}).join(''):'<div class="empty"><div class="ei">🔔</div><div class="et">'+LANG.noAlerts+'</div></div>';
   if(alerts.length){var d=document.getElementById('alertDot');if(d)d.style.display='block';}
 }
-
 function renderDocs(){
-  var saved=unis.filter(function(u){return u.saved;});
-  var L=LANG||T.en;
-  if(!saved.length){document.getElementById('dList').innerHTML='<div class="empty"><div class="ei">📋</div><div class="et">'+L.noDocs+'</div><div class="es">'+L.saveFirst+'</div></div>';return;}
-  document.getElementById('dList').innerHTML=saved.map(function(u){
-    var done=(u.done||[]).filter(Boolean).length;
-    var total=(u.docs||[]).length;
-    var pct=total?Math.round(done/total*100):0;
-    return '<div class="dg"><div class="dgh"><span style="font-size:20px">'+u.flag+'</span><span class="dgn">'+u.name+'</span>'
-      +'<span class="dgp" style="background:'+(pct===100?'var(--ok)':'var(--bl)')+';color:'+(pct===100?'#fff':'var(--bd)')+'">'+pct+'%</span></div>'
-      +(u.docs||[]).map(function(doc,i){
-        var checked=(u.done||[])[i];
-        return '<div class="di" onclick="toggleDoc('+u.id+','+i+')">'
-          +'<div class="dck'+(checked?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>'
-          +'<span class="dname'+(checked?' done':'')+'">'+doc+'</span></div>';
-      }).join('')+'</div>';
+  var sv=unis.filter(function(u){return u.saved;});
+  if(!sv.length){document.getElementById('dList').innerHTML='<div class="empty"><div class="ei">📋</div><div class="et">'+LANG.noDocs+'</div><div class="es">'+LANG.saveFirst+'</div></div>';return;}
+  document.getElementById('dList').innerHTML=sv.map(function(u){
+    var done=(u.done||[]).filter(Boolean).length,total=(u.docs||[]).length,pct=total?Math.round(done/total*100):0;
+    return '<div class="dg"><div class="dgh"><span style="font-size:20px">'+u.flag+'</span><span class="dgn">'+u.name+'</span><span class="dgp" style="background:'+(pct===100?'var(--ok)':'var(--bl)')+';color:'+(pct===100?'#fff':'var(--bd)')+'">'+pct+'%</span></div>'
+      +(u.docs||[]).map(function(doc,i){var ch=(u.done||[])[i];return '<div class="di" onclick="toggleDoc('+u.id+','+i+')"><div class="dck'+(ch?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div><span class="dname'+(ch?' done':'')+'">'+doc+'</span></div>';}).join('')+'</div>';
   }).join('');
 }
+function toggleSave(id){var u=unis.find(function(x){return x.id===id;});if(!u)return;u.saved=!u.saved;save();haptic('light');render(curPage);}
+function toggleDoc(id,idx){var u=unis.find(function(x){return x.id===id;});if(!u)return;if(!u.done)u.done=Array((u.docs||[]).length).fill(false);u.done[idx]=!u.done[idx];save();haptic('light');renderDocs();}
 
-function toggleSave(id){
-  var u=unis.find(function(x){return x.id===id;});
-  if(!u)return;
-  u.saved=!u.saved;save();haptic('light');render(curPage);
-}
-function toggleDoc(id,idx){
-  var u=unis.find(function(x){return x.id===id;});
-  if(!u)return;
-  if(!u.done)u.done=Array((u.docs||[]).length).fill(false);
-  u.done[idx]=!u.done[idx];save();haptic('light');renderDocs();
-}
-
-/* ── ADMIN ── */
-const ADMIN_PASS='studify2025';
-const ADMIN_IDS=[1869981164];
-let adminUnlocked=false;
+// ADMIN
+var ADMIN_PASS='studify2025', ADMIN_IDS=[1869981164], adminUnlocked=false;
 function checkAdmin(tabEl){
-  var tgId=window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-  if(ADMIN_IDS.includes(tgId)||adminUnlocked){goPage('admin',tabEl);return;}
-  var pass=prompt('🔐 Admin password:');
+  var tgId=_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user&&_TG.initDataUnsafe.user.id;
+  if(ADMIN_IDS.indexOf(tgId)>=0||adminUnlocked){goPage('admin',tabEl);return;}
+  var pass=prompt('Admin password:');
   if(pass===ADMIN_PASS){adminUnlocked=true;goPage('admin',tabEl);}
-  else if(pass!==null)toast('❌ Wrong password');
+  else if(pass!==null)toast('Wrong password');
 }
+
+// PHOTO UPLOAD IN ADMIN
+function handlePhotoUpload(input){
+  var file=input.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var dataUrl=e.target.result;
+    // Show preview
+    var prev=document.getElementById('au-photo-preview');
+    prev.innerHTML='<img class="photo-preview" src="'+dataUrl+'"><div style="font-size:10px;color:var(--ok);margin-top:4px;font-weight:700">Photo ready</div>';
+    // Store in hidden field
+    document.getElementById('au-logo-url').value=dataUrl;
+  };
+  reader.readAsDataURL(file);
+}
+
 function renderAdmin(){
   var sv=unis.filter(function(u){return u.saved;}).length;
-  var openCnt=unis.filter(function(u){return u.status!=='closed';}).length;
-  var scholCnt=unis.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});}).length;
+  var oc=unis.filter(function(u){return u.status!=='closed';}).length;
+  var sc=unis.filter(function(u){return (u.tags||[]).some(function(t){return t.includes('%')||t.toLowerCase().includes('scholarship');});}).length;
   var stats=JSON.parse(localStorage.getItem('sf_stats')||'{}');
   document.getElementById('adminStatCards').innerHTML=
     '<div class="anl-card"><div class="anl-num">'+unis.length+'</div><div class="anl-lbl">Total unis</div></div>'
-    +'<div class="anl-card"><div class="anl-num" style="color:#166534">'+openCnt+'</div><div class="anl-lbl">Open</div></div>'
-    +'<div class="anl-card"><div class="anl-num" style="color:#991b1b">'+(unis.length-openCnt)+'</div><div class="anl-lbl">Closed</div></div>'
-    +'<div class="anl-card"><div class="anl-num">'+sv+'</div><div class="anl-lbl">User saves</div></div>'
-    +'<div class="anl-card"><div class="anl-num">'+scholCnt+'</div><div class="anl-lbl">Scholarship</div></div>'
-    +'<div class="anl-card"><div class="anl-num">'+(stats.consults||0)+'</div><div class="anl-lbl">Consults sent</div></div>'
+    +'<div class="anl-card"><div class="anl-num" style="color:#166534">'+oc+'</div><div class="anl-lbl">Open</div></div>'
+    +'<div class="anl-card"><div class="anl-num" style="color:#991b1b">'+(unis.length-oc)+'</div><div class="anl-lbl">Closed</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+sv+'</div><div class="anl-lbl">Saves</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+sc+'</div><div class="anl-lbl">Scholarship</div></div>'
+    +'<div class="anl-card"><div class="anl-num">'+(stats.consults||0)+'</div><div class="anl-lbl">Consults</div></div>'
     +'<div class="anl-card"><div class="anl-num">'+alerts.length+'</div><div class="anl-lbl">Alerts</div></div>'
     +'<div class="anl-card"><div class="anl-num">'+countries.length+'</div><div class="anl-lbl">Countries</div></div>';
+  renderFormsAdmin();
   document.getElementById('adminUniList').innerHTML=sortUnis(unis).map(function(u){
+    var logoThumb=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0" onerror="this.style.display=\'none\'">':'<span style="font-size:18px;flex-shrink:0">'+u.flag+'</span>';
     return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:.5px solid var(--br)">'
-      +'<span style="font-size:18px">'+u.flag+'</span>'
+      +logoThumb
       +'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+u.name+'</div>'
-      +'<div style="font-size:10px;color:var(--t2)">'+u.country+' · '+days(u.deadline)+'d left</div></div>'
-      +'<button onclick="adminToggleStatus('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid var(--br);background:'+(u.status==='closed'?'#fef3c7':'#dcfce7')+';color:'+(u.status==='closed'?'#92400e':'#166534')+';font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">'+(u.status==='closed'?'Open':'Close')+'</button>'
-      +'<button onclick="adminDelUni('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Del</button>'
+      +'<div style="font-size:10px;color:var(--t2)">'+u.country+' - '+days(u.deadline)+'d</div></div>'
+      +'<button onclick="adminToggle('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid var(--br);background:'+(u.status==='closed'?'#fef3c7':'#dcfce7')+';color:'+(u.status==='closed'?'#92400e':'#166534')+';font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">'+(u.status==='closed'?'Open':'Close')+'</button>'
+      +'<button onclick="adminDel('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Del</button>'
       +'</div>';
   }).join('');
 }
-function adminToggleStatus(id){
+function adminToggle(id){
   var u=unis.find(function(x){return x.id===id;});if(!u)return;
   u.status=u.status==='closed'?'open':'closed';
   try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i].status=u.status;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
   save();renderAdmin();haptic('light');
 }
-function adminDelUni(id){
-  if(!confirm('Delete this university?'))return;
+function adminDel(id){
+  if(!confirm('Delete?'))return;
   unis=unis.filter(function(u){return u.id!==id;});
   try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');au=au.filter(function(u){return u.id!==id;});localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
-  save();renderAdmin();toast('Deleted ✅');
+  save();renderAdmin();toast('Deleted');
 }
 function adminAddUni(){
   var name=document.getElementById('au-name').value.trim();
@@ -917,8 +1039,9 @@ function adminAddUni(){
   if(tuition==='free'&&!tags.includes('Tuition-free'))tags.unshift('Tuition-free');
   var BG=['#fff0eb','#ede9fe','#dcfce7','#dbeafe','#fef3c7','#fee2e2','#ccfbf1'];
   var docsRaw=document.getElementById('au-docs').value.trim();
-  var docs=docsRaw?docsRaw.split(',').map(function(d){return d.trim();}).filter(Boolean):['Apostille (diploma)','Academic transcript','Language certificate','Passport copy','Application fee'];
-  var newUni={id:Date.now(),status:status,name:name,country:country,
+  var docs=docsRaw?docsRaw.split(',').map(function(d){return d.trim();}).filter(Boolean):['Apostille','Transcript','Language cert','Passport','Application fee'];
+  var logoVal=document.getElementById('au-logo-url').value.trim();
+  var nu={id:Date.now(),status:status,name:name,country:country,
     city:document.getElementById('au-city').value.trim(),
     flag:document.getElementById('au-flag').value.trim()||'🎓',
     rank:document.getElementById('au-rank').value.trim(),
@@ -927,203 +1050,329 @@ function adminAddUni(){
     living:parseInt(document.getElementById('au-living').value)||8000,
     tuition:tuition,lang:'english',
     langReq:document.getElementById('au-langReq').value.trim(),
-    notes:document.getElementById('au-notes-field').value.trim(),
+    notes:document.getElementById('au-notesf').value.trim(),
     video:document.getElementById('au-video').value.trim(),
+    logo:logoVal,
     gpa:2.5,tags:tags,bg:BG[Math.floor(Math.random()*BG.length)],
     docs:docs,saved:false,done:Array(docs.length).fill(false),photos:[],reviews:[]};
-  unis.push(newUni);
-  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');au.push(newUni);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  unis.push(nu);
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');au.push(nu);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
   save();haptic();
-  ['au-name','au-country','au-city','au-flag','au-rank','au-program','au-langReq','au-tags','au-deadline','au-living','au-docs','au-notes-field','au-video'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
-  toast(name+' added! ✅');renderAdmin();
+  // Reset form
+  ['au-name','au-country','au-city','au-flag','au-rank','au-program','au-langReq','au-tags','au-deadline','au-living','au-docs','au-notesf','au-video','au-logo-url'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('au-photo-preview').innerHTML='<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:11px;color:var(--t2)">Tap to upload photo or logo</span>';
+  toast(name+' added!');renderAdmin();
 }
 function adminSendAlert(){
-  var title=document.getElementById('al-title').value.trim();
-  var body=document.getElementById('al-body').value.trim();
+  var title=document.getElementById('al-title').value.trim(),body=document.getElementById('al-body').value.trim();
   if(!title||!body){toast('Title and message required');return;}
   alerts.unshift({id:Date.now(),title:title,body:body,type:document.getElementById('al-type').value,time:'Just now'});
   save();document.getElementById('al-title').value='';document.getElementById('al-body').value='';
-  toast('Alert sent! 🔔');renderAdmin();
+  toast('Alert sent!');renderAdmin();
 }
 
-/* ── CONSULT ── */
-const CONSULTANT_IDS=[6737772798,7428221030];
-function renderConsult(){
-  var saved=unis.filter(function(u){return u.saved;});
-  var el=document.getElementById('cf-saved-unis');
-  if(el)el.textContent=saved.length?saved.map(function(u){return u.flag+' '+u.name;}).join(', '):'—';
-}
+// CONSULT
+var CIDS=[6737772798,7428221030];
+function renderConsult(){var sv=unis.filter(function(u){return u.saved;});var el=document.getElementById('cf-saved-unis');if(el)el.textContent=sv.length?sv.map(function(u){return u.flag+' '+u.name;}).join(', '):'-';}
 function sendToConsultant(){
   var name=document.getElementById('cf-name').value.trim();
   if(!name){toast('Please enter your name');return;}
-  var lines=[
-    '\uD83C\uDF93 *New Student Application \u2014 Studify.uz*','',
-    '\uD83D\uDC64 *Name:* '+name,
-    '\uD83C\uDF82 *Age:* '+(document.getElementById('cf-age').value||'\u2014'),
-    '\uD83D\uDCDA *Education:* '+(document.getElementById('cf-edu').value||'\u2014'),
-    '\uD83D\uDCCA *GPA/Score:* '+(document.getElementById('cf-gpa').value||'\u2014'),'',
-    '\uD83C\uDF10 *Language Certificates:*',
-    '\u2022 IELTS: '+(document.getElementById('cf-ielts').value||'\u2014'),
-    '\u2022 Duolingo: '+(document.getElementById('cf-duolingo').value||'\u2014'),
-    '\u2022 TOPIK: '+(document.getElementById('cf-topik').value||'\u2014'),
-    '\u2022 Other: '+(document.getElementById('cf-other').value||'\u2014'),'',
-    '\uD83D\uDDFA *Country:* '+(document.getElementById('cf-country').value||'Any'),
-    '\uD83C\uDFAF *Field:* '+(document.getElementById('cf-field').value||'\u2014'),
-    '\uD83D\uDCB0 *Budget:* '+(document.getElementById('cf-budget').value||'\u2014'),
-    '\uD83C\uDF93 *Level:* '+(document.getElementById('cf-level').value||'Any'),'',
-    '\uD83D\uDD16 *Saved unis:* '+unis.filter(function(u){return u.saved;}).map(function(u){return u.flag+' '+u.name;}).join(', '),'',
-    '\uD83D\uDCDD *Notes:* '+(document.getElementById('cf-notes').value||'\u2014'),'',
-    '\uD83D\uDCF1 *Telegram:* '+(window._TG?.initDataUnsafe?.user?('@'+(window._TG.initDataUnsafe.user.username||'')+'  ID:'+window._TG.initDataUnsafe.user.id):'Unknown')
+  var lines=['New Student Application - Studify.uz','',
+    'Name: '+name,'Age: '+(document.getElementById('cf-age').value||'-'),
+    'Education: '+(document.getElementById('cf-edu').value||'-'),'GPA: '+(document.getElementById('cf-gpa').value||'-'),'',
+    'Language Certificates:','IELTS: '+(document.getElementById('cf-ielts').value||'-'),
+    'Duolingo: '+(document.getElementById('cf-duolingo').value||'-'),'TOPIK: '+(document.getElementById('cf-topik').value||'-'),
+    'Other: '+(document.getElementById('cf-other').value||'-'),'',
+    'Country: '+(document.getElementById('cf-country').value||'Any'),'Field: '+(document.getElementById('cf-field').value||'-'),
+    'Budget: '+(document.getElementById('cf-budget').value||'-'),'Level: '+(document.getElementById('cf-level').value||'Any'),'',
+    'Saved unis: '+unis.filter(function(u){return u.saved;}).map(function(u){return u.flag+' '+u.name;}).join(', '),'',
+    'Notes: '+(document.getElementById('cf-notes').value||'-'),'',
+    'Telegram: '+(_TG&&_TG.initDataUnsafe&&_TG.initDataUnsafe.user?('@'+(_TG.initDataUnsafe.user.username||'')+' ID:'+_TG.initDataUnsafe.user.id):'Unknown')
   ];
   var msg=lines.join('\n');
   var BOT='8484535195:AAHmzt6HZBYnVS8jLHxgzFC9D8SJo0PSCY0';
-  Promise.all(CONSULTANT_IDS.map(function(cid){
-    return fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cid,text:msg,parse_mode:'Markdown'})}).then(function(r){return r.json();});
+  Promise.all(CIDS.map(function(cid){
+    return fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cid,text:msg})}).then(function(r){return r.json();});
   })).then(function(res){
     if(res.some(function(d){return d.ok;})){
-      toast('\u2705 Sent! We will contact you soon');
+      toast('Sent! We will contact you soon');
       try{var s=JSON.parse(localStorage.getItem('sf_stats')||'{}');s.consults=(s.consults||0)+1;localStorage.setItem('sf_stats',JSON.stringify(s));}catch(e){}
       ['cf-name','cf-age','cf-gpa','cf-ielts','cf-duolingo','cf-topik','cf-other','cf-field','cf-notes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-    } else {toast('\u274C Error: '+(res[0]?.description||'Try again'));}
-  }).catch(function(){toast('\u274C Network error');});
+    }else{toast('Error sending. Try again.');}
+  }).catch(function(){toast('Network error');});
 }
 
-/* ── AI ADVISOR (Claude API) ── */
-const AI_SYSTEM = `You are an expert study abroad advisor for Studify.uz, an Uzbek education agency. You help Uzbek and CIS students find universities in Europe and Asia. You know all 45+ partner universities across Italy, South Korea, Latvia, Netherlands, UK, Germany, Poland, Hungary, Czech Republic.
-
-Key knowledge:
-- Italy: 19 universities, DSU scholarship up to €2500/yr, English track, Type D Schengen visa, apply at universitaly.it
-- South Korea: 12 universities, up to 100% scholarship, E-visa available (no embassy visit), D-2 student visa
-- Latvia: 4 universities in Riga, English track, Schengen, 2-4 intakes/year
-- Germany: TU Munich, LMU, RWTH Aachen — tuition FREE, IELTS 6.5-7.0
-- UK: Northumbria, UWS — IELTS 6.0+, 97% visa success, 3 intakes/year
-- Netherlands: Wittenborg — Holland Scholarship €5k if IELTS 7+
-- Hungary: Corvinus — Stipendium Hungaricum scholarship for Uzbek students
-- Poland: University of Warsaw — affordable, easy EU visa
-- Czech Republic: Charles University — free tuition in Czech language
-
-Always respond in the same language the student uses (Uzbek, Russian, or English). Be warm, helpful, specific. Mention actual deadlines and scholarship amounts when relevant. End responses by suggesting next steps or asking a follow-up question.`;
-
-async function callAI(userMsg){
-  try{
-    const response = await fetch('https://api.anthropic.com/v1/messages',{
+// AI CHAT
+var AI_SYS='You are an expert study abroad advisor for Studify.uz, an Uzbek education agency. Help Uzbek and CIS students find universities in Europe and Asia. Respond in the same language the student uses (Uzbek, Russian, or English). Be warm, specific and helpful. Key facts: Italy has 19 partner universities with DSU scholarship up to 2500 EUR/yr, English track, Schengen visa. South Korea has 12 universities with scholarships up to 100%, E-visa available (no embassy visit). Latvia has 4 universities in Riga, Schengen. Germany: TU Munich, LMU, RWTH - tuition free. UK: 97% visa success. Hungary: Stipendium Hungaricum full scholarship for Uzbek students. Always end with a helpful follow-up question.';
+function fbAI(inp){
+  var lo=inp.toLowerCase();
+  if(lo.includes('italy')||lo.includes('italiya'))return 'Italy is our top destination! 19 partner universities with DSU scholarships covering housing and food (up to 2,500 EUR/year). All have English programs. Deadlines are April-July 2025.\n\nWhat field would you like to study?';
+  if(lo.includes('korea')||lo.includes('koreya'))return 'South Korea is excellent! 12 partner universities with scholarships up to 100%. Some offer E-visa - no embassy visit needed!\n\nDo you have IELTS or would you prefer a no-language-test option?';
+  if(lo.includes('free')||lo.includes('bepul')||lo.includes('besp'))return 'Tuition-free options:\n\nGermany - TU Munich, LMU, RWTH Aachen. Free but need IELTS 6.5+\nSouth Korea - up to 100% scholarship\nHungary - Stipendium Hungaricum full scholarship\nItaly - DSU covers 2,500 EUR/yr of costs\n\nWhat is your current GPA?';
+  if(lo.includes('budget')||lo.includes('cheap')||lo.includes('arzon'))return 'Best budget options:\n\n1. Italy - 2,500 EUR/yr + DSU covers living costs\n2. Latvia - 3,500 EUR/yr in Riga\n3. Poland - 2,000 EUR/yr, easy EU visa\n4. South Korea - 1,500 USD/yr with scholarship\n\nWhat field do you want to study?';
+  if(lo.includes('visa')||lo.includes('easy'))return 'Easiest visas for Uzbek students:\n\nSouth Korea E-visa - completely online, no embassy visit!\nItaly - Type D Schengen, good approval rate\nLatvia - Schengen, straightforward process\nHungary - EU, Stipendium covers everything\n\nWhich country interests you?';
+  return 'I can help you find the perfect university! Tell me:\n\n1. What field do you want to study?\n2. What is your budget per year?\n3. Do you have IELTS or other language certificate?\n\nOr just ask about any specific country or university!';
+}
+function callAI(msg){
+  return new Promise(function(resolve){
+    var hist=chatH.slice(-8).map(function(m){return {role:m.role==='ai'?'assistant':'user',content:m.text};});
+    fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:AI_SYSTEM,
-        messages:chatH.filter(function(m){return m.role==='user'||m.role==='assistant';})
-          .map(function(m){return {role:m.role==='ai'?'assistant':m.role,content:m.text};})
-          .concat([{role:'user',content:userMsg}])
-      })
-    });
-    const data = await response.json();
-    if(data.content&&data.content[0]){
-      return data.content[0].text;
-    }
-    return fallbackAI(userMsg);
-  } catch(e){
-    return fallbackAI(userMsg);
-  }
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:AI_SYS,messages:hist.concat([{role:'user',content:msg}])})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.content&&d.content[0])resolve(d.content[0].text);
+      else resolve(fbAI(msg));
+    }).catch(function(){resolve(fbAI(msg));});
+  });
 }
-
-function fallbackAI(inp){
-  var lo=inp.toLowerCase();
-  if(lo.includes('italy')||lo.includes('italiya')||lo.includes('италия'))
-    return 'Italy is one of our most popular destinations! We have 19 partner universities with DSU scholarships up to \u20AC2,500/year covering housing and food. All have English tracks. Deadlines are April-July 2025. What field would you like to study?';
-  if(lo.includes('korea')||lo.includes('korea')||lo.includes('koreya'))
-    return 'South Korea is great! We have 12 partner universities with scholarships up to 100%. Some have E-visa (no embassy visit needed). Do you have IELTS or prefer a university with no language test required?';
-  if(lo.includes('free')||lo.includes('bepul')||lo.includes('бесплатно'))
-    return 'Tuition-free options:\n\n\uD83C\uDDE9\uD83C\uDDEA Germany \u2014 TU Munich, LMU, RWTH Aachen. All free, but need IELTS 6.5+\n\uD83C\uDDF0\uD83C\uDDF7 South Korea \u2014 up to 100% scholarship at partner unis\n\uD83C\uDDED\uD83C\uDDFA Hungary \u2014 Stipendium Hungaricum full scholarship\n\nWhat is your current GPA and language score?';
-  if(lo.includes('budget')||lo.includes('cheap')||lo.includes('arzon'))
-    return 'Best budget options:\n\n1\uFE0F\u20E3 Italy \u2014 only \u20AC2,500/yr tuition + DSU covers \u20AC2,500 living costs\n2\uFE0F\u20E3 Latvia \u2014 \u20AC3,500/yr in Riga\n3\uFE0F\u20E3 Poland \u2014 \u20AC2,000/yr, easy EU visa\n\nTell me your field and I will find the exact best match!';
-  return 'I can help you find the perfect university! Could you tell me:\n\n1. What field do you want to study?\n2. What is your budget per year?\n3. Do you have IELTS or other language certificate?\n\nOr just ask about any specific country or university!';
-}
-
-function initAI(){
-  addMsg("Hi! I'm your Studify.uz AI Study Advisor \uD83C\uDF93\n\nI help Uzbek and CIS students find the perfect university based on your background, goals, and budget.\n\nWhat field would you like to study? Or ask me anything about studying in Europe and Asia!",'ai');
-}
+function initAI(){addMsg('Hi! I am your Studify.uz AI Study Advisor.\n\nI help Uzbek and CIS students find the perfect university in Europe and Asia.\n\nWhat would you like to know?','ai');}
 function addMsg(text,role){
-  var el=document.createElement('div');
-  el.className='msg msg-'+(role||'ai');
+  var el=document.createElement('div');el.className='msg msg-'+(role||'ai');
   if(role==='ai'||!role){
-    var formatted=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
-    formatted=formatted.split('\n').join('<br>');
-    el.innerHTML='<div class="mlbl">Studify AI</div>'+formatted;
-  } else {
-    el.textContent=text;
-  }
+    var f=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').split('\n').join('<br>');
+    el.innerHTML='<div class="mlbl">Studify AI</div>'+f;
+  }else{el.textContent=text;}
   document.getElementById('msgs').appendChild(el);
   document.getElementById('msgs').scrollTop=99999;
   chatH.push({role:role||'ai',text:text});
 }
-function showTyping(){
-  var t=document.createElement('div');t.className='typing';t.id='typing';
-  t.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';
-  document.getElementById('msgs').appendChild(t);
-  document.getElementById('msgs').scrollTop=99999;
-}
+function showTyping(){var t=document.createElement('div');t.className='typing';t.id='typing';t.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';document.getElementById('msgs').appendChild(t);document.getElementById('msgs').scrollTop=99999;}
 function hideTyping(){var t=document.getElementById('typing');if(t)t.remove();}
 function doSug(txt){document.getElementById('cinput').value=txt;doSend();}
 function ck(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();doSend();}}
 function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,80)+'px';}
 function doSend(){
-  var inp=document.getElementById('cinput');
-  var text=inp.value.trim();if(!text)return;
+  var inp=document.getElementById('cinput'),text=inp.value.trim();if(!text)return;
   addMsg(text,'u');inp.value='';inp.style.height='auto';
   showTyping();
-  callAI(text).then(function(reply){hideTyping();addMsg(reply,'ai');}).catch(function(){hideTyping();addMsg(fallbackAI(text),'ai');});
+  callAI(text).then(function(r){hideTyping();addMsg(r,'ai');});
 }
 
-/* ── INIT ── */
-migrateData(); // data migration runs immediately
 
-function initApp(){
-  // Re-assign TG after SDK is guaranteed loaded
-  window._TG = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
-  if(window._TG){ try{ window._TG.ready(); window._TG.expand(); }catch(e){} }
-  // Set LANG before anything renders
-  LANG = TR[curLang] || TR.en;
-  L = LANG;
-  render('home');
-  applyLang();
-
-
-} // end initApp
-
-// Wait for Telegram SDK then init
-if(document.readyState === 'complete' || document.readyState === 'interactive'){
-  setTimeout(initApp, 50);
-} else {
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(initApp, 50); });
-}
-const TR={
-  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities, countries...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Ask anything...',viewUnis:'View universities in',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants',applyNow:'Apply Now',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',reqLiving:'Living',scholarship:'Scholarship',photos:'Photos',reviews:'Student Reviews',location:'Location',reqTitle:'Requirements',overview:'Overview'},
-  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar, mamlakatlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Savol bering...',viewUnis:"Universitetlarni ko'rish:",open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi",applyNow:'Ariza berish',reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",reqLiving:'Yashash',scholarship:'Stipendiya',photos:'Rasmlar',reviews:'Sharhlar',location:'Joylashuv',reqTitle:'Talablar',overview:"Ma'lumot"},
-  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск университетов, стран...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Задайте вопрос...',viewUnis:'Университеты в:',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план',applyNow:'Подать заявку',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',reqLiving:'Проживание',scholarship:'Стипендия',photos:'Фотографии',reviews:'Отзывы',location:'Расположение',reqTitle:'Требования',overview:'Обзор'}
+// NOTION APPLICATION FORMS - update these URLs with your real Notion form links
+var NOTION_FORMS={
+  'Italy':'https://www.notion.so/studify-apply-italy',
+  'South Korea':'https://www.notion.so/studify-apply-korea',
+  'Latvia':'https://www.notion.so/studify-apply-latvia',
+  'Netherlands':'https://www.notion.so/studify-apply-netherlands',
+  'UK':'https://www.notion.so/studify-apply-uk',
+  'USA':'https://www.notion.so/studify-apply-usa',
+  'Germany':'https://www.notion.so/studify-apply-germany',
+  'Poland':'https://www.notion.so/studify-apply-poland',
+  'Hungary':'https://www.notion.so/studify-apply-hungary',
+  'Czech Republic':'https://www.notion.so/studify-apply-czech'
 };
-let curLang='en', L=TR.en, LANG=TR.en;
 
-function setLang(lang,btn){
-  curLang=lang; L=TR[lang]; LANG=TR[lang];
-  document.querySelectorAll('.lang-pill').forEach(b=>b.classList.remove('on'));
-  if(btn)btn.classList.add('on');
-  applyLang(); render(curPage);
+function openApply(uniId){
+  var u=unis.find(function(x){return x.id===uniId;});
+  if(!u)return;
+  var url=NOTION_FORMS[u.country]||'https://notion.so';
+  // Show apply modal
+  var modal=document.getElementById('applyModal');
+  document.getElementById('applyModalTitle').textContent='Apply to '+u.name;
+  document.getElementById('applyModalCountry').textContent=u.flag+' '+u.country;
+  document.getElementById('applyModalDeadline').textContent=u.deadline?new Date(u.deadline).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'Check university website';
+  document.getElementById('applyModalBtn').onclick=function(){window.open(url,'_blank');};
+  modal.classList.add('on');
+  haptic('medium');
 }
-function applyLang(){
-  var tmap=[['tab-home','home'],['tab-countries','countries'],['tab-explore','universities'],['tab-saved','saved'],['tab-alerts','alerts'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']];
-  tmap.forEach(function(p){var e=document.getElementById(p[0]);if(e&&LANG[p[1]])e.textContent=LANG[p[1]];});
-  var nmap=[['nl-home','home'],['nl-countries','countries'],['nl-ai','ai'],['nl-saved','saved'],['nl-alerts','alerts']];
-  nmap.forEach(function(p){var e=document.getElementById(p[0]);if(e&&LANG[p[1]])e.textContent=LANG[p[1]];});
-  var si=document.getElementById('srch');if(si)si.placeholder=LANG.searchPh;
-  var at=document.getElementById('ai-t');if(at)at.textContent=LANG.aiT;
-  var as=document.getElementById('ai-s');if(as)as.textContent=LANG.aiS;
-  var ci=document.getElementById('cinput');if(ci)ci.placeholder=LANG.aiPh;
-  var sd=document.getElementById('sh-dead');if(sd)sd.textContent=LANG.upcomingDead;
-  var sp=document.getElementById('sh-picks');if(sp)sp.textContent=LANG.topPicks;
+function closeApply(){document.getElementById('applyModal').classList.remove('on');}
+
+
+// ── NOTION APPLICATION FORMS ──
+// Add your Notion form links here per country
+var NOTION_FORMS = {
+  'Italy':         'NOTION_ITALY_FORM_URL',
+  'South Korea':   'NOTION_KOREA_FORM_URL',
+  'Latvia':        'NOTION_LATVIA_FORM_URL',
+  'Germany':       'NOTION_GERMANY_FORM_URL',
+  'UK':            'NOTION_UK_FORM_URL',
+  'Netherlands':   'NOTION_NETHERLANDS_FORM_URL',
+  'Poland':        'NOTION_POLAND_FORM_URL',
+  'Hungary':       'NOTION_HUNGARY_FORM_URL',
+  'Czech Republic':'NOTION_CZECH_FORM_URL',
+  'USA':           'NOTION_USA_FORM_URL',
+  'default':       'NOTION_DEFAULT_FORM_URL'
+};
+var _notionUrl = '';
+
+
+function openNotionLink(){
+  if(_notionUrl){
+    window.open(_notionUrl,'_blank');
+    closeNotion();
+  }
+}
+function closeNotion(e){
+  if(!e||e.target===document.getElementById('notionOverlay'))
+    document.getElementById('notionOverlay').classList.remove('on');
 }
 
+
+// ═══════════════════════════════════════════════
+// APPLICATION FORMS - Simple: Country + Program
+// Stored in localStorage. Managed via Admin panel.
+// ═══════════════════════════════════════════════
+
+// Load forms from storage
+var appForms = JSON.parse(localStorage.getItem('sf_forms') || '[]');
+
+function saveForms(){
+  localStorage.setItem('sf_forms', JSON.stringify(appForms));
+}
+
+// Program type labels (also used as filter keys)
+var PROG_LABELS = {
+  'general':      'All Programs',
+  'bachelor':     "Bachelor's",
+  'masters':      "Master's",
+  'foundation':   'Foundation / Pathway',
+  'language':     'Language Course',
+  'college':      'College / Diploma',
+  'phd':          'PhD / Doctorate',
+  'summer':       'Summer Camp',
+  'evisa':        'E-visa Programs'
+};
+
+// Detect program type from a university object
+function detectProgType(u){
+  var prog = (u.program||'').toLowerCase();
+  var tags = (u.tags||[]).map(function(t){return t.toLowerCase();});
+  var hasEvisa = tags.some(function(t){return t.includes('e-visa');});
+  if(hasEvisa) return 'evisa';
+  if(prog.includes('phd')||prog.includes('doctorate')) return 'phd';
+  if(prog.includes('summer')) return 'summer';
+  if(prog.includes('master')) return 'masters';
+  if(prog.includes('bachelor')) return 'bachelor';
+  if(prog.includes('foundation')||prog.includes('pathway')) return 'foundation';
+  if(prog.includes('language')) return 'language';
+  if(prog.includes('college')||prog.includes('diploma')) return 'college';
+  return 'general';
+}
+
+// Get the active form for a university (country + best type match)
+function getFormForUni(u){
+  if(!u) return null;
+  var country = u.country;
+  var progType = detectProgType(u);
+  var countryForms = appForms.filter(function(f){
+    return f.country === country && f.active;
+  });
+  if(!countryForms.length) return null;
+  // Exact match first, then general fallback
+  return countryForms.find(function(f){return f.type===progType;})
+      || countryForms.find(function(f){return f.type==='general';})
+      || countryForms[0];
+}
+
+// ADMIN: Save or replace a form
+function adminSaveForm(){
+  var country = document.getElementById('af-country').value;
+  var type    = document.getElementById('af-type').value || 'general';
+  var url     = document.getElementById('af-url').value.trim();
+  var note    = document.getElementById('af-note').value.trim();
+  if(!country){ toast('Select a country'); return; }
+  if(!url||!url.startsWith('http')){ toast('Enter a valid URL'); return; }
+
+  // Swap: deactivate any existing form for same country + type
+  appForms.forEach(function(f){
+    if(f.country===country && f.type===type) f.active = false;
+  });
+
+  // Add the new active form
+  appForms.push({
+    id: Date.now(),
+    country: country,
+    type: type,
+    url: url,
+    note: note,
+    active: true,
+    updatedAt: new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})
+  });
+
+  saveForms();
+  document.getElementById('af-country').value = '';
+  document.getElementById('af-url').value = '';
+  document.getElementById('af-note').value = '';
+  toast(country + ' form saved ✅');
+  renderAdmin();
+}
+
+// ADMIN: Delete a form entry
+function adminDeleteForm(id){
+  if(!confirm('Delete this form?')) return;
+  appForms = appForms.filter(function(f){return f.id!==id;});
+  saveForms(); renderAdmin(); toast('Deleted');
+}
+
+// ADMIN: Render the forms list inside Admin panel
+function renderFormsAdmin(){
+  var el = document.getElementById('adminFormsList');
+  if(!el) return;
+
+  var active = appForms.filter(function(f){return f.active;});
+
+  if(!active.length){
+    el.innerHTML = '<div style="font-size:11px;color:var(--t2);padding:8px 0;text-align:center">No forms added yet. Add one above.</div>';
+    return;
+  }
+
+  // Group by country
+  var byCountry = {};
+  active.forEach(function(f){
+    if(!byCountry[f.country]) byCountry[f.country] = [];
+    byCountry[f.country].push(f);
+  });
+
+  el.innerHTML = Object.keys(byCountry).sort().map(function(country){
+    var forms = byCountry[country];
+    var rows = forms.map(function(f){
+      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:.5px solid var(--br)">'
+        + '<div style="flex:1;min-width:0">'
+        + '<div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">'
+        + '<span style="font-size:11px;font-weight:700">'+(PROG_LABELS[f.type]||f.type)+'</span>'
+        + '<span style="font-size:10px;color:var(--t3)">Updated '+f.updatedAt+'</span>'
+        + '</div>'
+        + (f.note ? '<div style="font-size:10px;color:var(--t2);margin-top:1px">'+f.note+'</div>' : '')
+        + '<div style="font-size:10px;color:var(--brand);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px">'+f.url+'</div>'
+        + '</div>'
+        + '<button onclick="adminDeleteForm('+f.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;margin-left:8px">Del</button>'
+        + '</div>';
+    }).join('');
+    return '<div style="background:var(--sf);border-radius:11px;padding:10px 12px;border:.5px solid var(--br);margin-bottom:8px">'
+      + '<div style="font-size:12px;font-weight:800;margin-bottom:6px">'+country+'</div>'
+      + rows
+      + '</div>';
+  }).join('');
+}
+
+// Show apply modal - picks the right form automatically
+function showApply(id){
+  var u = unis.find(function(x){return x.id===id;});
+  if(!u) return;
+  var form = getFormForUni(u);
+  if(!form){
+    toast('Application form coming soon for '+u.country);
+    return;
+  }
+  _notionUrl = form.url;
+  var progLabel = PROG_LABELS[form.type] || form.type;
+  document.getElementById('notionTitle').textContent = u.flag + ' Apply - ' + u.name;
+  var desc = u.country + ' - ' + progLabel;
+  if(form.note) desc = desc + ' - ' + form.note;
+  desc = desc + '. Fill in the form and our consultant will guide you within 24 hours.';
+  document.getElementById('notionDesc').textContent = desc;
+    document.getElementById('notionOverlay').classList.add('on');
+  haptic('medium');
+}
+
+// BOOT
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(initApp,50);});
+}else{
+  setTimeout(initApp,50);
+}
 
 </script>
 </body>
