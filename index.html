@@ -209,11 +209,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   </div>
 </div>
 <div class="tabs">
-  <button class="tb-btn on" id="tab-home" onclick="goPage('home',this)">Overview</button>
-  <button class="tb-btn" id="tab-countries" onclick="goPage('countries',this)">Countries</button>
   <button class="tb-btn" id="tab-explore" onclick="goPage('explore',this)">Universities</button>
-  <button class="tb-btn" id="tab-saved" onclick="goPage('saved',this)">Saved</button>
-  <button class="tb-btn" id="tab-alerts" onclick="goPage('alerts',this)">Alerts</button>
   <button class="tb-btn" id="tab-docs" onclick="goPage('docs',this)">Documents</button>
   <button class="tb-btn" id="tab-consult" onclick="goPage('consult',this)">Consult</button>
   <button class="tb-btn" id="tab-admin" onclick="checkAdmin(this)" style="background:rgba(255,255,255,.28);color:#fff">Admin</button>
@@ -276,22 +272,22 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   <div class="pg" id="pg-docs"><div id="dList"></div></div>
   <div class="pg" id="pg-consult">
     <div style="background:var(--sf);border-radius:var(--r);border:.5px solid var(--br);overflow:hidden">
-      <div style="background:var(--brand);padding:13px 15px;color:#fff;font-size:14px;font-weight:700">Free Consultation</div>
+      <div id="cf-title" style="background:var(--brand);padding:13px 15px;color:#fff;font-size:14px;font-weight:700">Free Consultation</div>
       <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
-        <div style="font-size:11px;color:var(--t2);line-height:1.6;background:var(--bl);border-radius:10px;padding:10px 12px">Our expert consultants will review your profile and contact you within 24 hours — completely free.</div>
-        <div><div class="cf-label">Full Name *</div><input class="adm-inp" id="cf-name" placeholder="Your full name"></div>
+        <div id="cf-desc" style="font-size:11px;color:var(--t2);line-height:1.6;background:var(--bl);border-radius:10px;padding:10px 12px">Our expert consultants will review your profile and contact you within 24 hours — completely free.</div>
+        <div><div class="cf-label" id="lbl-cfname">Full Name *</div><input class="adm-inp" id="cf-name" placeholder="Your full name"></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div><div class="cf-label">Age</div><input class="adm-inp" id="cf-age" type="number" placeholder="e.g. 20"></div>
-          <div><div class="cf-label">GPA</div><input class="adm-inp" id="cf-gpa" placeholder="e.g. 85%"></div>
+          <div><div class="cf-label" id="lbl-cfage">Age</div><input class="adm-inp" id="cf-age" type="number" placeholder="e.g. 20"></div>
+          <div><div class="cf-label" id="lbl-cfgpa">GPA</div><input class="adm-inp" id="cf-gpa" placeholder="e.g. 85%"></div>
         </div>
-        <div><div class="cf-label">Education Level</div>
+        <div><div class="cf-label" id="lbl-cfedu">Education Level</div>
           <select class="adm-inp" id="cf-edu">
             <option value="">Select...</option>
             <option>High School (11th grade)</option><option>High School Graduate</option>
             <option>Bachelor's Student</option><option>Bachelor's Graduate</option><option>Master's Graduate</option>
           </select>
         </div>
-        <div><div class="cf-label">Language Certificates</div>
+        <div><div class="cf-label" id="lbl-cfcerts">Language Certificates</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <input class="adm-inp" id="cf-ielts" placeholder="IELTS e.g. 6.5">
             <input class="adm-inp" id="cf-duolingo" placeholder="Duolingo e.g. 110">
@@ -301,7 +297,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
             <input class="adm-inp" id="cf-other" placeholder="Other cert">
           </div>
         </div>
-        <div><div class="cf-label">Preferred Country</div>
+        <div><div class="cf-label" id="lbl-cfcountry">Preferred Country</div>
           <select class="adm-inp" id="cf-country">
             <option value="">Any / Not sure</option>
             <option>Italy</option><option>South Korea</option><option>Latvia</option>
@@ -309,27 +305,27 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
             <option>Germany</option><option>Poland</option><option>Hungary</option><option>Czech Republic</option>
           </select>
         </div>
-        <div><div class="cf-label">Field of Study</div><input class="adm-inp" id="cf-field" placeholder="e.g. Business, Engineering, IT..."></div>
-        <div><div class="cf-label">Budget / Year</div>
+        <div><div class="cf-label" id="lbl-cffield">Field of Study</div><input class="adm-inp" id="cf-field" placeholder="e.g. Business, Engineering, IT..."></div>
+        <div><div class="cf-label" id="lbl-cfbudget">Budget / Year</div>
           <select class="adm-inp" id="cf-budget">
             <option value="">Select range...</option>
             <option>Under $5,000/year</option><option>$5,000 - $10,000/year</option>
             <option>$10,000 - $20,000/year</option><option>Over $20,000/year</option>
           </select>
         </div>
-        <div><div class="cf-label">Program Level</div>
+        <div><div class="cf-label" id="lbl-cflevel">Program Level</div>
           <select class="adm-inp" id="cf-level">
             <option value="">Any</option><option>Bachelor's</option><option>Master's</option><option>Foundation</option>
           </select>
         </div>
-        <div><div class="cf-label">Saved Universities</div>
+        <div><div class="cf-label" id="lbl-cfsaved">Saved Universities</div>
           <div id="cf-saved-unis" style="font-size:11px;color:var(--t2);padding:9px 11px;background:var(--sf2);border-radius:9px;border:.5px solid var(--br)">-</div>
         </div>
-        <div><div class="cf-label">Notes</div>
+        <div><div class="cf-label" id="lbl-cfnotes">Notes</div>
           <textarea class="adm-inp" id="cf-notes" rows="2" placeholder="Anything else..." style="resize:none"></textarea>
         </div>
-        <button class="send-btn" onclick="sendToConsultant()">Send — Get Free Consultation</button>
-        <div style="font-size:10px;color:var(--t2);text-align:center">We respond within 24 hours. Your data is private.</div>
+        <button class="send-btn" id="cf-sendbtn" onclick="sendToConsultant()">Send — Get Free Consultation</button>
+        <div id="cf-privacy" style="font-size:10px;color:var(--t2);text-align:center">We respond within 24 hours. Your data is private.</div>
       </div>
     </div>
   </div>
@@ -387,6 +383,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         <input class="adm-inp" id="au-langReq" placeholder="Language requirement e.g. IELTS 6.0+">
         <input class="adm-inp" id="au-tags" placeholder="Tags comma-separated">
         <input class="adm-inp" id="au-video" placeholder="YouTube URL (optional)">
+        <input class="adm-inp" id="au-mapurl" placeholder="Google Maps URL (optional — paste share link from Maps)">
         <textarea class="adm-inp" id="au-docs" rows="2" placeholder="Docs checklist comma-separated" style="resize:none"></textarea>
         <textarea class="adm-inp" id="au-notesf" rows="2" placeholder="Important notes for students" style="resize:none"></textarea>
         <button onclick="adminAddUni()" style="padding:11px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Save University</button>
@@ -428,6 +425,23 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         <div id="adminFormsList"></div>
         <!-- Archived Forms -->
         <div id="adminFormsArchive"></div>
+
+        <!-- EXPENSE OVERRIDE SECTION -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Expense Estimates Override</div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.5;background:var(--bl);border-radius:10px;padding:10px 12px">Override default expense estimates for a country. Leave blank to use the app defaults.</div>
+        <div style="background:var(--sf2);border-radius:12px;padding:12px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:8px">
+          <select class="adm-inp" id="exp-country" onchange="adminLoadExpenseCountry()">
+            <option value="">Select Country</option>
+            <option>Italy</option><option>South Korea</option><option>Latvia</option>
+            <option>Germany</option><option>UK</option><option>Netherlands</option>
+            <option>Poland</option><option>Hungary</option><option>Czech Republic</option><option>USA</option>
+          </select>
+          <div id="expItemsContainer" style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:11px;color:var(--t2);text-align:center;padding:8px 0">Select a country to edit expenses</div>
+          </div>
+          <button onclick="adminSaveExpenses()" style="padding:10px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Save Expense Overrides</button>
+          <button onclick="adminResetExpenses()" style="padding:8px;background:var(--sf);color:var(--t2);border:.5px solid var(--br);border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">Reset to App Defaults</button>
+        </div>
 
         <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">All Universities</div>
         <div id="adminUniList"></div>
@@ -522,16 +536,16 @@ const DOCS_STD=["Apostille (diploma)","Academic transcript","Motivation letter",
 const DOCS_IT=["Apostille (diploma)","Academic transcript","Entrance exam (if required)","Passport copy","Application fee payment"];;
 
 const COUNTRIES = [
-  {id:1,name:"Italy",flag:"🇮🇹",color:"#009246",highlight:"Regional DSU scholarship up to €2,500 — available at most universities",tuition:2500,living:9000,visa:"Student visa (Type D) — apply at Italian embassy in Tashkent",tags:["DSU Scholarship","English programs","Affordable","Schengen"]},
-  {id:2,name:"South Korea",flag:"🇰🇷",color:"#003478",highlight:"Grants up to 100% at partner universities — E-visa available",tuition:1500,living:8000,visa:"D-2 Student visa or E-visa (electronic)",tags:["Scholarship available","E-visa","English programs","Affordable"]},
-  {id:3,name:"Latvia",flag:"🇱🇻",color:"#9E3039",highlight:"English-taught programs in Riga with multiple intakes per year",tuition:3500,living:7000,visa:"EU long-stay student visa — Schengen access",tags:["English programs","Schengen","Multiple intakes","Affordable"]},
-  {id:4,name:"Netherlands",flag:"🇳🇱",color:"#AE1C28",highlight:"Wittenborg University — 6 intakes/year, Holland Scholarship €5,000 if IELTS 7+",tuition:11800,living:9000,visa:"MVV entry visa required — apply via IND",tags:["Holland Scholarship","English programs","6 intakes/year","Schengen"]},
-  {id:5,name:"UK",flag:"🇬🇧",color:"#012169",highlight:"3 intakes/year — grants up to 30%, 97% visa success rate",tuition:7000,living:13000,visa:"UK Student visa — bank statement $35,000–$40,000 required",tags:["Grant up to 30%","3 intakes/year","English programs","High visa success"]},
-  {id:6,name:"USA",flag:"🇺🇸",color:"#3C3B6E",highlight:"3 intakes/year — Pathway program available with IELTS 5.0",tuition:15000,living:15000,visa:"F-1 Student visa — 50% approval rate currently",tags:["Pathway program","3 intakes/year","English programs","SAT scholarship"]},
-  {id:7,name:"Germany",flag:"🇩🇪",color:"#1A1A1A",highlight:"Tuition-free public universities for all international students",tuition:0,living:9500,visa:"National D visa — apply at German embassy in Tashkent",tags:["Tuition-free","English programs","Research leader","Schengen"]},
-  {id:8,name:"Poland",flag:"🇵🇱",color:"#D4213D",highlight:"Most CIS-friendly EU destination with affordable costs",tuition:2000,living:6500,visa:"Student visa — very accessible for Uzbek citizens",tags:["CIS-friendly","Affordable","English programs","Schengen"]},
-  {id:9,name:"Hungary",flag:"🇭🇺",color:"#477050",highlight:"Stipendium Hungaricum — FULL scholarship for Uzbek students",tuition:3000,living:6000,visa:"Student visa required",tags:["Scholarship available","Affordable","English programs","Schengen"]},
-  {id:10,name:"Czech Republic",flag:"🇨🇿",color:"#D52B1E",highlight:"Free tuition in Czech language, affordable EU education",tuition:0,living:7500,visa:"Long-stay student visa Type D",tags:["Tuition-free","Affordable","English programs","Schengen"]},
+  {id:1,name:"Italy",flag:"🇮🇹",color:"#009246",highlight:"Regional DSU scholarship up to €2,500 — available at most universities",highlight_uz:"DSU stipendiyasi — yiliga 2500 EUR gacha, ingliz tilida ta'lim",highlight_ru:"Стипендия DSU до EUR 2500/год — английские программы, Шенгенская виза",tuition:2500,living:9000,visa:"Student visa (Type D) — apply at Italian embassy in Tashkent",tags:["DSU Scholarship","English programs","Affordable","Schengen"]},
+  {id:2,name:"South Korea",flag:"🇰🇷",color:"#003478",highlight:"Grants up to 100% at partner universities — E-visa available",highlight_uz:"100% gacha grantlar, E-viza mavjud — elchixonasiz kirish",highlight_ru:"Гранты до 100%, E-visa без посольства — топ университеты",tuition:1500,living:8000,visa:"D-2 Student visa or E-visa (electronic)",tags:["Scholarship available","E-visa","English programs","Affordable"]},
+  {id:3,name:"Latvia",flag:"🇱🇻",color:"#9E3039",highlight:"English-taught programs in Riga with multiple intakes per year",highlight_uz:"Riga shahri, Shengen vizasi, ingliz tilida bakalavriat",highlight_ru:"Рига, Шенген, английские программы бакалавриата",tuition:3500,living:7000,visa:"EU long-stay student visa — Schengen access",tags:["English programs","Schengen","Multiple intakes","Affordable"]},
+  {id:4,name:"Netherlands",flag:"🇳🇱",color:"#AE1C28",highlight:"Wittenborg University — 6 intakes/year, Holland Scholarship €5,000 if IELTS 7+",highlight_uz:"Vittenborg universiteti — yilda 6 marta qabul",highlight_ru:"Университет Виттенборг — 6 наборов в год",tuition:11800,living:9000,visa:"MVV entry visa required — apply via IND",tags:["Holland Scholarship","English programs","6 intakes/year","Schengen"]},
+  {id:5,name:"UK",flag:"🇬🇧",color:"#012169",highlight:"3 intakes/year — grants up to 30%, 97% visa success rate",highlight_uz:"97% viza muvaffaqiyati — magistratura va bakalavriat",highlight_ru:"97% успех визы — магистратура и бакалавриат",tuition:7000,living:13000,visa:"UK Student visa — bank statement $35,000–$40,000 required",tags:["Grant up to 30%","3 intakes/year","English programs","High visa success"]},
+  {id:6,name:"USA",flag:"🇺🇸",color:"#3C3B6E",highlight:"3 intakes/year — Pathway program available with IELTS 5.0",highlight_uz:"Top jahon universitetlari — stipendiya imkoniyatlari",highlight_ru:"Ведущие университеты мира — возможности стипендий",tuition:15000,living:15000,visa:"F-1 Student visa — 50% approval rate currently",tags:["Pathway program","3 intakes/year","English programs","SAT scholarship"]},
+  {id:7,name:"Germany",flag:"🇩🇪",color:"#1A1A1A",highlight:"Tuition-free public universities for all international students",highlight_uz:"TU Munich, LMU, RWTH — to'lovsiz ta'lim, IELTS 6.5+",highlight_ru:"TU Munich, LMU, RWTH — бесплатное обучение, нужен IELTS 6.5+",tuition:0,living:9500,visa:"National D visa — apply at German embassy in Tashkent",tags:["Tuition-free","English programs","Research leader","Schengen"]},
+  {id:8,name:"Poland",flag:"🇵🇱",color:"#D4213D",highlight:"Most CIS-friendly EU destination with affordable costs",highlight_uz:"Arzon EU ta'lim — yiliga 2000 EUR dan, oson viza",highlight_ru:"Доступное образование в ЕС — от EUR 2000/год, лёгкая виза",tuition:2000,living:6500,visa:"Student visa — very accessible for Uzbek citizens",tags:["CIS-friendly","Affordable","English programs","Schengen"]},
+  {id:9,name:"Hungary",flag:"🇭🇺",color:"#477050",highlight:"Stipendium Hungaricum — FULL scholarship for Uzbek students",highlight_uz:"Stipendium Hungaricum — to'liq stipendiya o'zbek talabalar uchun",highlight_ru:"Stipendium Hungaricum — полная стипендия для узбекских студентов",tuition:3000,living:6000,visa:"Student visa required",tags:["Scholarship available","Affordable","English programs","Schengen"]},
+  {id:10,name:"Czech Republic",flag:"🇨🇿",color:"#D52B1E",highlight:"Free tuition in Czech language, affordable EU education",highlight_uz:"Praga shahri — Shengen, ingliz va chex tilida ta'lim",highlight_ru:"Прага — Шенген, английские и чешские программы",tuition:0,living:7500,visa:"Long-stay student visa Type D",tags:["Tuition-free","Affordable","English programs","Schengen"]},
 ];;
 
 const UNIS = [
@@ -610,9 +624,27 @@ const ALERTS_DEF = [
 
 // ── TRANSLATIONS ──────────────────────────────────────
 const TR={
-  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark icon on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Type your message...',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',viewUnis:'View universities in',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',overview:'Overview',reqTitle:'Requirements',scholarship:'Scholarship',reviews:'Student Reviews',location:'Location',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants',viewDetails:'View Details',applyBtn:'Apply',applyNow:'Apply Now',freeConsult:'Free Consultation'},
-  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgi tugmasini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Xabar yozing...',open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',viewUnis:"Ko'rish:",reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",overview:"Ma'lumot",reqTitle:'Talablar',scholarship:'Stipendiya',reviews:'Sharhlar',location:'Joylashuv',detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi",viewDetails:"Batafsil ko'rish",applyBtn:'Ariza',applyNow:'Ariza berish',freeConsult:'Bepul maslahat'},
-  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Введите сообщение...',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',viewUnis:'Университеты в:',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',overview:'Обзор',reqTitle:'Требования',scholarship:'Стипендия',reviews:'Отзывы',location:'Расположение',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план',viewDetails:'Подробнее',applyBtn:'Подать',applyNow:'Подать заявку',freeConsult:'Бесплатная консультация'}
+  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark icon on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Type your message...',sugBudget:'Tight budget',sugFree:'Tuition-free',sugVisa:'Easy visa',sugIT:'IT programs',sugCompare:'Compare countries',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',viewUnis:'View universities in',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',overview:'Overview',reqTitle:'Requirements',scholarship:'Scholarship',reviews:'Student Reviews',location:'Location',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants',viewDetails:'View Details',applyBtn:'Apply',applyNow:'Apply Now',freeConsult:'Free Consultation',
+    consultTitle:'Free Consultation',consultDesc:'Our expert consultants will review your profile and contact you within 24 hours — completely free.',
+    cfName:'Full Name *',cfAge:'Age',cfGpa:'GPA / Score',cfEdu:'Education Level',cfCerts:'Language Certificates',
+    cfCountry:'Preferred Country',cfField:'Field of Study',cfBudget:'Budget / Year',cfLevel:'Program Level',
+    cfSaved:'Saved Universities',cfNotes:'Notes',cfSend:'Send — Get Free Consultation',
+    cfPrivacy:'We respond within 24 hours. Your data is private.',cfEduPh:'Select...',
+    cfAny:'Any / Not sure',cfAnyLevel:'Any'},
+  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgi tugmasini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Xabar yozing...',sugBudget:'Arzon variantlar',sugFree:'Bepul taʼlim',sugVisa:'Oson viza',sugIT:'IT dasturlari',sugCompare:'Mamlakatlarni solishtirish',open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',viewUnis:"Ko'rish:",reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",overview:"Ma'lumot",reqTitle:'Talablar',scholarship:'Stipendiya',reviews:'Sharhlar',location:'Joylashuv',detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi",viewDetails:"Batafsil ko'rish",applyBtn:'Ariza',applyNow:'Ariza berish',freeConsult:"Bepul maslahat",
+    consultTitle:"Bepul maslahat",consultDesc:"Mutaxassislarimiz profilingizni ko'rib chiqadi va 24 soat ichida siz bilan bog'lanadi — bepul.",
+    cfName:"To'liq ism *",cfAge:"Yosh",cfGpa:"GPA / Ball",cfEdu:"Ta'lim darajasi",cfCerts:"Til sertifikatlari",
+    cfCountry:"Afzal mamlakat",cfField:"O'qish sohasi",cfBudget:"Yillik byudjet",cfLevel:"Dastur darajasi",
+    cfSaved:"Saqlangan universitetlar",cfNotes:"Izohlar",cfSend:"Yuborish — Bepul maslahat olish",
+    cfPrivacy:"24 soat ichida javob beramiz. Ma'lumotlaringiz maxfiy.",cfEduPh:"Tanlang...",
+    cfAny:"Istalgan / Aniq emas",cfAnyLevel:"Istalgan" },
+  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Введите сообщение...',sugBudget:'Бюджетные варианты',sugFree:'Без оплаты',sugVisa:'Лёгкая виза',sugIT:'IT программы',sugCompare:'Сравнить страны',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',viewUnis:'Университеты в:',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',overview:'Обзор',reqTitle:'Требования',scholarship:'Стипендия',reviews:'Отзывы',location:'Расположение',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план',viewDetails:'Подробнее',applyBtn:'Подать',applyNow:'Подать заявку',freeConsult:'Бесплатная консультация',
+    consultTitle:'Бесплатная консультация',consultDesc:'Наши эксперты изучат ваш профиль и свяжутся с вами в течение 24 часов — бесплатно.',
+    cfName:'Полное имя *',cfAge:'Возраст',cfGpa:'GPA / Балл',cfEdu:'Уровень образования',cfCerts:'Языковые сертификаты',
+    cfCountry:'Предпочтительная страна',cfField:'Направление',cfBudget:'Бюджет / год',cfLevel:'Уровень программы',
+    cfSaved:'Сохранённые университеты',cfNotes:'Примечания',cfSend:'Отправить — Получить консультацию',
+    cfPrivacy:'Ответим в течение 24 часов. Данные конфиденциальны.',cfEduPh:'Выберите...',
+    cfAny:'Любая / Не знаю',cfAnyLevel:'Любой' }
 };
 var curLang='en', L=TR.en, LANG=TR.en;
 
@@ -623,14 +655,37 @@ function setLang(lang,btn){
   applyLang(); render(curPage);
 }
 function applyLang(){
-  [['tab-home','home'],['tab-countries','countries'],['tab-explore','universities'],['tab-saved','saved'],['tab-alerts','alerts'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']].forEach(function(p){var el=document.getElementById(p[0]);if(el)el.textContent=LANG[p[1]];});
+  // Update tabs
+  [['tab-explore','universities'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']].forEach(function(p){var el=document.getElementById(p[0]);if(el)el.textContent=LANG[p[1]];});
+  // Update bottom nav
   ['home','countries','ai','saved','alerts'].forEach(function(k){var el=document.getElementById('nl-'+k);if(el&&LANG[k])el.textContent=LANG[k];});
+  // Update search/AI placeholders
   var si=document.getElementById('srch');if(si)si.placeholder=LANG.searchPh;
   var at=document.getElementById('ai-t');if(at)at.textContent=LANG.aiT;
   var as=document.getElementById('ai-s');if(as)as.textContent=LANG.aiS;
   var ci=document.getElementById('cinput');if(ci)ci.placeholder=LANG.aiPh;
   var sd=document.getElementById('sh-dead');if(sd)sd.textContent=LANG.upcomingDead;
   var sp=document.getElementById('sh-picks');if(sp)sp.textContent=LANG.topPicks;
+  // Update Consult page labels
+  var cfields=[['lbl-cfname','cfName'],['lbl-cfage','cfAge'],['lbl-cfgpa','cfGpa'],['lbl-cfedu','cfEdu'],
+    ['lbl-cfcerts','cfCerts'],['lbl-cfcountry','cfCountry'],['lbl-cffield','cfField'],
+    ['lbl-cfbudget','cfBudget'],['lbl-cflevel','cfLevel'],['lbl-cfsaved','cfSaved'],['lbl-cfnotes','cfNotes']];
+  cfields.forEach(function(p){var el=document.getElementById(p[0]);if(el&&LANG[p[1]])el.textContent=LANG[p[1]];});
+  var sbtn=document.getElementById('cf-sendbtn');if(sbtn&&LANG.cfSend)sbtn.textContent=LANG.cfSend;
+  var cprivacy=document.getElementById('cf-privacy');if(cprivacy&&LANG.cfPrivacy)cprivacy.textContent=LANG.cfPrivacy;
+  var ctitle=document.getElementById('cf-title');if(ctitle&&LANG.consultTitle)ctitle.textContent=LANG.consultTitle;
+  var cdesc=document.getElementById('cf-desc');if(cdesc&&LANG.consultDesc)cdesc.textContent=LANG.consultDesc;
+  // Update Consult select placeholders
+  var eduSel=document.getElementById('cf-edu');if(eduSel&&eduSel.options[0]&&LANG.cfEduPh)eduSel.options[0].text=LANG.cfEduPh;
+  var ctrySel=document.getElementById('cf-country');if(ctrySel&&ctrySel.options[0]&&LANG.cfAny)ctrySel.options[0].text=LANG.cfAny;
+  var lvlSel=document.getElementById('cf-level');if(lvlSel&&lvlSel.options[0]&&LANG.cfAnyLevel)lvlSel.options[0].text=LANG.cfAnyLevel;
+  // Update AI suggestion chips
+// Update AI suggestion chips
+  var sugs=document.querySelectorAll('.sugrow .sug');
+  var sugKeys=['sugBudget','sugFree','sugVisa','sugIT','sugCompare'];
+  sugs.forEach(function(btn,i){if(sugKeys[i]&&LANG[sugKeys[i]])btn.textContent=LANG[sugKeys[i]];});
+  // Update Alerts section header
+  var ah=document.getElementById('alerts-title');if(ah)ah.textContent=LANG.alerts||'Alerts';
 }
 
 // ── TELEGRAM ──────────────────────────────────────────
@@ -879,18 +934,19 @@ function openDet(id){
     }).join('')+'</div>';
   var revs=u.reviews||[];
   var revHtml=revs.length?revs.map(function(r){return '<div class="rev-card"><div class="rev-stars">'+'★'.repeat(r.stars||5)+'</div><div class="rev-text">'+r.text+'</div><div class="rev-author">- '+r.author+(r.year?', '+r.year:'')+'</div></div>';}).join(''):'<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px">No reviews yet</div>';
-  var mapQ=encodeURIComponent(u.name+' '+u.city+' '+u.country);
+  var mapHref=u.mapUrl&&u.mapUrl.startsWith('http')?u.mapUrl:'https://maps.google.com/?q='+encodeURIComponent(u.name+' '+u.city+' '+u.country);
   document.getElementById('detBody').innerHTML=
     '<div class="det-sec"><div class="det-sec-t">'+(LANG.overview||'Overview')+'</div>'
     +'<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">'+(u.program||'Bachelor and Masters programs')+'</div>'
     +vidHtml+'</div>'
     +'<div class="det-sec"><div class="det-sec-t">'+(LANG.reqTitle||'Requirements')+'</div>'+infoHtml
     +(u.notes?'<div class="uni-note" style="margin-top:10px">'+u.notes+'</div>':'')+'</div>'
+    +renderExpenses(u)
     +scholHtml
     +'<div class="det-sec"><div class="det-sec-t">Documents Checklist</div>'+docsHtml+'</div>'
     +'<div class="det-sec"><div class="det-sec-t">'+(LANG.reviews||'Reviews')+'</div>'+revHtml+'</div>'
     +'<div class="det-sec" style="padding-bottom:14px"><div class="det-sec-t">'+(LANG.location||'Location')+'</div>'
-    +'<a href="https://maps.google.com/?q='+mapQ+'" target="_blank" class="map-ph"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>'+u.name+' - '+u.city+', '+u.country+'</span></a></div>'
+    +'<a href="'+mapHref+'" target="_blank" class="map-ph"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>'+u.name+' - '+u.city+', '+u.country+'</span></a></div>'
     +'<div class="cta-box"><div class="cta-t">'+(LANG.detConsult||'Contact Our Expert')+'</div>'
     +'<div class="cta-s">'+(LANG.detConsultSub||'Get a free personalised plan')+'</div>'
     +'<div style="display:flex;flex-direction:column;gap:8px;width:100%">'
@@ -935,7 +991,7 @@ function renderCountries(){
     var cs=isEur(c.name)?'EUR ':'USD ';
     var tv=c.tuition===0?('<span style="color:var(--ok);font-weight:700">'+(LANG.free||'Free')+'</span>'):(cs+c.tuition.toLocaleString());
     var lv=cs+c.living.toLocaleString();
-    return '<div class="cc"><div class="cbanner" style="background:'+c.color+'"><div class="cname">'+c.flag+' '+c.name+'</div><div class="csub">'+c.highlight+'</div></div>'
+    return '<div class="cc"><div class="cbanner" style="background:'+c.color+'"><div class="cname">'+c.flag+' '+c.name+'</div><div class="csub">'+(curLang==='uz'&&c.highlight_uz?c.highlight_uz:curLang==='ru'&&c.highlight_ru?c.highlight_ru:c.highlight)+'</div></div>'
       +'<div class="cbody"><div class="cstats">'
       +'<div class="cstat"><div class="cstat-l">Tuition/year</div><div class="cstat-v">'+tv+'</div></div>'
       +'<div class="cstat"><div class="cstat-l">Living/year</div><div class="cstat-v">'+lv+'</div></div>'
@@ -1058,13 +1114,13 @@ function adminAddUni(){
     living:parseInt(document.getElementById('au-living').value)||8000,
     tuition:tuition,langReq:document.getElementById('au-langReq').value.trim(),
     notes:document.getElementById('au-notesf').value.trim(),
-    video:document.getElementById('au-video').value.trim(),
+    video:document.getElementById('au-video').value.trim(),mapUrl:(document.getElementById('au-mapurl')?document.getElementById('au-mapurl').value.trim():''),
     logo:logoVal,gpa:2.5,tags:tags,bg:BG[Math.floor(Math.random()*BG.length)],
     docs:docs,saved:false,done:Array(docs.length).fill(false),photos:[],reviews:[]};
   unis.push(nu);
   try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');au.push(nu);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
   save();haptic();
-  ['au-name','au-country','au-city','au-flag','au-rank','au-program','au-langReq','au-tags','au-deadline','au-deadline-from','au-living','au-docs','au-notesf','au-video','au-logo-url'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  ['au-name','au-country','au-city','au-flag','au-rank','au-program','au-langReq','au-tags','au-deadline','au-deadline-from','au-living','au-docs','au-notesf','au-video','au-mapurl','au-logo-url'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   var prev=document.getElementById('au-photo-preview');
   if(prev)prev.innerHTML='<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:11px;color:var(--t2)">Tap to upload</span>';
   toast(name+' added!');renderAdmin();
@@ -1224,6 +1280,209 @@ function doSend(){
   addMsg(text,'u');inp.value='';inp.style.height='auto';
   showTyping();
   callAI(text).then(function(r){hideTyping();addMsg(r,'ai');});
+}
+
+
+// ── EXPENSE ESTIMATES per country ──────────────────────
+// Admin can override via sf_expense_overrides in localStorage
+var EXPENSES = {
+  'Italy': [
+    {icon:'🛂', label:'Student Visa (Type D)',      amount:'EUR 50',        note:'Embassy fee'},
+    {icon:'📄', label:'Translation & Apostille',    amount:'EUR 150-300',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',               amount:'EUR 400-700',   note:'Tashkent - Italy'},
+    {icon:'📝', label:'University Application Fee', amount:'EUR 0-30',      note:'Most universities free'},
+    {icon:'🏥', label:'Health Insurance',            amount:'EUR 100-200',   note:'Required for visa'},
+    {icon:'📋', label:'IELTS / Language Test',       amount:'USD 220-250',   note:'If required'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',      amount:'EUR 0-3,000',   note:'Many have DSU scholarship'},
+    {icon:'🤝', label:'Agent / Service Fee',         amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'South Korea': [
+    {icon:'🛂', label:'E-Visa (Online)',              amount:'USD 0',         note:'Free — no embassy visit needed'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'USD 150-300',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'USD 500-900',   note:'Tashkent - Seoul'},
+    {icon:'📝', label:'University Application Fee',  amount:'USD 0-50',      note:'Varies by university'},
+    {icon:'🏥', label:'Health Insurance',             amount:'USD 50-100',    note:'Often included by university'},
+    {icon:'📋', label:'TOPIK / Language Test',        amount:'USD 30-50',     note:'If required'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'USD 0-4,000',   note:'Up to 100% scholarship available'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'Latvia': [
+    {icon:'🛂', label:'Student Visa (Schengen)',      amount:'EUR 80',        note:'Embassy fee'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'EUR 150-300',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'EUR 300-600',   note:'Tashkent - Riga'},
+    {icon:'📝', label:'University Application Fee',  amount:'EUR 0-50',      note:'Varies by university'},
+    {icon:'🏥', label:'Health Insurance',             amount:'EUR 100-200',   note:'Required for visa'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'EUR 2,000-5,000',note:'English programs'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'Germany': [
+    {icon:'🛂', label:'Student Visa',                 amount:'EUR 75',        note:'Embassy fee'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'EUR 150-400',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'EUR 400-800',   note:'Tashkent - Germany'},
+    {icon:'🏦', label:'Blocked Account (Sperrkonto)', amount:'EUR 11,208',    note:'Required — fully refundable monthly'},
+    {icon:'📝', label:'University Application Fee',  amount:'EUR 0',         note:'Free at all public universities'},
+    {icon:'🏥', label:'Health Insurance',             amount:'EUR 100-150',   note:'Required — student tariff'},
+    {icon:'📋', label:'IELTS / TestDaF',              amount:'USD 220-280',   note:'Required'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'EUR 0',         note:'Public unis are tuition-free'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'UK': [
+    {icon:'🛂', label:'Student Visa',                 amount:'GBP 490',       note:'Embassy fee'},
+    {icon:'💳', label:'Immigration Health Surcharge', amount:'GBP 776/yr',    note:'Paid with visa application'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'EUR 150-300',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'EUR 400-700',   note:'Tashkent - UK'},
+    {icon:'📝', label:'University Application (UCAS)',amount:'GBP 0-25',      note:'Via UCAS portal'},
+    {icon:'📋', label:'IELTS',                        amount:'USD 220-250',   note:'Required'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'GBP 10,000-18,000',note:'Varies by university & program'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'Netherlands': [
+    {icon:'🛂', label:'Student Visa / MVV',           amount:'EUR 192',       note:'Embassy fee'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'EUR 150-300',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'EUR 400-700',   note:'Tashkent - Amsterdam'},
+    {icon:'📝', label:'University Application Fee',  amount:'EUR 0-75',      note:'Varies by university'},
+    {icon:'🏥', label:'Health Insurance',             amount:'EUR 100-150',   note:'Required'},
+    {icon:'📋', label:'IELTS',                        amount:'USD 220-250',   note:'Required'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'EUR 6,000-10,000',note:'Wittenborg & partners'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'Poland': [
+    {icon:'🛂', label:'Student Visa (D)',              amount:'EUR 80',        note:'Embassy fee'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'EUR 100-200',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'EUR 250-500',   note:'Tashkent - Warsaw'},
+    {icon:'📝', label:'University Application Fee',  amount:'EUR 0-40',      note:'Varies by university'},
+    {icon:'🏥', label:'Health Insurance',             amount:'EUR 50-100',    note:'Required'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'EUR 1,500-4,000',note:'English programs'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'Hungary': [
+    {icon:'🛂', label:'Student Visa (D)',              amount:'EUR 80',        note:'Embassy fee'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'EUR 150-300',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'EUR 350-600',   note:'Tashkent - Budapest'},
+    {icon:'📝', label:'Stipendium Application',       amount:'EUR 0',         note:'Free scholarship application'},
+    {icon:'🏥', label:'Health Insurance',             amount:'EUR 0',         note:'Fully included in Stipendium'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'EUR 0',         note:'100% covered by Stipendium Hungaricum'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'Czech Republic': [
+    {icon:'🛂', label:'Student Visa (D)',              amount:'EUR 80',        note:'Embassy fee'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'EUR 150-300',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'EUR 350-650',   note:'Tashkent - Prague'},
+    {icon:'📝', label:'University Application Fee',  amount:'EUR 0-30',      note:'Varies'},
+    {icon:'🏥', label:'Health Insurance',             amount:'EUR 100-200',   note:'Required for visa'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'EUR 0-3,000',   note:'Czech language programs free'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ],
+  'USA': [
+    {icon:'🛂', label:'F-1 Student Visa',             amount:'USD 185',       note:'Embassy fee'},
+    {icon:'💳', label:'SEVIS Fee',                    amount:'USD 350',       note:'Required for F-1 visa'},
+    {icon:'📄', label:'Translation & Apostille',     amount:'USD 150-400',   note:'Per document set'},
+    {icon:'✈️', label:'Flight Ticket',                amount:'USD 700-1,400', note:'Tashkent - USA'},
+    {icon:'📝', label:'University Application Fee',  amount:'USD 50-100',    note:'Per university'},
+    {icon:'📋', label:'IELTS / TOEFL',                amount:'USD 220-300',   note:'Required'},
+    {icon:'🏥', label:'Health Insurance',             amount:'USD 500-2,000/yr',note:'Required — varies by state'},
+    {icon:'🏫', label:'Tuition Fee (1st year)',       amount:'USD 15,000-50,000',note:'Varies widely by university'},
+    {icon:'🤝', label:'Agent / Service Fee',          amount:'USD 300-800',   note:'Studify.uz service'}
+  ]
+};
+
+function getExpenses(country) {
+  // Check for admin overrides
+  try {
+    var overrides = JSON.parse(localStorage.getItem('sf_expense_overrides') || '{}');
+    if (overrides[country]) return overrides[country];
+  } catch(e) {}
+  return EXPENSES[country] || [];
+
+}
+
+function expenseTotal(country) {
+  // Return rough min total for "Getting Started" estimate
+  var totals = {
+    'Italy': 'EUR 1,000 - 1,900',
+    'South Korea': 'USD 900 - 1,700',
+    'Latvia': 'EUR 730 - 1,580',
+    'Germany': 'EUR 12,000 - 13,000',
+    'UK': 'GBP 1,700 - 2,600',
+    'Netherlands': 'EUR 1,300 - 2,300',
+    'Poland': 'EUR 680 - 1,300',
+    'Hungary': 'EUR 600 - 1,400',
+    'Czech Republic': 'EUR 780 - 1,580',
+    'USA': 'USD 1,900 - 4,000'
+  };
+  return totals[country] || 'Varies';
+}
+
+function renderExpenses(u) {
+  var exps = getExpenses(u.country);
+  if (!exps.length) return '';
+  var cs = isEur(u.country) ? 'EUR' : 'USD';
+  var rows = exps.map(function(exp) {
+    return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid var(--br)">'
+      + '<span style="font-size:18px;flex-shrink:0">'+exp.icon+'</span>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:12px;font-weight:600">'+exp.label+'</div>'
+      + '<div style="font-size:10px;color:var(--t2)">'+exp.note+'</div>'
+      + '</div>'
+      + '<div style="font-size:12px;font-weight:700;color:var(--tx);flex-shrink:0;text-align:right">'+exp.amount+'</div>'
+      + '</div>';
+  }).join('');
+  var total = expenseTotal(u.country);
+  return '<div class="det-sec">'
+    + '<div class="det-sec-t">Estimated Costs Before Arrival</div>'
+    + '<div style="background:var(--sf);border-radius:12px;padding:4px 12px;border:.5px solid var(--br);margin-bottom:8px">'
+    + rows
+    + '</div>'
+    + '<div style="background:var(--brand);border-radius:11px;padding:11px 14px;display:flex;align-items:center;justify-content:space-between">'
+    + '<div><div style="font-size:11px;color:rgba(255,255,255,.8);font-weight:600">Total estimate to get started</div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:1px">Excludes tuition & living costs</div></div>'
+    + '<div style="font-size:15px;font-weight:800;color:#fff">'+total+'</div>'
+    + '</div></div>';
+}
+
+
+// ── ADMIN EXPENSE OVERRIDES ────────────────────────────
+function adminLoadExpenseCountry(){
+  var country = document.getElementById('exp-country') ? document.getElementById('exp-country').value : '';
+  var container = document.getElementById('expItemsContainer');
+  if(!container) return;
+  if(!country){container.innerHTML='<div style="font-size:11px;color:var(--t2);text-align:center;padding:8px 0">Select a country to edit expenses</div>';return;}
+  var items = getExpenses(country);
+  container.innerHTML = items.map(function(item, i){
+    return '<div style="display:flex;gap:6px;align-items:center">'
+      + '<span style="font-size:16px;flex-shrink:0">'+item.icon+'</span>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:2px">'+item.label+'</div>'
+      + '<input class="adm-inp" id="exp-amount-'+i+'" value="'+item.amount+'" placeholder="Amount" style="font-size:11px;padding:5px 8px">'
+      + '</div></div>';
+  }).join('');
+}
+function adminSaveExpenses(){
+  var country = document.getElementById('exp-country').value;
+  if(!country){toast('Select a country first'); return;}
+  var items = getExpenses(country);
+  var updated = items.map(function(item, i){
+    var inp = document.getElementById('exp-amount-'+i);
+    return Object.assign({}, item, {amount: inp ? inp.value.trim() : item.amount});
+  });
+  try{
+    var overrides = JSON.parse(localStorage.getItem('sf_expense_overrides') || '{}');
+    overrides[country] = updated;
+    localStorage.setItem('sf_expense_overrides', JSON.stringify(overrides));
+    toast(country + ' expenses saved ✅');
+  }catch(e){toast('Error saving');}
+}
+function adminResetExpenses(){
+  var country = document.getElementById('exp-country').value;
+  if(!country){toast('Select a country first'); return;}
+  if(!confirm('Reset '+country+' expenses to app defaults?')) return;
+  try{
+    var overrides = JSON.parse(localStorage.getItem('sf_expense_overrides') || '{}');
+    delete overrides[country];
+    localStorage.setItem('sf_expense_overrides', JSON.stringify(overrides));
+    toast(country + ' reset to defaults');
+    adminLoadExpenseCountry();
+  }catch(e){toast('Error');}
 }
 
 // ── BOOT ──────────────────────────────────────────────
