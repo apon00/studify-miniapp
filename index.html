@@ -800,18 +800,10 @@ function openDet(id){
     +'<div style="background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br)">'+scholTags.map(function(ss){return '<div style="padding:4px 0;font-size:12px;font-weight:600">'+ss+'</div>';}).join('')+'</div></div>':'';
   var docsHtml='<div style="background:var(--sf);border-radius:12px;border:.5px solid var(--br);overflow:hidden">'
     +(u.docs||[]).map(function(doc,i){var done=(u.done||[])[i];
-      return '<div class="di" onclick="toggleDocDet('+u.id+','+i+')" style="justify-content:space-between">'
-        +'<div style="display:flex;align-items:center;gap:9px;flex:1">'
+      return '<div class="di" onclick="toggleDocDet('+u.id+','+i+')">'
         +'<div class="dck'+(done?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>'
-        +'<span class="dname'+(done?' done':'')+'">'+doc+'</span></div>'
-        +'<span onclick="event.stopPropagation();deleteDoc('+u.id+','+i+')" style="color:#ef4444;font-size:16px;padding:0 4px;cursor:pointer;line-height:1">×</span>'
-        +'</div>';
-    }).join('')
-    +'<div style="padding:10px 13px;display:flex;gap:7px;border-top:.5px solid var(--br)">'
-    +'<input id="new-doc-'+u.id+'" class="adm-inp" placeholder="Add new requirement..." style="font-size:11px;padding:5px 9px">'
-    +'<button onclick="addDoc('+u.id+')" style="padding:5px 12px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Add</button>'
-    +'</div>'
-    +'</div>';
+        +'<span class="dname'+(done?' done':'')+'">'+doc+'</span></div>';
+    }).join('')+'</div>';
   var revs=u.reviews||[];
   var revHtml=revs.length?revs.map(function(r){return '<div class="rev-card"><div class="rev-stars">'+'★'.repeat(r.stars||5)+'</div><div class="rev-text">'+r.text+'</div><div class="rev-author">- '+r.author+(r.year?', '+r.year:'')+'</div></div>';}).join(''):'<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px">No reviews yet</div>';
   var mapHref=u.mapUrl&&u.mapUrl.startsWith('http')?u.mapUrl:'https://maps.google.com/?q='+encodeURIComponent(u.name+' '+u.city+' '+u.country);
@@ -832,8 +824,8 @@ function openDet(id){
     +'<div class="cta-box"><div class="cta-t">'+(LANG.detConsult||'Contact Our Expert')+'</div>'
     +'<div class="cta-s">'+(LANG.detConsultSub||'Get a free personalised plan')+'</div>'
     +'<div style="display:flex;flex-direction:column;gap:8px;width:100%">'
-    +'<button class="cta-btn" onclick="showApply('+u.id+')">'+(LANG.applyNow||'Apply Now')+'</button>'
-    +'<button class="cta-btn" style="background:rgba(255,255,255,.25)" onclick="openConsultFor('+u.id+')">'+(LANG.freeConsult||'Free Consultation')+'</button>'
+    +'<button class="cta-btn" onclick="showApply('+u.id+')" style="background:#fff;color:var(--brand);font-weight:800">'+(LANG.applyNow||'Apply Now')+'</button>'
+    +'<button class="cta-btn" onclick="openConsultFor('+u.id+')" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.8);font-weight:700">'+(LANG.freeConsult||'Free Consultation')+'</button>'
     +'</div></div>';
   document.getElementById('detPage').classList.add('on'); haptic('medium');
 }
@@ -1075,6 +1067,14 @@ function getFormForUni(u){
 var _notionUrl='';
 function showApply(id){
   var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  // Check uni-specific Notion URL override first
+  if(u.notionUrl&&u.notionUrl.startsWith('http')){
+    _notionUrl=u.notionUrl;
+    document.getElementById('notionTitle').textContent=u.flag+' Apply - '+u.name;
+    document.getElementById('notionDesc').textContent=u.country+'. Fill in the form and our consultant will guide you within 24 hours.';
+    document.getElementById('notionOverlay').classList.add('on');
+    haptic('medium'); return;
+  }
   var form=getFormForUni(u);
   if(!form){toast('Application form coming soon for '+u.country);return;}
   _notionUrl=form.url;
@@ -1463,6 +1463,23 @@ function adminEdit(id){
     +editField('eu-mapurl','Google Maps URL',u.mapUrl,'text')
     +editField('eu-logo','Logo URL / paste image',u.logo,'text')
     +editField('eu-notes','Notes for students',u.notes,'text')
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">Required Documents</div>'
+    +'<div style="font-size:10px;color:var(--t2);margin-bottom:4px">Edit or delete requirements. One per line.</div>'
+    +'<div id="eu-docs-list-'+u.id+'" style="background:var(--sf2);border-radius:9px;padding:6px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:4px">'
+    +(u.docs||[]).map(function(doc,i){
+      return '<div style="display:flex;gap:5px;align-items:center">'
+        +'<input class="adm-inp" id="eu-doc-'+u.id+'-'+i+'" value="'+doc.replace(/"/g,'&quot;')+'" style="font-size:11px;padding:4px 7px">'
+        +'<button onclick="adminRemoveDoc('+u.id+','+i+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">×</button>'
+        +'</div>';
+    }).join('')
+    +'</div>'
+    +'<div style="display:flex;gap:6px">'
+    +'<input id="eu-new-doc-'+u.id+'" class="adm-inp" placeholder="Add new document..." style="font-size:11px;padding:5px 8px">'
+    +'<button onclick="adminAddDocEdit('+u.id+')" style="padding:5px 12px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Add</button>'
+    +'</div>'
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">Notion Application Form URL</div>'
+    +'<div style="font-size:10px;color:var(--t2);margin-bottom:4px">Override form for this specific university</div>'
+    +editField('eu-notion','Notion Form URL (optional override)',u.notionUrl||'','text')
     +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Add Review</div>'
     +'<input id="eu-rev-author" class="adm-inp" placeholder="Student name">'
     +'<input id="eu-rev-year" class="adm-inp" placeholder="Year e.g. 2024">'
@@ -1500,6 +1517,18 @@ function adminSaveEdit(id){
   var newLogo=document.getElementById('eu-logo').value.trim();
   if(newLogo)u.logo=newLogo;
   u.notes=document.getElementById('eu-notes').value.trim();
+  // Save edited docs
+  var newDocs=[];
+  var di=0;
+  while(document.getElementById('eu-doc-'+id+'-'+di)){
+    var dv=document.getElementById('eu-doc-'+id+'-'+di).value.trim();
+    if(dv)newDocs.push(dv);
+    di++;
+  }
+  if(newDocs.length>0){u.docs=newDocs;if(u.done)u.done=u.done.slice(0,newDocs.length).concat(Array(Math.max(0,newDocs.length-u.done.length)).fill(false));}
+  // Save notion URL override
+  var notionInp=document.getElementById('eu-notion');
+  if(notionInp)u.notionUrl=notionInp.value.trim();
   // Persist to admin storage
   try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(err){}
   save();closeEditModal();renderAdmin();toast('Saved ✅');haptic('light');
@@ -1523,22 +1552,25 @@ function adminDeleteReview(id,idx){
   save();adminEdit(id);toast('Deleted');
 }
 
-// ── ADD/DELETE DOCS in detail page ────────────────────
-function addDoc(id){
+// ── DOCS MANAGEMENT IN ADMIN EDIT ─────────────────────
+function adminAddDocEdit(id){
   var u=unis.find(function(x){return x.id===id;});if(!u)return;
-  var inp=document.getElementById('new-doc-'+id);if(!inp)return;
-  var val=inp.value.trim();if(!val){toast('Enter requirement name');return;}
+  var inp=document.getElementById('eu-new-doc-'+id);if(!inp)return;
+  var val=inp.value.trim();if(!val){toast('Enter document name');return;}
   if(!u.docs)u.docs=[];
   u.docs.push(val);
   if(!u.done)u.done=[];
   u.done.push(false);
-  save();toast('Added ✅');openDet(id);
+  inp.value='';
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();toast('Added ✅');adminEdit(id);
 }
-function deleteDoc(id,idx){
+function adminRemoveDoc(id,idx){
   var u=unis.find(function(x){return x.id===id;});if(!u)return;
   u.docs.splice(idx,1);
   if(u.done)u.done.splice(idx,1);
-  save();openDet(id);
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();adminEdit(id);
 }
 
 // ── COUNTRY EDITING IN ADMIN ───────────────────────────
@@ -1649,6 +1681,23 @@ function adminEdit(id){
     +editField('eu-mapurl','Google Maps URL',u.mapUrl,'text')
     +editField('eu-logo','Logo URL / paste image',u.logo,'text')
     +editField('eu-notes','Notes for students',u.notes,'text')
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">Required Documents</div>'
+    +'<div style="font-size:10px;color:var(--t2);margin-bottom:4px">Edit or delete requirements. One per line.</div>'
+    +'<div id="eu-docs-list-'+u.id+'" style="background:var(--sf2);border-radius:9px;padding:6px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:4px">'
+    +(u.docs||[]).map(function(doc,i){
+      return '<div style="display:flex;gap:5px;align-items:center">'
+        +'<input class="adm-inp" id="eu-doc-'+u.id+'-'+i+'" value="'+doc.replace(/"/g,'&quot;')+'" style="font-size:11px;padding:4px 7px">'
+        +'<button onclick="adminRemoveDoc('+u.id+','+i+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">×</button>'
+        +'</div>';
+    }).join('')
+    +'</div>'
+    +'<div style="display:flex;gap:6px">'
+    +'<input id="eu-new-doc-'+u.id+'" class="adm-inp" placeholder="Add new document..." style="font-size:11px;padding:5px 8px">'
+    +'<button onclick="adminAddDocEdit('+u.id+')" style="padding:5px 12px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Add</button>'
+    +'</div>'
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">Notion Application Form URL</div>'
+    +'<div style="font-size:10px;color:var(--t2);margin-bottom:4px">Override form for this specific university</div>'
+    +editField('eu-notion','Notion Form URL (optional override)',u.notionUrl||'','text')
     +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Add Review</div>'
     +'<input id="eu-rev-author" class="adm-inp" placeholder="Student name">'
     +'<input id="eu-rev-year" class="adm-inp" placeholder="Year e.g. 2024">'
@@ -1686,6 +1735,18 @@ function adminSaveEdit(id){
   var newLogo=document.getElementById('eu-logo').value.trim();
   if(newLogo)u.logo=newLogo;
   u.notes=document.getElementById('eu-notes').value.trim();
+  // Save edited docs
+  var newDocs=[];
+  var di=0;
+  while(document.getElementById('eu-doc-'+id+'-'+di)){
+    var dv=document.getElementById('eu-doc-'+id+'-'+di).value.trim();
+    if(dv)newDocs.push(dv);
+    di++;
+  }
+  if(newDocs.length>0){u.docs=newDocs;if(u.done)u.done=u.done.slice(0,newDocs.length).concat(Array(Math.max(0,newDocs.length-u.done.length)).fill(false));}
+  // Save notion URL override
+  var notionInp=document.getElementById('eu-notion');
+  if(notionInp)u.notionUrl=notionInp.value.trim();
   // Persist to admin storage
   try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(err){}
   save();closeEditModal();renderAdmin();toast('Saved ✅');haptic('light');
@@ -1709,22 +1770,25 @@ function adminDeleteReview(id,idx){
   save();adminEdit(id);toast('Deleted');
 }
 
-// ── ADD/DELETE DOCS in detail page ────────────────────
-function addDoc(id){
+// ── DOCS MANAGEMENT IN ADMIN EDIT ─────────────────────
+function adminAddDocEdit(id){
   var u=unis.find(function(x){return x.id===id;});if(!u)return;
-  var inp=document.getElementById('new-doc-'+id);if(!inp)return;
-  var val=inp.value.trim();if(!val){toast('Enter requirement name');return;}
+  var inp=document.getElementById('eu-new-doc-'+id);if(!inp)return;
+  var val=inp.value.trim();if(!val){toast('Enter document name');return;}
   if(!u.docs)u.docs=[];
   u.docs.push(val);
   if(!u.done)u.done=[];
   u.done.push(false);
-  save();toast('Added ✅');openDet(id);
+  inp.value='';
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();toast('Added ✅');adminEdit(id);
 }
-function deleteDoc(id,idx){
+function adminRemoveDoc(id,idx){
   var u=unis.find(function(x){return x.id===id;});if(!u)return;
   u.docs.splice(idx,1);
   if(u.done)u.done.splice(idx,1);
-  save();openDet(id);
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();adminEdit(id);
 }
 
 // ── COUNTRY EDITING IN ADMIN ───────────────────────────
