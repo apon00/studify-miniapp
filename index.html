@@ -5,24 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Studify.uz</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link rel="manifest" href="data:application/json,{
-  &quot;name&quot;: &quot;Studify.uz&quot;,
-  &quot;short_name&quot;: &quot;Studify&quot;,
-  &quot;description&quot;: &quot;Find your perfect university abroad&quot;,
-  &quot;start_url&quot;: &quot;/&quot;,
-  &quot;display&quot;: &quot;standalone&quot;,
-  &quot;background_color&quot;: &quot;#FFF8F5&quot;,
-  &quot;theme_color&quot;: &quot;#FF6B35&quot;,
-  &quot;orientation&quot;: &quot;portrait&quot;
-}">
-<meta name="theme-color" content="#FF6B35">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Studify.uz">
-<meta name="description" content="Find the perfect university abroad — Italy, Korea, Germany and more. Free consultation for Uzbek students.">
-<meta property="og:title" content="Studify.uz — Study Abroad Platform">
-<meta property="og:description" content="Find universities in Europe and Asia. Scholarships, E-visa, free consultation.">
-<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--brand:#FF6B35;--brand2:#FF8C5A;--bl:#FFF0EB;--bd:#E8561F;--bg:#FFF8F5;--sf:#fff;--sf2:#FFF8F5;--br:rgba(0,0,0,.07);--tx:#1A1207;--t2:#7A6A5A;--t3:#B0A090;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--r:14px}
@@ -30,11 +12,6 @@
 html,body{height:100%;overflow:hidden;background:var(--bg)}
 body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 #root{display:flex;flex-direction:column;height:100vh;max-width:430px;margin:0 auto;overflow:hidden;position:relative;background:var(--bg)}
-/* Desktop: show app centered with shadow */
-@media(min-width:600px){
-  body{background:#f0f0f0;display:flex;align-items:center;justify-content:center;}
-  #root{height:min(100vh,850px);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.15);overflow:hidden;}
-}
 .topbar{background:var(--brand);padding:10px 16px 0;flex-shrink:0;padding-top:max(10px,env(safe-area-inset-top,10px))}
 .tb-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .logo{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.5px}
@@ -58,17 +35,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .pg{display:none;padding:12px 12px calc(68px + env(safe-area-inset-bottom,0px))}
 .pg.on{display:block}
 .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:4px}
-.sc{background:var(--sf);border-radius:12px;padding:11px 8px;text-align:center;border:.5px solid var(--br);transition:transform .1s,box-shadow .1s}
-.sc-btn:active{transform:scale(.96);box-shadow:0 2px 8px rgba(255,107,53,.2)}
-.sc-btn:hover{box-shadow:0 2px 12px rgba(255,107,53,.15)}
-/* Deadline modal */
-.dl-modal{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:150;display:none;align-items:flex-end}
-.dl-modal.on{display:flex}
-.dl-sheet{background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-height:75vh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px)}
-.dl-sheet-hdr{padding:16px 16px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:.5px solid var(--br);flex-shrink:0}
-.dl-sheet-title{font-size:15px;font-weight:700}
-.dl-close{width:28px;height:28px;border-radius:50%;background:var(--sf2);border:.5px solid var(--br);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--t2)}
-.dl-sheet-body{overflow-y:auto;padding:0 16px 16px;-webkit-overflow-scrolling:touch}
+.sc{background:var(--sf);border-radius:12px;padding:11px 8px;text-align:center;border:.5px solid var(--br)}
 .sn{font-size:20px;font-weight:700;color:var(--brand)}
 .sl{font-size:10px;color:var(--t2);margin-top:2px;font-weight:600}
 .sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -108,7 +75,6 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .req-pill{font-size:10px;color:var(--t2);background:var(--sf2);border:.5px solid var(--br);border-radius:20px;padding:2px 7px}
 .uni-note{font-size:11px;color:var(--t2);line-height:1.5;margin-top:6px;padding:7px 9px;background:var(--sf2);border-radius:8px;border-left:3px solid var(--brand)}
 .detail-btn{width:100%;padding:9px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px}
-.apply-btn{width:100%;padding:10px;background:var(--ok);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:6px}
 .dc{background:var(--sf);border-radius:var(--r);padding:11px;border:.5px solid var(--br);display:flex;align-items:flex-start;gap:9px;margin-bottom:8px}
 .df{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;overflow:hidden;background:var(--bl)}
 .df img{width:100%;height:100%;object-fit:cover;border-radius:10px}
@@ -130,8 +96,6 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .fbar::-webkit-scrollbar{display:none}
 .fpill{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
 .fpill.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-.cpill{flex-shrink:0;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
-.cpill.on{background:#1A1207;color:#fff;border-color:#1A1207}
 .cf-label{font-size:11px;font-weight:700;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
 .send-btn{padding:13px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
 .adm-inp{width:100%;padding:9px 12px;border:.5px solid var(--br);border-radius:9px;font-size:12px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none}
@@ -145,14 +109,14 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .photo-upload-box input{display:none}
 .photo-preview{width:60px;height:60px;border-radius:10px;object-fit:cover;border:.5px solid var(--br)}
 /* AI page */
-.aip{display:none;flex-direction:column;height:100%;overflow:hidden;background:var(--bg);padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
-.aip.on{display:flex;top:0;bottom:calc(56px + env(safe-area-inset-bottom,0px))}
+.aip{display:none;flex-direction:column;flex:1;overflow:hidden;background:var(--bg)}
+.aip.on{display:flex}
 .aih{padding:12px 14px;border-bottom:.5px solid var(--br);background:var(--sf);flex-shrink:0}
 .aih-t{font-size:14px;font-weight:700}.aih-s{font-size:11px;color:var(--t2);margin-top:2px}
 .sugrow{display:flex;gap:5px;overflow-x:auto;padding:8px 12px;scrollbar-width:none;flex-shrink:0;border-bottom:.5px solid var(--br);background:var(--sf)}
 .sugrow::-webkit-scrollbar{display:none}
 .sug{flex-shrink:0;padding:6px 12px;border-radius:20px;border:.5px solid var(--brand);background:var(--bl);color:var(--bd);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
-.msgs{flex:1;overflow-y:auto;padding:12px;padding-bottom:8px;display:flex;flex-direction:column;gap:8px}
+.msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
 .msg{max-width:88%;border-radius:14px;padding:10px 13px;font-size:12px;line-height:1.6;word-break:break-word}
 .msg-ai{align-self:flex-start;background:var(--sf);border:.5px solid var(--br)}
 .msg-u{align-self:flex-end;background:var(--brand);color:#fff}
@@ -162,46 +126,24 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
 @keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
 /* AI input bar */
-.cinp{display:flex;gap:7px;align-items:flex-end;padding:10px 12px;background:var(--sf);border-top:.5px solid var(--br);flex-shrink:0}
+.cinp{display:flex;gap:7px;align-items:flex-end;padding:8px 12px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));background:var(--sf);border-top:.5px solid var(--br);flex-shrink:0}
 .cinput{flex:1;padding:10px 14px;border:1.5px solid var(--br);border-radius:22px;font-size:13px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none;resize:none;max-height:80px;line-height:1.4;transition:border-color .15s}
 .cinput:focus{border-color:var(--brand)}
 .csend{width:38px;height:38px;border-radius:50%;background:var(--brand);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s}
 .csend:active{background:var(--bd)}
 .csend svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--brand);border-top:none;display:flex;padding:6px 0 calc(10px + env(safe-area-inset-bottom,0px));z-index:50}
+.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--sf);border-top:.5px solid var(--br);display:flex;padding:6px 0 calc(10px + env(safe-area-inset-bottom,0px));z-index:50}
 .ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:3px 0}
 .nic{width:22px;height:22px;display:flex;align-items:center;justify-content:center;position:relative}
-.nic svg{width:20px;height:20px;fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
-.nic.on svg{stroke:#fff}
-.ndot{width:5px;height:5px;background:#ff4444;border-radius:50%;position:absolute;top:0;right:0;display:none;border:1.5px solid var(--brand)}
-.nl{font-size:9px;color:rgba(255,255,255,.55);font-weight:700;transition:color .15s}.nl.on{color:#fff}
+.nic svg{width:20px;height:20px;fill:none;stroke:#ccc;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+.nic.on svg{stroke:var(--brand)}
+.ndot{width:5px;height:5px;background:var(--err);border-radius:50%;position:absolute;top:0;right:0;display:none}
+.nl{font-size:9px;color:#bbb;font-weight:700;transition:color .15s}.nl.on{color:var(--brand)}
 .empty{display:flex;flex-direction:column;align-items:center;gap:9px;padding:40px 18px;text-align:center}
 .ei{width:52px;height:52px;border-radius:15px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:24px}
 .et{font-size:14px;font-weight:700}.es{font-size:12px;color:var(--t2);line-height:1.5}
-.notion-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
-.notion-overlay.on{display:flex}
-.notion-sheet{background:var(--sf);border-radius:18px 18px 0 0;width:100%;padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
-.notion-sheet-t{font-size:16px;font-weight:700;text-align:center}
-.notion-sheet-s{font-size:12px;color:var(--t2);text-align:center;line-height:1.5}
-.notion-open-btn{padding:14px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
-.notion-close-btn{padding:12px;background:var(--sf2);color:var(--t2);border:.5px solid var(--br);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%}
 .toast{position:absolute;top:14px;left:50%;transform:translateX(-50%) translateY(-80px);background:#1A1207;color:#fff;padding:9px 18px;border-radius:20px;font-size:12px;font-weight:700;z-index:999;transition:transform .3s;white-space:nowrap;pointer-events:none}
 .toast.on{transform:translateX(-50%) translateY(0)}
-
-/* Apply Modal */
-.modal-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
-.modal-overlay.on{display:flex}
-.modal-box{background:var(--sf);border-radius:20px 20px 0 0;padding:20px;width:100%;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
-.modal-handle{width:36px;height:4px;background:var(--br);border-radius:2px;margin:0 auto 16px}
-.modal-title{font-size:16px;font-weight:800;margin-bottom:4px}
-.modal-sub{font-size:12px;color:var(--t2);margin-bottom:16px;line-height:1.5}
-.modal-info{background:var(--sf2);border-radius:12px;padding:12px;margin-bottom:16px;display:flex;flex-direction:column;gap:8px}
-.modal-info-row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
-.modal-info-label{color:var(--t2);font-weight:600}
-.modal-info-val{font-weight:700}
-.apply-btn{width:100%;padding:14px;background:var(--brand);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
-.modal-cancel{width:100%;padding:11px;background:transparent;color:var(--t2);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
-
 .det{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:100;display:none;flex-direction:column;overflow:hidden}
 .det.on{display:flex}
 .det-hdr{background:var(--brand);padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top,12px));display:flex;align-items:center;gap:10px;flex-shrink:0}
@@ -242,12 +184,12 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   </div>
 </div>
 <div class="tabs">
+  <button class="tb-btn on" id="tab-home" onclick="goPage('home',this)">Overview</button>
   <button class="tb-btn" id="tab-explore" onclick="goPage('explore',this)">Universities</button>
   <button class="tb-btn" id="tab-docs" onclick="goPage('docs',this)">Documents</button>
   <button class="tb-btn" id="tab-consult" onclick="goPage('consult',this)">Consult</button>
   <button class="tb-btn" id="tab-admin" onclick="checkAdmin(this)" style="background:rgba(255,255,255,.28);color:#fff">Admin</button>
 </div>
-
 <div class="lang-bar">
   <span class="lang-lbl">Lang</span>
   <button class="lang-pill on" id="lp-en" onclick="setLang('en',this)">EN</button>
@@ -265,39 +207,14 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   </div>
   <div class="pg" id="pg-countries"><div id="cList"></div></div>
   <div class="pg" id="pg-explore" style="padding:0">
-    <!-- Filter section -->
-    <div style="background:var(--sf);border-bottom:.5px solid var(--br)">
-      <!-- Row 1: Type filter -->
-      <div class="fbar" style="padding-bottom:5px;border-bottom:.5px solid var(--br)">
-        <button class="fpill on" onclick="setFilter('all',this)">All</button>
-        <button class="fpill" onclick="setFilter('open',this)">Open</button>
-        <button class="fpill" onclick="setFilter('schol',this)">Scholarship</button>
-        <button class="fpill" onclick="setFilter('evisa',this)">E-visa</button>
-        <button class="fpill" onclick="setFilter('free',this)">Free/Low</button>
-        <button class="fpill" onclick="setFilter('bachelor',this)">Bachelor</button>
-        <button class="fpill" onclick="setFilter('masters',this)">Masters</button>
-        <button class="fpill" onclick="setFilter('foundation',this)">Foundation</button>
-        <button class="fpill" onclick="setFilter('language',this)">Language</button>
-        <button class="fpill" onclick="setFilter('college',this)">College/Diploma</button>
-        <button class="fpill" onclick="setFilter('phd',this)">PhD</button>
-        <button class="fpill" onclick="setFilter('summer',this)">Summer Camp</button>
-      </div>
-      <!-- Row 2: Country filter -->
-      <div class="fbar" style="padding-top:5px">
-        <button class="cpill on" onclick="setCFilter('all',this)">All Countries</button>
-        <button class="cpill" onclick="setCFilter('Italy',this)">🇮🇹 Italy</button>
-        <button class="cpill" onclick="setCFilter('South Korea',this)">🇰🇷 Korea</button>
-        <button class="cpill" onclick="setCFilter('Latvia',this)">🇱🇻 Latvia</button>
-        <button class="cpill" onclick="setCFilter('Germany',this)">🇩🇪 Germany</button>
-        <button class="cpill" onclick="setCFilter('UK',this)">🇬🇧 UK</button>
-        <button class="cpill" onclick="setCFilter('Netherlands',this)">🇳🇱 Netherlands</button>
-        <button class="cpill" onclick="setCFilter('Poland',this)">🇵🇱 Poland</button>
-        <button class="cpill" onclick="setCFilter('Hungary',this)">🇭🇺 Hungary</button>
-        <button class="cpill" onclick="setCFilter('Czech Republic',this)">🇨🇿 Czech Rep.</button>
-        <button class="cpill" onclick="setCFilter('USA',this)">🇺🇸 USA</button>
-      </div>
-      <!-- Result count -->
-      <div id="exploreCount" style="font-size:11px;color:var(--t2);padding:4px 14px 8px;font-weight:600"></div>
+    <div class="fbar">
+      <button class="fpill on" onclick="setFilter('all',this)">All</button>
+      <button class="fpill" onclick="setFilter('open',this)">Open</button>
+      <button class="fpill" onclick="setFilter('schol',this)">Scholarship</button>
+      <button class="fpill" onclick="setFilter('evisa',this)">E-visa</button>
+      <button class="fpill" onclick="setFilter('free',this)">Free/Low</button>
+      <button class="fpill" onclick="setFilter('masters',this)">Masters</button>
+      <button class="fpill" onclick="setFilter('bachelor',this)">Bachelor</button>
     </div>
     <div id="eList" style="padding:12px 12px calc(68px + env(safe-area-inset-bottom,0px))"></div>
   </div>
@@ -306,22 +223,22 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   <div class="pg" id="pg-docs"><div id="dList"></div></div>
   <div class="pg" id="pg-consult">
     <div style="background:var(--sf);border-radius:var(--r);border:.5px solid var(--br);overflow:hidden">
-      <div id="cf-title" style="background:var(--brand);padding:13px 15px;color:#fff;font-size:14px;font-weight:700">Free Consultation</div>
+      <div style="background:var(--brand);padding:13px 15px;color:#fff;font-size:14px;font-weight:700">Free Consultation</div>
       <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
-        <div id="cf-desc" style="font-size:11px;color:var(--t2);line-height:1.6;background:var(--bl);border-radius:10px;padding:10px 12px">Our expert consultants will review your profile and contact you within 24 hours — completely free.</div>
-        <div><div class="cf-label" id="lbl-cfname">Full Name *</div><input class="adm-inp" id="cf-name" placeholder="Your full name"></div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.6;background:var(--bl);border-radius:10px;padding:10px 12px">Our expert consultants will review your profile and contact you within 24 hours — completely free.</div>
+        <div><div class="cf-label">Full Name *</div><input class="adm-inp" id="cf-name" placeholder="Your full name"></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div><div class="cf-label" id="lbl-cfage">Age</div><input class="adm-inp" id="cf-age" type="number" placeholder="e.g. 20"></div>
-          <div><div class="cf-label" id="lbl-cfgpa">GPA</div><input class="adm-inp" id="cf-gpa" placeholder="e.g. 85%"></div>
+          <div><div class="cf-label">Age</div><input class="adm-inp" id="cf-age" type="number" placeholder="e.g. 20"></div>
+          <div><div class="cf-label">GPA</div><input class="adm-inp" id="cf-gpa" placeholder="e.g. 85%"></div>
         </div>
-        <div><div class="cf-label" id="lbl-cfedu">Education Level</div>
+        <div><div class="cf-label">Education Level</div>
           <select class="adm-inp" id="cf-edu">
             <option value="">Select...</option>
             <option>High School (11th grade)</option><option>High School Graduate</option>
             <option>Bachelor's Student</option><option>Bachelor's Graduate</option><option>Master's Graduate</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-cfcerts">Language Certificates</div>
+        <div><div class="cf-label">Language Certificates</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <input class="adm-inp" id="cf-ielts" placeholder="IELTS e.g. 6.5">
             <input class="adm-inp" id="cf-duolingo" placeholder="Duolingo e.g. 110">
@@ -331,7 +248,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
             <input class="adm-inp" id="cf-other" placeholder="Other cert">
           </div>
         </div>
-        <div><div class="cf-label" id="lbl-cfcountry">Preferred Country</div>
+        <div><div class="cf-label">Preferred Country</div>
           <select class="adm-inp" id="cf-country">
             <option value="">Any / Not sure</option>
             <option>Italy</option><option>South Korea</option><option>Latvia</option>
@@ -339,27 +256,27 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
             <option>Germany</option><option>Poland</option><option>Hungary</option><option>Czech Republic</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-cffield">Field of Study</div><input class="adm-inp" id="cf-field" placeholder="e.g. Business, Engineering, IT..."></div>
-        <div><div class="cf-label" id="lbl-cfbudget">Budget / Year</div>
+        <div><div class="cf-label">Field of Study</div><input class="adm-inp" id="cf-field" placeholder="e.g. Business, Engineering, IT..."></div>
+        <div><div class="cf-label">Budget / Year</div>
           <select class="adm-inp" id="cf-budget">
             <option value="">Select range...</option>
             <option>Under $5,000/year</option><option>$5,000 - $10,000/year</option>
             <option>$10,000 - $20,000/year</option><option>Over $20,000/year</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-cflevel">Program Level</div>
+        <div><div class="cf-label">Program Level</div>
           <select class="adm-inp" id="cf-level">
             <option value="">Any</option><option>Bachelor's</option><option>Master's</option><option>Foundation</option>
           </select>
         </div>
-        <div><div class="cf-label" id="lbl-cfsaved">Saved Universities</div>
+        <div><div class="cf-label">Saved Universities</div>
           <div id="cf-saved-unis" style="font-size:11px;color:var(--t2);padding:9px 11px;background:var(--sf2);border-radius:9px;border:.5px solid var(--br)">-</div>
         </div>
-        <div><div class="cf-label" id="lbl-cfnotes">Notes</div>
+        <div><div class="cf-label">Notes</div>
           <textarea class="adm-inp" id="cf-notes" rows="2" placeholder="Anything else..." style="resize:none"></textarea>
         </div>
-        <button class="send-btn" id="cf-sendbtn" onclick="sendToConsultant()">Send — Get Free Consultation</button>
-        <div id="cf-privacy" style="font-size:10px;color:var(--t2);text-align:center">We respond within 24 hours. Your data is private.</div>
+        <button class="send-btn" onclick="sendToConsultant()">Send — Get Free Consultation</button>
+        <div style="font-size:10px;color:var(--t2);text-align:center">We respond within 24 hours. Your data is private.</div>
       </div>
     </div>
   </div>
@@ -392,19 +309,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         </div>
         <input class="adm-inp" id="au-program" placeholder="Programs offered">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div>
-          <div class="cf-label" style="font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;margin-bottom:3px">Application Deadline</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-            <div>
-              <div style="font-size:10px;color:var(--t3);margin-bottom:3px">From</div>
-              <input class="adm-inp" id="au-deadline-from" type="date">
-            </div>
-            <div>
-              <div style="font-size:10px;color:var(--t3);margin-bottom:3px">To (main deadline)</div>
-              <input class="adm-inp" id="au-deadline" type="date">
-            </div>
-          </div>
-        </div>
+          <input class="adm-inp" id="au-deadline" type="date">
           <input class="adm-inp" id="au-living" type="number" placeholder="Living cost EUR/yr">
         </div>
         <select class="adm-inp" id="au-tuition">
@@ -417,7 +322,6 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         <input class="adm-inp" id="au-langReq" placeholder="Language requirement e.g. IELTS 6.0+">
         <input class="adm-inp" id="au-tags" placeholder="Tags comma-separated">
         <input class="adm-inp" id="au-video" placeholder="YouTube URL (optional)">
-        <input class="adm-inp" id="au-mapurl" placeholder="Google Maps URL (optional — paste share link from Maps)">
         <textarea class="adm-inp" id="au-docs" rows="2" placeholder="Docs checklist comma-separated" style="resize:none"></textarea>
         <textarea class="adm-inp" id="au-notesf" rows="2" placeholder="Important notes for students" style="resize:none"></textarea>
         <button onclick="adminAddUni()" style="padding:11px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Save University</button>
@@ -426,58 +330,7 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
         <textarea class="adm-inp" id="al-body" rows="2" placeholder="Alert message..." style="resize:none"></textarea>
         <select class="adm-inp" id="al-type"><option value="info">Info</option><option value="warning">Warning</option><option value="urgent">Urgent</option></select>
         <button onclick="adminSendAlert()" style="padding:11px;background:#ef4444;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Send Alert</button>
-        <!-- FORMS MANAGER SECTION -->
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Application Forms Manager</div>
-        <div style="font-size:11px;color:var(--t2);line-height:1.5;background:var(--bl);border-radius:10px;padding:10px 12px">Manage Notion application forms per country and program type. Students see the correct form when they tap Apply.</div>
-        <!-- Add / Edit Form -->
-        <div style="background:var(--sf2);border-radius:12px;padding:12px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:8px">
-          <div style="font-size:12px;font-weight:700">Add / Update Form Link</div>
-          <select class="adm-inp" id="af-country">
-            <option value="">Select Country *</option>
-            <option>Italy</option><option>South Korea</option><option>Latvia</option>
-            <option>Germany</option><option>UK</option><option>Netherlands</option>
-            <option>Poland</option><option>Hungary</option><option>Czech Republic</option><option>USA</option>
-          </select>
-          <select class="adm-inp" id="af-type">
-            <option value="general">General (all programs)</option>
-            <option value="bachelor">Bachelor's</option>
-            <option value="masters">Master's</option>
-            <option value="evisa">E-visa (no embassy)</option>
-            <option value="masters_evisa">Masters E-visa</option>
-            <option value="foundation">Foundation / Pathway</option>
-            <option value="language">Language Course</option>
-            <option value="college">College / Diploma</option>
-            <option value="phd">PhD / Doctorate</option>
-            <option value="summer">Summer Camp</option>
-          </select>
-          <input class="adm-inp" id="af-url" placeholder="Notion form URL *" type="url">
-          <textarea class="adm-inp" id="af-note" rows="2" placeholder="Notes e.g. Only for IELTS 6.0+ applicants (optional)" style="resize:none"></textarea>
-          <button onclick="adminSaveForm()" style="padding:10px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Save Form Link</button>
-        </div>
-        <!-- Active Forms List -->
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Active Forms</div>
-        <div id="adminFormsList"></div>
-        <!-- Archived Forms -->
-        <div id="adminFormsArchive"></div>
-
-        <!-- EXPENSE OVERRIDE SECTION -->
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Expense Estimates Override</div>
-        <div style="font-size:11px;color:var(--t2);line-height:1.5;background:var(--bl);border-radius:10px;padding:10px 12px">Override default expense estimates for a country. Leave blank to use the app defaults.</div>
-        <div style="background:var(--sf2);border-radius:12px;padding:12px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:8px">
-          <select class="adm-inp" id="exp-country" onchange="adminLoadExpenseCountry()">
-            <option value="">Select Country</option>
-            <option>Italy</option><option>South Korea</option><option>Latvia</option>
-            <option>Germany</option><option>UK</option><option>Netherlands</option>
-            <option>Poland</option><option>Hungary</option><option>Czech Republic</option><option>USA</option>
-          </select>
-          <div id="expItemsContainer" style="display:flex;flex-direction:column;gap:6px">
-            <div style="font-size:11px;color:var(--t2);text-align:center;padding:8px 0">Select a country to edit expenses</div>
-          </div>
-          <button onclick="adminSaveExpenses()" style="padding:10px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Save Expense Overrides</button>
-          <button onclick="adminResetExpenses()" style="padding:8px;background:var(--sf);color:var(--t2);border:.5px solid var(--br);border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">Reset to App Defaults</button>
-        </div>
-
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">All Universities</div>
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">All Universities</div>
         <div id="adminUniList"></div>
         <button onclick="if(confirm('Reset all data?')){localStorage.clear();location.reload();}" style="padding:11px;background:#7f1d1d;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%">Reset App Data</button>
       </div>
@@ -536,46 +389,11 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
     <span class="nl" id="nl-alerts">Alerts</span>
   </div>
 </nav>
-
-<!-- APPLY MODAL -->
-<div class="modal-overlay" id="applyModal" onclick="if(event.target===this)closeApply()">
-  <div class="modal-box">
-    <div class="modal-handle"></div>
-    <div class="modal-title" id="applyModalTitle">Apply to University</div>
-    <div class="modal-sub">You will be taken to our application form. Fill in your details and our team will contact you within 24 hours.</div>
-    <div class="modal-info">
-      <div class="modal-info-row"><span class="modal-info-label">Country</span><span class="modal-info-val" id="applyModalCountry"></span></div>
-      <div class="modal-info-row"><span class="modal-info-label">Deadline</span><span class="modal-info-val" id="applyModalDeadline"></span></div>
-      <div class="modal-info-row"><span class="modal-info-label">Form</span><span class="modal-info-val" style="color:var(--brand)">Notion Application</span></div>
-    </div>
-    <button class="apply-btn" id="applyModalBtn">Open Application Form</button>
-    <button class="modal-cancel" onclick="closeApply()">Cancel</button>
-  </div>
-</div>
 <div class="toast" id="toast"></div>
-<!-- Deadline Days Modal -->
-<div class="dl-modal" id="deadlineModal" onclick="if(event.target===this)closeDeadlineModal()">
-  <div class="dl-sheet">
-    <div class="dl-sheet-hdr">
-      <div class="dl-sheet-title">⏰ Upcoming Deadlines</div>
-      <div class="dl-close" onclick="closeDeadlineModal()">✕</div>
-    </div>
-    <div class="dl-sheet-body" id="deadlineModalBody"></div>
-  </div>
-</div>
-<!-- Notion Apply Modal -->
-<div class="notion-overlay" id="notionOverlay" onclick="closeNotion(event)">
-  <div class="notion-sheet">
-    <div style="width:36px;height:4px;background:var(--br);border-radius:2px;margin:0 auto -6px"></div>
-    <div class="notion-sheet-t" id="notionTitle">Apply Now</div>
-    <div class="notion-sheet-s" id="notionDesc">Fill in our application form and our consultant will contact you within 24 hours to guide you through the process.</div>
-    <button class="notion-open-btn" id="notionOpenBtn" onclick="openNotionLink()">Open Application Form</button>
-    <button class="notion-close-btn" onclick="closeNotion()">Maybe Later</button>
-  </div>
-</div>
 </div>
 
 <script>
+
 const DOCS_STD=["Apostille (diploma)","Academic transcript","Motivation letter","Language certificate","Passport copy","Application fee payment"];;
 const DOCS_IT=["Apostille (diploma)","Academic transcript","Entrance exam (if required)","Passport copy","Application fee payment"];;
 
@@ -700,7 +518,7 @@ function setLang(lang,btn){
 }
 function applyLang(){
   // Update tabs
-  [['tab-explore','universities'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']].forEach(function(p){var el=document.getElementById(p[0]);if(el)el.textContent=LANG[p[1]];});
+  [['tab-home','home'],['tab-explore','universities'],['tab-docs','documents'],['tab-consult','consult'],['tab-admin','admin']].forEach(function(p){var el=document.getElementById(p[0]);if(el)el.textContent=LANG[p[1]];});
   // Update bottom nav
   ['home','countries','ai','saved','alerts'].forEach(function(k){var el=document.getElementById('nl-'+k);if(el&&LANG[k])el.textContent=LANG[k];});
   // Update search/AI placeholders
@@ -927,7 +745,8 @@ function deadlineChip(u){
 // ── UNIVERSITY CARD ───────────────────────────────────
 function uniHtml(u){
   try{
-    var logo=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:11px" onerror="this.parentElement.textContent=\''+u.flag+'\'">':u.flag;
+    // Logo slot: always show uni logo/photo. If no logo, show flag emoji in slot
+    var logoContent=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:100%;height:100%;object-fit:cover;border-radius:11px" onerror="this.parentElement.innerHTML=\'<span style=font-size:22px>'+u.flag+'</span>\'">':'<span style="font-size:22px">'+u.flag+'</span>';
     var isOpen=u.status!=='closed';
     var sb=isOpen?'<span class="status-open">'+(LANG.open||'Open')+'</span>':'<span class="status-closed">'+(LANG.closed||'Closed')+'</span>';
     var rank=u.rank?'<span class="ur">'+u.rank+'</span>':'';
@@ -936,9 +755,10 @@ function uniHtml(u){
     var dl=deadlineChip(u);
     var tags=(u.tags||[]).filter(function(t){return !t.includes('%')&&!t.toLowerCase().includes('scholarship')&&!t.toLowerCase().includes('grant')&&!t.toLowerCase().includes('e-visa');});
     var chips=pt+tags.slice(0,2).map(chipHtml).join('')+dl;
+    // Flag goes before the uni name in the text area
     return '<div class="uc" style="opacity:'+(isOpen?'1':'0.6')+'">'
-      +'<div class="ut"><div class="uf" style="background:'+(u.bg||'#fff0eb')+'">'+logo+'</div>'
-      +'<div class="ui"><div class="un">'+u.name+'</div><div class="ul">'+u.city+', '+u.country+'</div></div>'
+      +'<div class="ut"><div class="uf" style="background:'+(u.bg||'#fff0eb')+';display:flex;align-items:center;justify-content:center">'+logoContent+'</div>'
+      +'<div class="ui"><div class="un">'+u.flag+' '+u.name+'</div><div class="ul">'+u.city+', '+u.country+'</div></div>'
       +'<div class="uacts">'+rank+sb
       +'<div class="sbtn'+sv+'" onclick="toggleSave('+u.id+');event.stopPropagation()">'
       +'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>'
@@ -980,13 +800,23 @@ function openDet(id){
     +'<div style="background:var(--sf);border-radius:12px;padding:12px;border:.5px solid var(--br)">'+scholTags.map(function(ss){return '<div style="padding:4px 0;font-size:12px;font-weight:600">'+ss+'</div>';}).join('')+'</div></div>':'';
   var docsHtml='<div style="background:var(--sf);border-radius:12px;border:.5px solid var(--br);overflow:hidden">'
     +(u.docs||[]).map(function(doc,i){var done=(u.done||[])[i];
-      return '<div class="di" onclick="toggleDocDet('+u.id+','+i+')">'
+      return '<div class="di" onclick="toggleDocDet('+u.id+','+i+')" style="justify-content:space-between">'
+        +'<div style="display:flex;align-items:center;gap:9px;flex:1">'
         +'<div class="dck'+(done?' on':'')+'"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>'
-        +'<span class="dname'+(done?' done':'')+'">'+doc+'</span></div>';
-    }).join('')+'</div>';
+        +'<span class="dname'+(done?' done':'')+'">'+doc+'</span></div>'
+        +'<span onclick="event.stopPropagation();deleteDoc('+u.id+','+i+')" style="color:#ef4444;font-size:16px;padding:0 4px;cursor:pointer;line-height:1">×</span>'
+        +'</div>';
+    }).join('')
+    +'<div style="padding:10px 13px;display:flex;gap:7px;border-top:.5px solid var(--br)">'
+    +'<input id="new-doc-'+u.id+'" class="adm-inp" placeholder="Add new requirement..." style="font-size:11px;padding:5px 9px">'
+    +'<button onclick="addDoc('+u.id+')" style="padding:5px 12px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Add</button>'
+    +'</div>'
+    +'</div>';
   var revs=u.reviews||[];
   var revHtml=revs.length?revs.map(function(r){return '<div class="rev-card"><div class="rev-stars">'+'★'.repeat(r.stars||5)+'</div><div class="rev-text">'+r.text+'</div><div class="rev-author">- '+r.author+(r.year?', '+r.year:'')+'</div></div>';}).join(''):'<div style="padding:14px;text-align:center;color:var(--t2);font-size:12px">No reviews yet</div>';
   var mapHref=u.mapUrl&&u.mapUrl.startsWith('http')?u.mapUrl:'https://maps.google.com/?q='+encodeURIComponent(u.name+' '+u.city+' '+u.country);
+  var mapQ=encodeURIComponent(u.city+' '+u.country);
+  var staticMapUrl='https://maps.googleapis.com/maps/api/staticmap?center='+mapQ+'&zoom=13&size=400x180&scale=2&maptype=roadmap&style=feature:all|saturation:-20&markers=color:red|'+mapQ+'&key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY';
   document.getElementById('detBody').innerHTML=
     '<div class="det-sec"><div class="det-sec-t">'+(LANG.overview||'Overview')+'</div>'
     +'<div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">'+(u.program||'Bachelor and Masters programs')+'</div>'
@@ -1132,11 +962,13 @@ function renderAdmin(){
     +'<div class="anl-card"><div class="anl-num">'+alerts.length+'</div><div class="anl-lbl">Alerts</div></div>'
     +'<div class="anl-card"><div class="anl-num">'+countries.length+'</div><div class="anl-lbl">Countries</div></div>';
   renderFormsAdmin();
+  renderCountryAdmin();
   document.getElementById('adminUniList').innerHTML=sortUnis(unis).map(function(u){
     var logo=(u.logo&&u.logo.length>10)?'<img src="'+u.logo+'" style="width:28px;height:28px;border-radius:6px;object-fit:cover;flex-shrink:0">':'<span style="font-size:18px;flex-shrink:0">'+u.flag+'</span>';
     return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:.5px solid var(--br)">'
       +logo+'<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+u.name+'</div>'
       +'<div style="font-size:10px;color:var(--t2)">'+u.country+(u.deadline?' - '+days(u.deadline)+'d':'')+'</div></div>'
+      +'<button onclick="adminEdit('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid var(--br);background:#dbeafe;color:#1e40af;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Edit</button>'
       +'<button onclick="adminToggle('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid var(--br);background:'+(u.status==='closed'?'#fef3c7':'#dcfce7')+';color:'+(u.status==='closed'?'#92400e':'#166534')+';font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">'+(u.status==='closed'?'Open':'Close')+'</button>'
       +'<button onclick="adminDel('+u.id+')" style="padding:3px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Del</button>'
       +'</div>';
@@ -1256,15 +1088,29 @@ function showApply(id){
 function openNotionLink(){if(_notionUrl)window.open(_notionUrl,'_blank');closeNotion();}
 function closeNotion(e){if(!e||e.target===document.getElementById('notionOverlay'))document.getElementById('notionOverlay').classList.remove('on');}
 function adminSaveForm(){
-  var country=document.getElementById('af-country').value,type=document.getElementById('af-type').value||'general';
-  var url=document.getElementById('af-url').value.trim(),note=document.getElementById('af-note').value.trim();
+  var country=document.getElementById('af-country').value;
+  var url=document.getElementById('af-url').value.trim();
+  var note=document.getElementById('af-note').value.trim();
   if(!country){toast('Select a country');return;}
   if(!url||!url.startsWith('http')){toast('Enter a valid URL starting with http');return;}
-  appForms.forEach(function(f){if(f.country===country&&f.type===type)f.active=false;});
-  appForms.push({id:Date.now(),country:country,type:type,url:url,note:note,active:true,updatedAt:new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})});
+  // Get selected program types
+  var types=[];
+  var typeIds=['general','bachelor','masters','evisa','foundation','language','college','phd','summer'];
+  typeIds.forEach(function(t){var cb=document.getElementById('af-t-'+t);if(cb&&cb.checked)types.push(t);});
+  if(!types.length){toast('Select at least one program type');return;}
+  var ts=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  // For each selected type, deactivate old and add new
+  types.forEach(function(type){
+    appForms.forEach(function(f){if(f.country===country&&f.type===type)f.active=false;});
+    appForms.push({id:Date.now()+Math.random(),country:country,type:type,url:url,note:note,active:true,updatedAt:ts});
+  });
   saveForms();
-  document.getElementById('af-country').value='';document.getElementById('af-url').value='';document.getElementById('af-note').value='';
-  toast(country+' form saved ✅');renderAdmin();
+  document.getElementById('af-country').value='';
+  document.getElementById('af-url').value='';
+  document.getElementById('af-note').value='';
+  typeIds.forEach(function(t){var cb=document.getElementById('af-t-'+t);if(cb)cb.checked=false;});
+  toast(country+' form saved for '+types.length+' program(s) ✅');
+  renderAdmin();
 }
 function adminDeleteForm(id){
   if(!confirm('Delete this form?'))return;
@@ -1574,12 +1420,377 @@ function closeDeadlineModal(){
   document.getElementById('deadlineModal').classList.remove('on');
 }
 
+
+// ── UNIVERSITY EDIT MODAL ──────────────────────────────
+function adminEdit(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  var m=document.getElementById('editModal');
+  if(!m){
+    m=document.createElement('div');
+    m.id='editModal';
+    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
+      +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf);z-index:1">'
+      +'<div style="font-size:15px;font-weight:700">Edit University</div>'
+      +'<button onclick="closeEditModal()" style="background:var(--sf2);border:.5px solid var(--br);border-radius:20px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:inherit">Done</button>'
+      +'</div>'
+      +'<div id="editModalBody" style="padding:14px;display:flex;flex-direction:column;gap:8px"></div>'
+      +'</div>';
+    m.onclick=function(ev){if(ev.target===m)closeEditModal();};
+    document.getElementById('root').appendChild(m);
+  }
+  var fl=u.logo&&u.logo.length>10?'<img src="'+u.logo+'" style="width:48px;height:48px;border-radius:10px;object-fit:cover">':'<div style="width:48px;height:48px;border-radius:10px;background:'+u.bg+';display:flex;align-items:center;justify-content:center;font-size:24px">'+u.flag+'</div>';
+  document.getElementById('editModalBody').innerHTML=
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">'+fl+'<div><div style="font-size:14px;font-weight:700">'+u.name+'</div><div style="font-size:11px;color:var(--t2)">'+u.country+'</div></div></div>'
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Basic Info</div>'
+    +editField('eu-name','Name',u.name,'text')
+    +editField('eu-country','Country',u.country,'text')
+    +editField('eu-city','City',u.city,'text')
+    +editField('eu-flag','Flag emoji',u.flag,'text')
+    +editField('eu-rank','QS Rank',u.rank,'text')
+    +editField('eu-program','Programs',u.program,'text')
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Dates & Costs</div>'
+    +editField('eu-deadline-from','Deadline From',u.deadline_from,'date')
+    +editField('eu-deadline','Deadline To',u.deadline,'date')
+    +'<div><div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:3px">Tuition</div>'
+    +'<select id="eu-tuition" class="adm-inp"><option value="free"'+(u.tuition==='free'?' selected':'')+'>Free 0/yr</option><option value="low"'+(u.tuition==='low'?' selected':'')+'>Low under 3k</option><option value="medium"'+(u.tuition==='medium'?' selected':'')+'>Medium 3-8k</option><option value="high"'+(u.tuition==='high'?' selected':'')+'>High 8k+</option></select></div>'
+    +'<div><div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:3px">Status</div>'
+    +'<select id="eu-status" class="adm-inp"><option value="open"'+(u.status==='open'?' selected':'')+'>Open</option><option value="closed"'+(u.status==='closed'?' selected':'')+'>Closed</option></select></div>'
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Details</div>'
+    +editField('eu-langReq','Language Req',u.langReq,'text')
+    +editField('eu-tags','Tags (comma-separated)',( u.tags||[]).join(', '),'text')
+    +editField('eu-video','YouTube URL',u.video,'text')
+    +editField('eu-mapurl','Google Maps URL',u.mapUrl,'text')
+    +editField('eu-logo','Logo URL / paste image',u.logo,'text')
+    +editField('eu-notes','Notes for students',u.notes,'text')
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Add Review</div>'
+    +'<input id="eu-rev-author" class="adm-inp" placeholder="Student name">'
+    +'<input id="eu-rev-year" class="adm-inp" placeholder="Year e.g. 2024">'
+    +'<textarea id="eu-rev-text" class="adm-inp" rows="2" placeholder="Review text..." style="resize:none"></textarea>'
+    +'<div style="display:flex;gap:5px;align-items:center"><span style="font-size:11px;color:var(--t2)">Stars:</span>'
+    +'<select id="eu-rev-stars" class="adm-inp" style="width:auto"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option><option value="2">★★</option><option value="1">★</option></select></div>'
+    +'<button onclick="adminAddReview('+u.id+')" style="padding:9px;background:#f59e0b;color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Add Review</button>'
+    +(u.reviews&&u.reviews.length?'<div style="font-size:10px;font-weight:700;color:var(--t2)">Existing Reviews</div>'
+      +u.reviews.map(function(r,i){return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:.5px solid var(--br)"><div><div style="font-size:11px;font-weight:600">'+'★'.repeat(r.stars||5)+' '+r.author+'</div><div style="font-size:10px;color:var(--t2)">'+r.text.slice(0,60)+'...</div></div><button onclick="adminDeleteReview('+u.id+','+i+')" style="padding:2px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:10px;cursor:pointer;font-family:inherit">Del</button></div>';}).join(''):'')
+    +'<button onclick="adminSaveEdit('+u.id+')" style="padding:12px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:4px">Save Changes</button>';
+  m.style.display='flex';
+  haptic('medium');
+}
+function editField(id,label,val,type){
+  return '<div><div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:3px">'+label+'</div>'
+    +'<input id="'+id+'" class="adm-inp" type="'+(type||'text')+'" value="'+(val||'').replace(/"/g,'&quot;')+'"></div>';
+}
+function closeEditModal(){var m=document.getElementById('editModal');if(m)m.style.display='none';}
+function adminSaveEdit(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  u.name=document.getElementById('eu-name').value.trim()||u.name;
+  u.country=document.getElementById('eu-country').value.trim()||u.country;
+  u.city=document.getElementById('eu-city').value.trim()||u.city;
+  u.flag=document.getElementById('eu-flag').value.trim()||u.flag;
+  u.rank=document.getElementById('eu-rank').value.trim();
+  u.program=document.getElementById('eu-program').value.trim();
+  u.deadline_from=document.getElementById('eu-deadline-from').value;
+  u.deadline=document.getElementById('eu-deadline').value;
+  u.tuition=document.getElementById('eu-tuition').value;
+  u.status=document.getElementById('eu-status').value;
+  u.langReq=document.getElementById('eu-langReq').value.trim();
+  u.tags=document.getElementById('eu-tags').value.split(',').map(function(t){return t.trim();}).filter(Boolean);
+  u.video=document.getElementById('eu-video').value.trim();
+  u.mapUrl=document.getElementById('eu-mapurl').value.trim();
+  var newLogo=document.getElementById('eu-logo').value.trim();
+  if(newLogo)u.logo=newLogo;
+  u.notes=document.getElementById('eu-notes').value.trim();
+  // Persist to admin storage
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(err){}
+  save();closeEditModal();renderAdmin();toast('Saved ✅');haptic('light');
+}
+function adminAddReview(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  var author=document.getElementById('eu-rev-author').value.trim();
+  var text=document.getElementById('eu-rev-text').value.trim();
+  var year=document.getElementById('eu-rev-year').value.trim();
+  var stars=parseInt(document.getElementById('eu-rev-stars').value)||5;
+  if(!author||!text){toast('Author and text required');return;}
+  if(!u.reviews)u.reviews=[];
+  u.reviews.push({author:author,text:text,year:year,stars:stars});
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();toast('Review added ✅');adminEdit(id);
+}
+function adminDeleteReview(id,idx){
+  var u=unis.find(function(x){return x.id===id;});if(!u||!u.reviews)return;
+  u.reviews.splice(idx,1);
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();adminEdit(id);toast('Deleted');
+}
+
+// ── ADD/DELETE DOCS in detail page ────────────────────
+function addDoc(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  var inp=document.getElementById('new-doc-'+id);if(!inp)return;
+  var val=inp.value.trim();if(!val){toast('Enter requirement name');return;}
+  if(!u.docs)u.docs=[];
+  u.docs.push(val);
+  if(!u.done)u.done=[];
+  u.done.push(false);
+  save();toast('Added ✅');openDet(id);
+}
+function deleteDoc(id,idx){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  u.docs.splice(idx,1);
+  if(u.done)u.done.splice(idx,1);
+  save();openDet(id);
+}
+
+// ── COUNTRY EDITING IN ADMIN ───────────────────────────
+function renderCountryAdmin(){
+  var el=document.getElementById('adminCountryList');if(!el)return;
+  el.innerHTML=countries.map(function(c,i){
+    return '<div style="background:var(--sf);border-radius:11px;padding:10px 12px;border:.5px solid var(--br);margin-bottom:7px">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+      +'<div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">'+c.flag+'</span>'
+      +'<div style="font-size:12px;font-weight:700">'+c.name+'</div></div>'
+      +'<button onclick="editCountry('+i+')" style="padding:3px 10px;border-radius:6px;border:.5px solid var(--br);background:#dbeafe;color:#1e40af;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Edit</button>'
+      +'</div>'
+      +'<div style="font-size:10px;color:var(--t2)">'+c.highlight+'</div>'
+      +'<div style="font-size:10px;color:var(--t3);margin-top:2px">Tuition: '+c.tuition+' | Living: '+c.living+'</div>'
+      +'</div>';
+  }).join('');
+}
+function editCountry(idx){
+  var c=countries[idx];if(!c)return;
+  var m=document.getElementById('countryEditModal');
+  if(!m){
+    m=document.createElement('div');
+    m.id='countryEditModal';
+    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:85vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
+      +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf)">'
+      +'<div style="font-size:15px;font-weight:700">Edit Country</div>'
+      +'<button onclick="closeCountryEdit()" style="background:var(--sf2);border:.5px solid var(--br);border-radius:20px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:inherit">Done</button>'
+      +'</div><div id="countryEditBody" style="padding:14px;display:flex;flex-direction:column;gap:8px"></div></div>';
+    m.onclick=function(ev){if(ev.target===m)closeCountryEdit();};
+    document.getElementById('root').appendChild(m);
+  }
+  document.getElementById('countryEditBody').innerHTML=
+    editField('ce-flag','Flag emoji',c.flag,'text')
+    +editField('ce-highlight','Highlight text (EN)',c.highlight,'text')
+    +editField('ce-highlight-uz','Highlight text (UZ)',c.highlight_uz,'text')
+    +editField('ce-highlight-ru','Highlight text (RU)',c.highlight_ru,'text')
+    +editField('ce-tuition','Tuition (number, 0=free)',c.tuition,'number')
+    +editField('ce-living','Living cost/yr',c.living,'number')
+    +editField('ce-visa','Visa info',c.visa,'text')
+    +editField('ce-tags','Tags (comma-separated)',(c.tags||[]).join(', '),'text')
+    +'<button onclick="saveCountryEdit('+idx+')" style="padding:12px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:4px">Save Country</button>';
+  m.style.display='flex';
+}
+function closeCountryEdit(){var m=document.getElementById('countryEditModal');if(m)m.style.display='none';}
+function saveCountryEdit(idx){
+  var c=countries[idx];if(!c)return;
+  c.flag=document.getElementById('ce-flag').value.trim()||c.flag;
+  c.highlight=document.getElementById('ce-highlight').value.trim()||c.highlight;
+  c.highlight_uz=document.getElementById('ce-highlight-uz').value.trim()||c.highlight_uz;
+  c.highlight_ru=document.getElementById('ce-highlight-ru').value.trim()||c.highlight_ru;
+  c.tuition=parseInt(document.getElementById('ce-tuition').value)||0;
+  c.living=parseInt(document.getElementById('ce-living').value)||c.living;
+  c.visa=document.getElementById('ce-visa').value.trim()||c.visa;
+  c.tags=document.getElementById('ce-tags').value.split(',').map(function(t){return t.trim();}).filter(Boolean);
+  localStorage.setItem('sf_adm_c',JSON.stringify(countries));
+  closeCountryEdit();renderAdmin();renderCountries&&renderCountries();toast('Country saved ✅');
+}
+
 // ── BOOT ──────────────────────────────────────────────
 if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',function(){setTimeout(initApp,50);});
 }else{
   setTimeout(initApp,50);
 }
+
+
+
+// ── UNIVERSITY EDIT MODAL ──────────────────────────────
+function adminEdit(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  var m=document.getElementById('editModal');
+  if(!m){
+    m=document.createElement('div');
+    m.id='editModal';
+    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
+      +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf);z-index:1">'
+      +'<div style="font-size:15px;font-weight:700">Edit University</div>'
+      +'<button onclick="closeEditModal()" style="background:var(--sf2);border:.5px solid var(--br);border-radius:20px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:inherit">Done</button>'
+      +'</div>'
+      +'<div id="editModalBody" style="padding:14px;display:flex;flex-direction:column;gap:8px"></div>'
+      +'</div>';
+    m.onclick=function(ev){if(ev.target===m)closeEditModal();};
+    document.getElementById('root').appendChild(m);
+  }
+  var fl=u.logo&&u.logo.length>10?'<img src="'+u.logo+'" style="width:48px;height:48px;border-radius:10px;object-fit:cover">':'<div style="width:48px;height:48px;border-radius:10px;background:'+u.bg+';display:flex;align-items:center;justify-content:center;font-size:24px">'+u.flag+'</div>';
+  document.getElementById('editModalBody').innerHTML=
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">'+fl+'<div><div style="font-size:14px;font-weight:700">'+u.name+'</div><div style="font-size:11px;color:var(--t2)">'+u.country+'</div></div></div>'
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Basic Info</div>'
+    +editField('eu-name','Name',u.name,'text')
+    +editField('eu-country','Country',u.country,'text')
+    +editField('eu-city','City',u.city,'text')
+    +editField('eu-flag','Flag emoji',u.flag,'text')
+    +editField('eu-rank','QS Rank',u.rank,'text')
+    +editField('eu-program','Programs',u.program,'text')
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Dates & Costs</div>'
+    +editField('eu-deadline-from','Deadline From',u.deadline_from,'date')
+    +editField('eu-deadline','Deadline To',u.deadline,'date')
+    +'<div><div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:3px">Tuition</div>'
+    +'<select id="eu-tuition" class="adm-inp"><option value="free"'+(u.tuition==='free'?' selected':'')+'>Free 0/yr</option><option value="low"'+(u.tuition==='low'?' selected':'')+'>Low under 3k</option><option value="medium"'+(u.tuition==='medium'?' selected':'')+'>Medium 3-8k</option><option value="high"'+(u.tuition==='high'?' selected':'')+'>High 8k+</option></select></div>'
+    +'<div><div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:3px">Status</div>'
+    +'<select id="eu-status" class="adm-inp"><option value="open"'+(u.status==='open'?' selected':'')+'>Open</option><option value="closed"'+(u.status==='closed'?' selected':'')+'>Closed</option></select></div>'
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Details</div>'
+    +editField('eu-langReq','Language Req',u.langReq,'text')
+    +editField('eu-tags','Tags (comma-separated)',( u.tags||[]).join(', '),'text')
+    +editField('eu-video','YouTube URL',u.video,'text')
+    +editField('eu-mapurl','Google Maps URL',u.mapUrl,'text')
+    +editField('eu-logo','Logo URL / paste image',u.logo,'text')
+    +editField('eu-notes','Notes for students',u.notes,'text')
+    +'<div style="font-size:10px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Add Review</div>'
+    +'<input id="eu-rev-author" class="adm-inp" placeholder="Student name">'
+    +'<input id="eu-rev-year" class="adm-inp" placeholder="Year e.g. 2024">'
+    +'<textarea id="eu-rev-text" class="adm-inp" rows="2" placeholder="Review text..." style="resize:none"></textarea>'
+    +'<div style="display:flex;gap:5px;align-items:center"><span style="font-size:11px;color:var(--t2)">Stars:</span>'
+    +'<select id="eu-rev-stars" class="adm-inp" style="width:auto"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option><option value="2">★★</option><option value="1">★</option></select></div>'
+    +'<button onclick="adminAddReview('+u.id+')" style="padding:9px;background:#f59e0b;color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Add Review</button>'
+    +(u.reviews&&u.reviews.length?'<div style="font-size:10px;font-weight:700;color:var(--t2)">Existing Reviews</div>'
+      +u.reviews.map(function(r,i){return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:.5px solid var(--br)"><div><div style="font-size:11px;font-weight:600">'+'★'.repeat(r.stars||5)+' '+r.author+'</div><div style="font-size:10px;color:var(--t2)">'+r.text.slice(0,60)+'...</div></div><button onclick="adminDeleteReview('+u.id+','+i+')" style="padding:2px 8px;border-radius:6px;border:.5px solid #fecaca;background:#fee2e2;color:#ef4444;font-size:10px;cursor:pointer;font-family:inherit">Del</button></div>';}).join(''):'')
+    +'<button onclick="adminSaveEdit('+u.id+')" style="padding:12px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:4px">Save Changes</button>';
+  m.style.display='flex';
+  haptic('medium');
+}
+function editField(id,label,val,type){
+  return '<div><div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:3px">'+label+'</div>'
+    +'<input id="'+id+'" class="adm-inp" type="'+(type||'text')+'" value="'+(val||'').replace(/"/g,'&quot;')+'"></div>';
+}
+function closeEditModal(){var m=document.getElementById('editModal');if(m)m.style.display='none';}
+function adminSaveEdit(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  u.name=document.getElementById('eu-name').value.trim()||u.name;
+  u.country=document.getElementById('eu-country').value.trim()||u.country;
+  u.city=document.getElementById('eu-city').value.trim()||u.city;
+  u.flag=document.getElementById('eu-flag').value.trim()||u.flag;
+  u.rank=document.getElementById('eu-rank').value.trim();
+  u.program=document.getElementById('eu-program').value.trim();
+  u.deadline_from=document.getElementById('eu-deadline-from').value;
+  u.deadline=document.getElementById('eu-deadline').value;
+  u.tuition=document.getElementById('eu-tuition').value;
+  u.status=document.getElementById('eu-status').value;
+  u.langReq=document.getElementById('eu-langReq').value.trim();
+  u.tags=document.getElementById('eu-tags').value.split(',').map(function(t){return t.trim();}).filter(Boolean);
+  u.video=document.getElementById('eu-video').value.trim();
+  u.mapUrl=document.getElementById('eu-mapurl').value.trim();
+  var newLogo=document.getElementById('eu-logo').value.trim();
+  if(newLogo)u.logo=newLogo;
+  u.notes=document.getElementById('eu-notes').value.trim();
+  // Persist to admin storage
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(err){}
+  save();closeEditModal();renderAdmin();toast('Saved ✅');haptic('light');
+}
+function adminAddReview(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  var author=document.getElementById('eu-rev-author').value.trim();
+  var text=document.getElementById('eu-rev-text').value.trim();
+  var year=document.getElementById('eu-rev-year').value.trim();
+  var stars=parseInt(document.getElementById('eu-rev-stars').value)||5;
+  if(!author||!text){toast('Author and text required');return;}
+  if(!u.reviews)u.reviews=[];
+  u.reviews.push({author:author,text:text,year:year,stars:stars});
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();toast('Review added ✅');adminEdit(id);
+}
+function adminDeleteReview(id,idx){
+  var u=unis.find(function(x){return x.id===id;});if(!u||!u.reviews)return;
+  u.reviews.splice(idx,1);
+  try{var au=JSON.parse(localStorage.getItem('sf_adm_u')||'[]');var i=au.findIndex(function(a){return a.id===id;});if(i!==-1)au[i]=u;else au.push(u);localStorage.setItem('sf_adm_u',JSON.stringify(au));}catch(e){}
+  save();adminEdit(id);toast('Deleted');
+}
+
+// ── ADD/DELETE DOCS in detail page ────────────────────
+function addDoc(id){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  var inp=document.getElementById('new-doc-'+id);if(!inp)return;
+  var val=inp.value.trim();if(!val){toast('Enter requirement name');return;}
+  if(!u.docs)u.docs=[];
+  u.docs.push(val);
+  if(!u.done)u.done=[];
+  u.done.push(false);
+  save();toast('Added ✅');openDet(id);
+}
+function deleteDoc(id,idx){
+  var u=unis.find(function(x){return x.id===id;});if(!u)return;
+  u.docs.splice(idx,1);
+  if(u.done)u.done.splice(idx,1);
+  save();openDet(id);
+}
+
+// ── COUNTRY EDITING IN ADMIN ───────────────────────────
+function renderCountryAdmin(){
+  var el=document.getElementById('adminCountryList');if(!el)return;
+  el.innerHTML=countries.map(function(c,i){
+    return '<div style="background:var(--sf);border-radius:11px;padding:10px 12px;border:.5px solid var(--br);margin-bottom:7px">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+      +'<div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">'+c.flag+'</span>'
+      +'<div style="font-size:12px;font-weight:700">'+c.name+'</div></div>'
+      +'<button onclick="editCountry('+i+')" style="padding:3px 10px;border-radius:6px;border:.5px solid var(--br);background:#dbeafe;color:#1e40af;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit">Edit</button>'
+      +'</div>'
+      +'<div style="font-size:10px;color:var(--t2)">'+c.highlight+'</div>'
+      +'<div style="font-size:10px;color:var(--t3);margin-top:2px">Tuition: '+c.tuition+' | Living: '+c.living+'</div>'
+      +'</div>';
+  }).join('');
+}
+function editCountry(idx){
+  var c=countries[idx];if(!c)return;
+  var m=document.getElementById('countryEditModal');
+  if(!m){
+    m=document.createElement('div');
+    m.id='countryEditModal';
+    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:85vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
+      +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf)">'
+      +'<div style="font-size:15px;font-weight:700">Edit Country</div>'
+      +'<button onclick="closeCountryEdit()" style="background:var(--sf2);border:.5px solid var(--br);border-radius:20px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:inherit">Done</button>'
+      +'</div><div id="countryEditBody" style="padding:14px;display:flex;flex-direction:column;gap:8px"></div></div>';
+    m.onclick=function(ev){if(ev.target===m)closeCountryEdit();};
+    document.getElementById('root').appendChild(m);
+  }
+  document.getElementById('countryEditBody').innerHTML=
+    editField('ce-flag','Flag emoji',c.flag,'text')
+    +editField('ce-highlight','Highlight text (EN)',c.highlight,'text')
+    +editField('ce-highlight-uz','Highlight text (UZ)',c.highlight_uz,'text')
+    +editField('ce-highlight-ru','Highlight text (RU)',c.highlight_ru,'text')
+    +editField('ce-tuition','Tuition (number, 0=free)',c.tuition,'number')
+    +editField('ce-living','Living cost/yr',c.living,'number')
+    +editField('ce-visa','Visa info',c.visa,'text')
+    +editField('ce-tags','Tags (comma-separated)',(c.tags||[]).join(', '),'text')
+    +'<button onclick="saveCountryEdit('+idx+')" style="padding:12px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:4px">Save Country</button>';
+  m.style.display='flex';
+}
+function closeCountryEdit(){var m=document.getElementById('countryEditModal');if(m)m.style.display='none';}
+function saveCountryEdit(idx){
+  var c=countries[idx];if(!c)return;
+  c.flag=document.getElementById('ce-flag').value.trim()||c.flag;
+  c.highlight=document.getElementById('ce-highlight').value.trim()||c.highlight;
+  c.highlight_uz=document.getElementById('ce-highlight-uz').value.trim()||c.highlight_uz;
+  c.highlight_ru=document.getElementById('ce-highlight-ru').value.trim()||c.highlight_ru;
+  c.tuition=parseInt(document.getElementById('ce-tuition').value)||0;
+  c.living=parseInt(document.getElementById('ce-living').value)||c.living;
+  c.visa=document.getElementById('ce-visa').value.trim()||c.visa;
+  c.tags=document.getElementById('ce-tags').value.split(',').map(function(t){return t.trim();}).filter(Boolean);
+  localStorage.setItem('sf_adm_c',JSON.stringify(countries));
+  closeCountryEdit();renderAdmin();renderCountries&&renderCountries();toast('Country saved ✅');
+}
+
+// ── BOOT ──────────────────────────────────────────────
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(initApp,50);});
+}else{
+  setTimeout(initApp,50);
+}
+
 
 </script>
 </body>
