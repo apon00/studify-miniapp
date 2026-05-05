@@ -9,9 +9,9 @@
 <style>
 :root{--brand:#FF6B35;--brand2:#FF8C5A;--bl:#FFF0EB;--bd:#E8561F;--bg:#FFF8F5;--sf:#fff;--sf2:#FFF8F5;--br:rgba(0,0,0,.07);--tx:#1A1207;--t2:#7A6A5A;--t3:#B0A090;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--r:14px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:var(--bg)}
+html,body{height:100%;overflow:hidden;background:var(--bg);margin:0;padding:0}
 body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
-#root{display:flex;flex-direction:column;height:100vh;max-width:430px;margin:0 auto;overflow:hidden;position:relative;background:var(--bg)}
+#root{display:flex;flex-direction:column;height:100vh;height:100dvh;max-width:430px;width:100%;margin:0 auto;overflow:hidden;position:relative;background:var(--bg)}
 .topbar{background:var(--brand);padding:10px 16px 0;flex-shrink:0;padding-top:max(10px,env(safe-area-inset-top,10px))}
 .tb-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .logo{font-size:19px;font-weight:800;color:#fff;letter-spacing:-.5px}
@@ -96,6 +96,8 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .fbar::-webkit-scrollbar{display:none}
 .fpill{flex-shrink:0;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
 .fpill.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.cpill{flex-shrink:0;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--br);background:var(--sf);color:var(--t2);cursor:pointer;font-family:inherit;transition:all .15s}
+.cpill.on{background:#1A1207;color:#fff;border-color:#1A1207}
 .cf-label{font-size:11px;font-weight:700;color:var(--t2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
 .send-btn{padding:13px;background:var(--brand);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
 .adm-inp{width:100%;padding:9px 12px;border:.5px solid var(--br);border-radius:9px;font-size:12px;font-family:inherit;background:var(--sf2);color:var(--tx);outline:none}
@@ -109,8 +111,8 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .photo-upload-box input{display:none}
 .photo-preview{width:60px;height:60px;border-radius:10px;object-fit:cover;border:.5px solid var(--br)}
 /* AI page */
-.aip{display:none;flex-direction:column;flex:1;overflow:hidden;background:var(--bg)}
-.aip.on{display:flex}
+.aip{display:none;flex-direction:column;overflow:hidden;background:var(--bg)}
+.aip.on{display:flex;flex:1;min-height:0}
 .aih{padding:12px 14px;border-bottom:.5px solid var(--br);background:var(--sf);flex-shrink:0}
 .aih-t{font-size:14px;font-weight:700}.aih-s{font-size:11px;color:var(--t2);margin-top:2px}
 .sugrow{display:flex;gap:5px;overflow-x:auto;padding:8px 12px;scrollbar-width:none;flex-shrink:0;border-bottom:.5px solid var(--br);background:var(--sf)}
@@ -132,13 +134,13 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .csend{width:38px;height:38px;border-radius:50%;background:var(--brand);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s}
 .csend:active{background:var(--bd)}
 .csend svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--sf);border-top:.5px solid var(--br);display:flex;padding:6px 0 calc(10px + env(safe-area-inset-bottom,0px));z-index:50}
+.bnav{position:absolute;bottom:0;left:0;right:0;background:var(--brand);border-top:none;display:flex;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:50}
 .ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:3px 0}
 .nic{width:22px;height:22px;display:flex;align-items:center;justify-content:center;position:relative}
-.nic svg{width:20px;height:20px;fill:none;stroke:#ccc;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
-.nic.on svg{stroke:var(--brand)}
+.nic svg{width:20px;height:20px;fill:none;stroke:rgba(255,255,255,.6);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+.nic.on svg{stroke:#fff}
 .ndot{width:5px;height:5px;background:var(--err);border-radius:50%;position:absolute;top:0;right:0;display:none}
-.nl{font-size:9px;color:#bbb;font-weight:700;transition:color .15s}.nl.on{color:var(--brand)}
+.nl{font-size:9px;color:rgba(255,255,255,.6);font-weight:700;transition:color .15s}.nl.on{color:#fff}
 .empty{display:flex;flex-direction:column;align-items:center;gap:9px;padding:40px 18px;text-align:center}
 .ei{width:52px;height:52px;border-radius:15px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:24px}
 .et{font-size:14px;font-weight:700}.es{font-size:12px;color:var(--t2);line-height:1.5}
@@ -169,6 +171,30 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 .cta-box{margin:14px;background:var(--brand);border-radius:14px;padding:16px;text-align:center;color:#fff}
 .cta-t{font-size:14px;font-weight:700;margin-bottom:4px}.cta-s{font-size:11px;opacity:.85;margin-bottom:12px;line-height:1.4}
 .cta-btn{background:#fff;color:var(--brand);border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+
+/* ── Desktop / tablet view ── */
+@media(min-width:500px){
+  html,body{
+    background:#ccc6be !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-height:100vh;
+    height:100vh;
+    overflow:hidden !important;
+  }
+  #root{
+    width:390px !important;
+    max-width:390px !important;
+    height:min(calc(100vh - 40px), 820px) !important;
+    flex-shrink:0;
+    border-radius:44px !important;
+    box-shadow:0 32px 80px rgba(0,0,0,.28),0 8px 24px rgba(0,0,0,.15) !important;
+    overflow:hidden !important;
+    border:10px solid #1a1207 !important;
+    position:relative !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -207,14 +233,37 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
   </div>
   <div class="pg" id="pg-countries"><div id="cList"></div></div>
   <div class="pg" id="pg-explore" style="padding:0">
-    <div class="fbar">
-      <button class="fpill on" onclick="setFilter('all',this)">All</button>
-      <button class="fpill" onclick="setFilter('open',this)">Open</button>
-      <button class="fpill" onclick="setFilter('schol',this)">Scholarship</button>
-      <button class="fpill" onclick="setFilter('evisa',this)">E-visa</button>
-      <button class="fpill" onclick="setFilter('free',this)">Free/Low</button>
-      <button class="fpill" onclick="setFilter('masters',this)">Masters</button>
-      <button class="fpill" onclick="setFilter('bachelor',this)">Bachelor</button>
+    <div style="background:var(--sf);border-bottom:.5px solid var(--br);position:sticky;top:0;z-index:10">
+      <!-- Row 1: Program type -->
+      <div class="fbar" style="padding-bottom:4px;border-bottom:.5px solid var(--br)">
+        <button class="fpill on" onclick="setFilter('all',this)">All</button>
+        <button class="fpill" onclick="setFilter('open',this)">Open</button>
+        <button class="fpill" onclick="setFilter('schol',this)">Scholarship</button>
+        <button class="fpill" onclick="setFilter('evisa',this)">E-visa</button>
+        <button class="fpill" onclick="setFilter('free',this)">Free/Low</button>
+        <button class="fpill" onclick="setFilter('bachelor',this)">Bachelor</button>
+        <button class="fpill" onclick="setFilter('masters',this)">Masters</button>
+        <button class="fpill" onclick="setFilter('foundation',this)">Foundation</button>
+        <button class="fpill" onclick="setFilter('language',this)">Language</button>
+        <button class="fpill" onclick="setFilter('college',this)">College</button>
+        <button class="fpill" onclick="setFilter('phd',this)">PhD</button>
+        <button class="fpill" onclick="setFilter('summer',this)">Summer</button>
+      </div>
+      <!-- Row 2: Country -->
+      <div class="fbar" style="padding-top:4px">
+        <button class="cpill on" onclick="setCFilter('all',this)">All Countries</button>
+        <button class="cpill" onclick="setCFilter('Italy',this)">🇮🇹 Italy</button>
+        <button class="cpill" onclick="setCFilter('South Korea',this)">🇰🇷 Korea</button>
+        <button class="cpill" onclick="setCFilter('Latvia',this)">🇱🇻 Latvia</button>
+        <button class="cpill" onclick="setCFilter('Germany',this)">🇩🇪 Germany</button>
+        <button class="cpill" onclick="setCFilter('UK',this)">🇬🇧 UK</button>
+        <button class="cpill" onclick="setCFilter('Netherlands',this)">🇳🇱 Netherlands</button>
+        <button class="cpill" onclick="setCFilter('Poland',this)">🇵🇱 Poland</button>
+        <button class="cpill" onclick="setCFilter('Hungary',this)">🇭🇺 Hungary</button>
+        <button class="cpill" onclick="setCFilter('Czech Republic',this)">🇨🇿 Czech Rep.</button>
+        <button class="cpill" onclick="setCFilter('USA',this)">🇺🇸 USA</button>
+      </div>
+      <div id="exploreCount" style="font-size:11px;color:var(--t2);padding:3px 14px 6px;font-weight:600"></div>
     </div>
     <div id="eList" style="padding:12px 12px calc(68px + env(safe-area-inset-bottom,0px))"></div>
   </div>
@@ -285,7 +334,39 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
       <div style="background:var(--brand);padding:14px;color:#fff;font-size:14px;font-weight:700">Admin Console</div>
       <div style="padding:14px;display:flex;flex-direction:column;gap:10px">
         <div class="anl-grid" id="adminStatCards"></div>
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Add University</div>
+
+        <!-- APPLICATION FORMS MANAGER -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Application Forms Manager</div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.5;background:var(--bl);border-radius:10px;padding:10px 12px">Set Notion form links per country and program. Students see the right form when they tap Apply.</div>
+        <div style="background:var(--sf2);border-radius:12px;padding:12px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:12px;font-weight:700">Add / Update Form Link</div>
+          <select class="adm-inp" id="af-country">
+            <option value="">Select Country *</option>
+            <option>Italy</option><option>South Korea</option><option>Latvia</option>
+            <option>Germany</option><option>UK</option><option>Netherlands</option>
+            <option>Poland</option><option>Hungary</option><option>Czech Republic</option><option>USA</option>
+          </select>
+          <div style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:2px">Program Types (select all that apply)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="general" id="af-t-general"> All / General</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="bachelor" id="af-t-bachelor"> Bachelor's</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="masters" id="af-t-masters"> Master's</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="evisa" id="af-t-evisa"> E-visa</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="foundation" id="af-t-foundation"> Foundation</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="language" id="af-t-language"> Language</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="college" id="af-t-college"> College/Diploma</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="phd" id="af-t-phd"> PhD</label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer"><input type="checkbox" value="summer" id="af-t-summer"> Summer Camp</label>
+          </div>
+          <input class="adm-inp" id="af-url" placeholder="Notion form URL *" type="url">
+          <textarea class="adm-inp" id="af-note" rows="2" placeholder="Notes (optional)" style="resize:none"></textarea>
+          <button onclick="adminSaveForm()" style="padding:10px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Save Form Link</button>
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Active Forms</div>
+        <div id="adminFormsList"></div>
+
+        <!-- ADD UNIVERSITY -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Add University</div>
         <input class="adm-inp" id="au-name" placeholder="University name *">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <input class="adm-inp" id="au-country" placeholder="Country *">
@@ -295,47 +376,78 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
           <input class="adm-inp" id="au-flag" placeholder="Flag emoji">
           <input class="adm-inp" id="au-rank" placeholder="QS Rank">
         </div>
-        <!-- PHOTO UPLOAD -->
         <div>
-          <div class="cf-label">University Logo / Photo</div>
+          <div class="cf-label" style="font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;margin-bottom:3px">University Logo / Photo</div>
           <div class="photo-upload-box" onclick="document.getElementById('au-photo-input').click()">
             <input type="file" id="au-photo-input" accept="image/*" onchange="handlePhotoUpload(this)">
             <div id="au-photo-preview" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <span style="font-size:11px;color:var(--t2)">Tap to upload photo or logo</span>
+              <span style="font-size:11px;color:var(--t2)">Tap to upload logo</span>
             </div>
           </div>
-          <input class="adm-inp" id="au-logo-url" placeholder="Or paste image URL (optional)" style="margin-top:6px">
+          <input class="adm-inp" id="au-logo-url" placeholder="Or paste image URL" style="margin-top:6px">
         </div>
         <input class="adm-inp" id="au-program" placeholder="Programs offered">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <input class="adm-inp" id="au-deadline" type="date">
-          <input class="adm-inp" id="au-living" type="number" placeholder="Living cost EUR/yr">
+        <div>
+          <div style="font-size:9px;color:var(--t2);font-weight:700;text-transform:uppercase;margin-bottom:4px">Application Deadline</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div><div style="font-size:10px;color:var(--t3);margin-bottom:3px">From</div><input class="adm-inp" id="au-deadline-from" type="date"></div>
+            <div><div style="font-size:10px;color:var(--t3);margin-bottom:3px">To</div><input class="adm-inp" id="au-deadline" type="date"></div>
+          </div>
         </div>
-        <select class="adm-inp" id="au-tuition">
-          <option value="free">Free 0/yr</option><option value="low">Low under 3k</option>
-          <option value="medium" selected>Medium 3-8k</option><option value="high">High 8k+</option>
-        </select>
-        <select class="adm-inp" id="au-status">
-          <option value="open">Open - accepting</option><option value="closed">Closed</option>
-        </select>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <select class="adm-inp" id="au-tuition">
+            <option value="free">Free 0/yr</option><option value="low">Low under 3k</option>
+            <option value="medium" selected>Medium 3-8k</option><option value="high">High 8k+</option>
+          </select>
+          <select class="adm-inp" id="au-status">
+            <option value="open">Open</option><option value="closed">Closed</option>
+          </select>
+        </div>
         <input class="adm-inp" id="au-langReq" placeholder="Language requirement e.g. IELTS 6.0+">
         <input class="adm-inp" id="au-tags" placeholder="Tags comma-separated">
         <input class="adm-inp" id="au-video" placeholder="YouTube URL (optional)">
+        <input class="adm-inp" id="au-mapurl" placeholder="Google Maps URL (optional)">
         <textarea class="adm-inp" id="au-docs" rows="2" placeholder="Docs checklist comma-separated" style="resize:none"></textarea>
-        <textarea class="adm-inp" id="au-notesf" rows="2" placeholder="Important notes for students" style="resize:none"></textarea>
+        <textarea class="adm-inp" id="au-notesf" rows="2" placeholder="Notes for students" style="resize:none"></textarea>
         <button onclick="adminAddUni()" style="padding:11px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Save University</button>
+
+        <!-- SEND ALERT -->
         <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">Send Alert</div>
         <input class="adm-inp" id="al-title" placeholder="Alert title *">
         <textarea class="adm-inp" id="al-body" rows="2" placeholder="Alert message..." style="resize:none"></textarea>
         <select class="adm-inp" id="al-type"><option value="info">Info</option><option value="warning">Warning</option><option value="urgent">Urgent</option></select>
         <button onclick="adminSendAlert()" style="padding:11px;background:#ef4444;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Send Alert</button>
-        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em">All Universities</div>
+
+        <!-- EXPENSE OVERRIDE -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Expense Estimates Override</div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.5;background:var(--bl);border-radius:10px;padding:10px 12px">Override default expense amounts per country.</div>
+        <div style="background:var(--sf2);border-radius:12px;padding:12px;border:.5px solid var(--br);display:flex;flex-direction:column;gap:8px">
+          <select class="adm-inp" id="exp-country" onchange="adminLoadExpenseCountry()">
+            <option value="">Select Country</option>
+            <option>Italy</option><option>South Korea</option><option>Latvia</option>
+            <option>Germany</option><option>UK</option><option>Netherlands</option>
+            <option>Poland</option><option>Hungary</option><option>Czech Republic</option><option>USA</option>
+          </select>
+          <div id="expItemsContainer" style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:11px;color:var(--t2);text-align:center;padding:8px 0">Select a country to edit expenses</div>
+          </div>
+          <button onclick="adminSaveExpenses()" style="padding:10px;background:var(--brand);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Save Expense Overrides</button>
+          <button onclick="adminResetExpenses()" style="padding:8px;background:var(--sf);color:var(--t2);border:.5px solid var(--br);border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">Reset to Defaults</button>
+        </div>
+
+        <!-- COUNTRY DATA -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">Country Data</div>
+        <div id="adminCountryList"></div>
+
+        <!-- ALL UNIVERSITIES -->
+        <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;padding-top:4px">All Universities</div>
         <div id="adminUniList"></div>
-        <button onclick="if(confirm('Reset all data?')){localStorage.clear();location.reload();}" style="padding:11px;background:#7f1d1d;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%">Reset App Data</button>
+
+        <button onclick="if(confirm('Reset all data?\')){localStorage.clear();location.reload();}" style="padding:11px;background:#7f1d1d;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%">Reset App Data</button>
       </div>
     </div>
-  </div>
+  </div></div>
 </div>
 <!-- AI PAGE - full screen with visible input bar -->
 <div class="aip" id="pg-ai">
@@ -393,7 +505,6 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:var(--tx)}
 </div>
 
 <script>
-
 const DOCS_STD=["Apostille (diploma)","Academic transcript","Motivation letter","Language certificate","Passport copy","Application fee payment"];;
 const DOCS_IT=["Apostille (diploma)","Academic transcript","Entrance exam (if required)","Passport copy","Application fee payment"];;
 
@@ -486,21 +597,33 @@ const ALERTS_DEF = [
 
 // ── TRANSLATIONS ──────────────────────────────────────
 const TR={
-  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark icon on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Type your message...',sugBudget:'Tight budget',sugFree:'Tuition-free',sugVisa:'Easy visa',sugIT:'IT programs',sugCompare:'Compare countries',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',viewUnis:'View universities in',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',overview:'Overview',reqTitle:'Requirements',scholarship:'Scholarship',reviews:'Student Reviews',location:'Location',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants',viewDetails:'View Details',applyBtn:'Apply',applyNow:'Apply Now',freeConsult:'Free Consultation',
+  en:{home:'Home',ai:'AI',countries:'Countries',universities:'Universities',saved:'Saved',alerts:'Alerts',documents:'Documents',consult:'Consult',admin:'Admin',free:'Free',living:'/yr',noDeadlines:'No urgent deadlines',saveToTrack:'Save universities to track deadlines',noSaved:'No saved universities',tapHint:'Tap the bookmark icon on any card',noAlerts:'No alerts yet',noDocs:'No documents to track',saveFirst:'Save universities first',upcomingDead:'Upcoming deadlines',topPicks:'Top picks for you',searchPh:'Search universities...',aiT:'AI Study Advisor',aiS:'Ask me anything about studying abroad',aiPh:'Type your message...',sugBudget:'Tight budget',sugFree:'Tuition-free',sugVisa:'Easy visa',sugIT:'IT programs',sugCompare:'Compare countries',open:'Open',closed:'Closed',daysLeft:'days left',docsReady:'Docs ready',viewUnis:'View universities in',
+    fAll:'All',fOpen:'Open',fSchol:'Scholarship',fEvisa:'E-visa',fFree:'Free/Low',
+    fBachelor:"Bachelor's",fMasters:"Master's",fFoundation:'Foundation',
+    fLanguage:'Language',fCollege:'College',fPhd:'PhD',fSummer:'Summer',
+    fAllCtry:'All Countries',reqLang:'Language',reqGpa:'Min GPA',reqFee:'Tuition',overview:'Overview',reqTitle:'Requirements',scholarship:'Scholarship',reviews:'Student Reviews',location:'Location',detConsult:'Contact Our Expert',detConsultSub:'Get a free personalised plan from our consultants',viewDetails:'View Details',applyBtn:'Apply',applyNow:'Apply Now',freeConsult:'Free Consultation',
     consultTitle:'Free Consultation',consultDesc:'Our expert consultants will review your profile and contact you within 24 hours — completely free.',
     cfName:'Full Name *',cfAge:'Age',cfGpa:'GPA / Score',cfEdu:'Education Level',cfCerts:'Language Certificates',
     cfCountry:'Preferred Country',cfField:'Field of Study',cfBudget:'Budget / Year',cfLevel:'Program Level',
     cfSaved:'Saved Universities',cfNotes:'Notes',cfSend:'Send — Get Free Consultation',
     cfPrivacy:'We respond within 24 hours. Your data is private.',cfEduPh:'Select...',
     cfAny:'Any / Not sure',cfAnyLevel:'Any'},
-  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgi tugmasini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Xabar yozing...',sugBudget:'Arzon variantlar',sugFree:'Bepul taʼlim',sugVisa:'Oson viza',sugIT:'IT dasturlari',sugCompare:'Mamlakatlarni solishtirish',open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',viewUnis:"Ko'rish:",reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",overview:"Ma'lumot",reqTitle:'Talablar',scholarship:'Stipendiya',reviews:'Sharhlar',location:'Joylashuv',detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi",viewDetails:"Batafsil ko'rish",applyBtn:'Ariza',applyNow:'Ariza berish',freeConsult:"Bepul maslahat",
+  uz:{home:'Bosh sahifa',ai:'AI',countries:'Mamlakatlar',universities:'Universitetlar',saved:'Saqlangan',alerts:'Ogohlantirishlar',documents:'Hujjatlar',consult:'Maslahat',admin:'Admin',free:'Bepul',living:'/yil',noDeadlines:"Shoshilinch muddat yo'q",saveToTrack:'Muddatlarni kuzatish uchun saqlang',noSaved:"Saqlangan yo'q",tapHint:'Belgi tugmasini bosing',noAlerts:"Ogohlantirishlar yo'q",noDocs:"Hujjatlar yo'q",saveFirst:'Avval saqlang',upcomingDead:'Yaqinlashayotgan muddatlar',topPicks:'Siz uchun tavsiyalar',searchPh:'Universitetlar...',aiT:'AI Maslahatchi',aiS:"Xorijda o'qish haqida savol bering",aiPh:'Xabar yozing...',sugBudget:'Arzon variantlar',sugFree:'Bepul taʼlim',sugVisa:'Oson viza',sugIT:'IT dasturlari',sugCompare:'Mamlakatlarni solishtirish',open:'Ochiq',closed:'Yopiq',daysLeft:'kun qoldi',docsReady:'Hujjat tayyor',viewUnis:"Ko'rish:",
+    fAll:'Barchasi',fOpen:'Ochiq',fSchol:'Stipendiya',fEvisa:'E-viza',fFree:"Arzon/Bepul",
+    fBachelor:"Bakalavr",fMasters:"Magistratura",fFoundation:'Foundation',
+    fLanguage:'Til kursi',fCollege:'Kollej',fPhd:'PhD',fSummer:'Yozgi',
+    fAllCtry:'Barcha mamlakatlar',reqLang:'Til',reqGpa:'Min GPA',reqFee:"To'lov",overview:"Ma'lumot",reqTitle:'Talablar',scholarship:'Stipendiya',reviews:'Sharhlar',location:'Joylashuv',detConsult:"Ekspertimiz bilan bog'laning",detConsultSub:"Mutaxassislarimiz bepul reja tayyorlaydi",viewDetails:"Batafsil ko'rish",applyBtn:'Ariza',applyNow:'Ariza berish',freeConsult:"Bepul maslahat",
     consultTitle:"Bepul maslahat",consultDesc:"Mutaxassislarimiz profilingizni ko'rib chiqadi va 24 soat ichida siz bilan bog'lanadi — bepul.",
     cfName:"To'liq ism *",cfAge:"Yosh",cfGpa:"GPA / Ball",cfEdu:"Ta'lim darajasi",cfCerts:"Til sertifikatlari",
     cfCountry:"Afzal mamlakat",cfField:"O'qish sohasi",cfBudget:"Yillik byudjet",cfLevel:"Dastur darajasi",
     cfSaved:"Saqlangan universitetlar",cfNotes:"Izohlar",cfSend:"Yuborish — Bepul maslahat olish",
     cfPrivacy:"24 soat ichida javob beramiz. Ma'lumotlaringiz maxfiy.",cfEduPh:"Tanlang...",
     cfAny:"Istalgan / Aniq emas",cfAnyLevel:"Istalgan" },
-  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Введите сообщение...',sugBudget:'Бюджетные варианты',sugFree:'Без оплаты',sugVisa:'Лёгкая виза',sugIT:'IT программы',sugCompare:'Сравнить страны',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',viewUnis:'Университеты в:',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',overview:'Обзор',reqTitle:'Требования',scholarship:'Стипендия',reviews:'Отзывы',location:'Расположение',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план',viewDetails:'Подробнее',applyBtn:'Подать',applyNow:'Подать заявку',freeConsult:'Бесплатная консультация',
+  ru:{home:'Главная',ai:'ИИ',countries:'Страны',universities:'Университеты',saved:'Сохранённые',alerts:'Уведомления',documents:'Документы',consult:'Консультация',admin:'Админ',free:'Бесплатно',living:'/год',noDeadlines:'Срочных дедлайнов нет',saveToTrack:'Сохраните для отслеживания',noSaved:'Нет сохранённых',tapHint:'Нажмите на закладку',noAlerts:'Уведомлений нет',noDocs:'Нет документов',saveFirst:'Сначала сохраните',upcomingDead:'Ближайшие дедлайны',topPicks:'Подборка для вас',searchPh:'Поиск...',aiT:'ИИ Советник',aiS:'Задайте вопрос об учёбе за рубежом',aiPh:'Введите сообщение...',sugBudget:'Бюджетные варианты',sugFree:'Без оплаты',sugVisa:'Лёгкая виза',sugIT:'IT программы',sugCompare:'Сравнить страны',open:'Открыт',closed:'Закрыт',daysLeft:'дней',docsReady:'Доки готовы',viewUnis:'Университеты в:',
+    fAll:'Все',fOpen:'Открыт',fSchol:'Стипендия',fEvisa:'Э-виза',fFree:'Бесплатно',
+    fBachelor:'Бакалавриат',fMasters:'Магистратура',fFoundation:'Foundation',
+    fLanguage:'Языковой',fCollege:'Колледж',fPhd:'PhD',fSummer:'Летний',
+    fAllCtry:'Все страны',reqLang:'Язык',reqGpa:'Мин GPA',reqFee:'Оплата',overview:'Обзор',reqTitle:'Требования',scholarship:'Стипендия',reviews:'Отзывы',location:'Расположение',detConsult:'Связаться с экспертом',detConsultSub:'Наши консультанты составят бесплатный план',viewDetails:'Подробнее',applyBtn:'Подать',applyNow:'Подать заявку',freeConsult:'Бесплатная консультация',
     consultTitle:'Бесплатная консультация',consultDesc:'Наши эксперты изучат ваш профиль и свяжутся с вами в течение 24 часов — бесплатно.',
     cfName:'Полное имя *',cfAge:'Возраст',cfGpa:'GPA / Балл',cfEdu:'Уровень образования',cfCerts:'Языковые сертификаты',
     cfCountry:'Предпочтительная страна',cfField:'Направление',cfBudget:'Бюджет / год',cfLevel:'Уровень программы',
@@ -528,7 +651,27 @@ function applyLang(){
   var ci=document.getElementById('cinput');if(ci)ci.placeholder=LANG.aiPh;
   var sd=document.getElementById('sh-dead');if(sd)sd.textContent=LANG.upcomingDead;
   var sp=document.getElementById('sh-picks');if(sp)sp.textContent=LANG.topPicks;
+  // Update program filter pills
+  var filterMap=[
+    ['all','fAll'],['open','fOpen'],['schol','fSchol'],['evisa','fEvisa'],['free','fFree'],
+    ['bachelor','fBachelor'],['masters','fMasters'],['foundation','fFoundation'],
+    ['language','fLanguage'],['college','fCollege'],['phd','fPhd'],['summer','fSummer']
+  ];
+  document.querySelectorAll('.fpill').forEach(function(btn){
+    var f=btn.getAttribute('onclick');
+    if(!f) return;
+    var match=f.match(/setFilter\('([^']+)'/);
+    if(!match) return;
+    var key=match[1];
+    if(key==='all'&&LANG.fAll){btn.textContent=LANG.fAll;return;}
+    var found=filterMap.find(function(m){return m[0]===key;});
+    if(found&&LANG[found[1]])btn.textContent=LANG[found[1]];
+  });
+  // Update country pills
+  var allCtryBtn=document.querySelector('.cpill');
+  if(allCtryBtn&&LANG.fAllCtry)allCtryBtn.textContent=LANG.fAllCtry;
   // Update Consult page labels
+
   var cfields=[['lbl-cfname','cfName'],['lbl-cfage','cfAge'],['lbl-cfgpa','cfGpa'],['lbl-cfedu','cfEdu'],
     ['lbl-cfcerts','cfCerts'],['lbl-cfcountry','cfCountry'],['lbl-cffield','cfField'],
     ['lbl-cfbudget','cfBudget'],['lbl-cflevel','cfLevel'],['lbl-cfsaved','cfSaved'],['lbl-cfnotes','cfNotes']];
@@ -615,6 +758,7 @@ function goPage(name,tabEl){
   curPage=name; render(name);
 }
 function goAI(){
+  // Hide scroller, show AI page in its place (both are flex children of #root)
   document.getElementById('scroller').style.display='none';
   document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
   document.querySelectorAll('.tb-btn').forEach(function(t){t.classList.remove('on');});
@@ -622,8 +766,11 @@ function goAI(){
     var ni=document.getElementById('ni-'+n);if(ni)ni.classList.remove('on');
     var nl=document.getElementById('nl-'+n);if(nl)nl.classList.remove('on');
   });
-  document.getElementById('pg-ai').style.display='flex';
-  document.getElementById('pg-ai').classList.add('on');
+  var aiPg=document.getElementById('pg-ai');
+  aiPg.style.removeProperty('top');
+  aiPg.style.removeProperty('bottom');
+  aiPg.style.display='flex';
+  aiPg.classList.add('on');
   document.getElementById('ni-ai').classList.add('on');
   document.getElementById('nl-ai').classList.add('on');
   curPage='ai'; if(!chatH.length)initAI();
@@ -1428,7 +1575,7 @@ function adminEdit(id){
   if(!m){
     m=document.createElement('div');
     m.id='editModal';
-    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
     m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
       +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf);z-index:1">'
       +'<div style="font-size:15px;font-weight:700">Edit University</div>'
@@ -1594,7 +1741,7 @@ function editCountry(idx){
   if(!m){
     m=document.createElement('div');
     m.id='countryEditModal';
-    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
     m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:85vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
       +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf)">'
       +'<div style="font-size:15px;font-weight:700">Edit Country</div>'
@@ -1646,7 +1793,7 @@ function adminEdit(id){
   if(!m){
     m=document.createElement('div');
     m.id='editModal';
-    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
     m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
       +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf);z-index:1">'
       +'<div style="font-size:15px;font-weight:700">Edit University</div>'
@@ -1812,7 +1959,7 @@ function editCountry(idx){
   if(!m){
     m=document.createElement('div');
     m.id='countryEditModal';
-    m.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
+    m.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center';
     m.innerHTML='<div style="background:var(--sf);border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:85vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,0px)">'
       +'<div style="padding:14px 16px;border-bottom:.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sf)">'
       +'<div style="font-size:15px;font-weight:700">Edit Country</div>'
@@ -1854,6 +2001,7 @@ if(document.readyState==='loading'){
 }else{
   setTimeout(initApp,50);
 }
+
 
 
 </script>
